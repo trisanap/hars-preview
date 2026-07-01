@@ -168,7 +168,7 @@ function DeleteModal({ reg, onConfirm, onClose }) {
         fontFamily: font, overflow: "hidden",
       }}>
         <div style={{ background: C.red, color: "#fff", padding: "12px 18px", fontWeight: 600, fontSize: 13 }}>
-          ⚠ Hapus Registrasi
+          ⚠ {t("delRegTitle")}
         </div>
         <div style={{ padding: 20 }}>
           <p style={{ fontSize: 13, color: C.text, marginBottom: 14, lineHeight: 1.6 }}>
@@ -197,7 +197,7 @@ function DeleteModal({ reg, onConfirm, onClose }) {
             }}
           />
           <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
-            <Btn variant="ghost" onClick={onClose}>Batal</Btn>
+            <Btn variant="ghost" onClick={onClose}>{t("cancel")}</Btn>
             <Btn variant="danger" onClick={onConfirm} disabled={!match}>
               Hapus Permanen
             </Btn>
@@ -243,7 +243,7 @@ function NewRegModal({ onSave, onClose }) {
           fontWeight: 600, fontSize: 13, flexShrink: 0,
           display: "flex", justifyContent: "space-between", alignItems: "center",
         }}>
-          <span>+ Registrasi Baru</span>
+          <span>+ {t("newRegistration")}</span>
           <button onClick={onClose} style={{ background: "none", border: "none", color: "#fff", cursor: "pointer", fontSize: 18 }}>×</button>
         </div>
 
@@ -458,7 +458,7 @@ function NewRegModal({ onSave, onClose }) {
           display: "flex", justifyContent: "flex-end", gap: 8, flexShrink: 0,
           background: C.bgAlt,
         }}>
-          <Btn variant="ghost" onClick={onClose}>Batal</Btn>
+          <Btn variant="ghost" onClick={onClose}>{t("cancel")}</Btn>
           <Btn variant="primary" onClick={() => onSave({ ...form, leadAuditor: parseInt(form.leadAuditor) || null, auditor: parseInt(form.auditor) || null, auditor2: form.auditor2 ? parseInt(form.auditor2) || null : null, auditor3: form.auditor3 ? parseInt(form.auditor3) || null : null })} disabled={!valid}>
             Buat Workspace
           </Btn>
@@ -788,7 +788,7 @@ function STEditModal({ reg, stEntry, stIndex, onClose, onSave }) {
           </div>
         </div>
         <div style={{display:"flex",gap:8,justifyContent:"flex-end"}}>
-          <button onClick={onClose} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:4,padding:"7px 16px",fontSize:12,cursor:"pointer",fontFamily:font}}>Batal</button>
+          <button onClick={onClose} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:4,padding:"7px 16px",fontSize:12,cursor:"pointer",fontFamily:font}}>{t("cancel")}</button>
           <button onClick={save} disabled={saving} style={{background:C.blue,color:"#fff",border:"none",borderRadius:4,padding:"7px 16px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font,opacity:saving?0.6:1}}>
             {saving?"Menyimpan…":"Simpan"}
           </button>
@@ -861,7 +861,7 @@ function SPKEditModal({ reg, onClose }) {
           </div>
         </div>
         <div style={{display:"flex",gap:8,justifyContent:"flex-end"}}>
-          <button onClick={onClose} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:4,padding:"7px 16px",fontSize:12,cursor:"pointer",fontFamily:font}}>Batal</button>
+          <button onClick={onClose} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:4,padding:"7px 16px",fontSize:12,cursor:"pointer",fontFamily:font}}>{t("cancel")}</button>
           <button onClick={save} disabled={saving} style={{background:C.blue,color:"#fff",border:"none",borderRadius:4,padding:"7px 16px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font,opacity:saving?0.6:1}}>
             {saving?"Menyimpan…":"Simpan"}
           </button>
@@ -902,7 +902,7 @@ function BerkasEditModal({ reg, onClose }) {
           <div style={{fontSize:10,color:C.faint,marginTop:2}}>Akan muncul dengan nama hari di dokumen</div>
         </div>
         <div style={{display:"flex",gap:8,justifyContent:"flex-end"}}>
-          <button onClick={onClose} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:4,padding:"7px 16px",fontSize:12,cursor:"pointer",fontFamily:font}}>Batal</button>
+          <button onClick={onClose} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:4,padding:"7px 16px",fontSize:12,cursor:"pointer",fontFamily:font}}>{t("cancel")}</button>
           <button onClick={save} disabled={saving} style={{background:C.blue,color:"#fff",border:"none",borderRadius:4,padding:"7px 16px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font,opacity:saving?0.6:1}}>
             {saving?"Menyimpan…":"Simpan"}
           </button>
@@ -951,11 +951,11 @@ function DataSidebar({ reg, tlVersion }) {
   // Timeline steps (after all state declarations)
   const hasPerbaikan = !!tlData.perbaikanDate;
   const tlSteps = [
-    { key:"registered", label:"Registrasi dibuat", date: reg.tanggalDaftar ? fmtMon(reg.tanggalDaftar) : "—" },
-    { key:"preaudit", label:"Verifikasi pre-audit", date: tlData.preAuditDate ? fmtMon(tlData.preAuditDate) : "—" },
+    { key:"registered", label:t("phases")[0], date: reg.tanggalDaftar ? fmtMon(reg.tanggalDaftar) : "—" },
+    { key:"preaudit", label:t("phases")[1], date: tlData.preAuditDate ? fmtMon(tlData.preAuditDate) : "—" },
     { key:"field", label:"Audit lapangan", date: reg.tanggalAudit ? fmtMon(reg.tanggalAudit) : "—" },
-    { key:"perbaikan", label:"Perbaikan Hasil Audit", date: tlData.perbaikanDate ? fmtMon(tlData.perbaikanDate) : "—" },
-    { key:"report", label:"Penyelesaian laporan audit", date: "—" },
+    { key:"perbaikan", label:t("phases")[3], date: tlData.perbaikanDate ? fmtMon(tlData.perbaikanDate) : "—" },
+    { key:"report", label:t("phases")[4], date: "—" },
     { key:"fatwa", label:"Sidang fatwa", date: fatwaDate ? fmtMon(fatwaDate) : "—" },
   ];
 
@@ -979,7 +979,7 @@ function DataSidebar({ reg, tlVersion }) {
   }));
 
   const progress = currIdx === 0 ? 0 : currIdx === 1 ? 17 : currIdx === 2 ? 33 : currIdx === 3 ? 50 : currIdx === 4 ? 75 : 100;
-  const phaseLabel = ["Registrasi","Verifikasi Pre-Audit","Audit Lapangan","Perbaikan Hasil Audit","Penyelesaian Laporan","Sidang Fatwa"][currIdx];
+  const phaseLabel = t("phases")[currIdx];
 
   const icon = (name) => {
     const icons = {
@@ -1030,11 +1030,11 @@ function DataSidebar({ reg, tlVersion }) {
     {/* Status Update */}
     <div style={{ background:C.bgCard,border:`1px solid ${C.borderLight}`,borderRadius:12,padding:"16px 20px" }}>
       <h3 style={{ margin:"0 0 12px",fontSize:13,fontWeight:700,color:C.text }}>Status Update</h3>
-      <div style={{ fontSize:11,fontWeight:700,letterSpacing:"0.06em",textTransform:"uppercase",color:C.muted,marginBottom:8 }}>Perbaikan Hasil Audit</div>
+      <div style={{ fontSize:11,fontWeight:700,letterSpacing:"0.06em",textTransform:"uppercase",color:C.muted,marginBottom:8 }}>{t("phases")[3]}</div>
       <input type="date" value={tlData.perbaikanDate || ""} onChange={e=>saveTimeline({perbaikanDate:e.target.value})}
         style={{ width:"100%",padding:"6px 8px",fontSize:12,fontFamily:font,border:`1px solid ${C.borderLight}`,borderRadius:6,color:C.text,background:C.bg,marginBottom:14,boxSizing:"border-box" }} />
       <div style={{ borderTop:`1px solid ${C.borderLight}`,paddingTop:12 }}>
-        <div style={{ fontSize:11,fontWeight:700,letterSpacing:"0.06em",textTransform:"uppercase",color:C.muted,marginBottom:8 }}>Sidang Fatwa</div>
+        <div style={{ fontSize:11,fontWeight:700,letterSpacing:"0.06em",textTransform:"uppercase",color:C.muted,marginBottom:8 }}>{t("phases")[5]}</div>
         <select value={fatwaBody} onChange={e=>saveTimeline({fatwaBody:e.target.value})}
           style={{ width:"100%",padding:"6px 8px",fontSize:12,fontFamily:font,border:`1px solid ${C.borderLight}`,borderRadius:6,color:C.text,background:C.bg,marginBottom:8,boxSizing:"border-box" }}>
           <option value="">Pilih badan fatwa…</option>
@@ -1118,8 +1118,8 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
     return (
       <div>
         <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginBottom: 16 }}>
-          <Btn variant="ghost" onClick={() => { setForm({ ...reg }); setEditing(false); }}>Batal</Btn>
-          <Btn variant="primary" onClick={save}>Simpan Perubahan</Btn>
+          <Btn variant="ghost" onClick={() => { setForm({ ...reg }); setEditing(false); }}>{t("cancel")}</Btn>
+          <Btn variant="primary" onClick={save}>{t("save")} Perubahan</Btn>
         </div>
 
         {/* Identitas Registrasi */}
@@ -1613,7 +1613,7 @@ function TabPreAudit({ reg, isAdmin, onPreAuditConfirm }) {
           borderRadius: 5, padding: "10px 14px", marginBottom: 16,
           fontSize: 12, color: C.gold,
         }}>
-          <div style={{ fontWeight: 600, marginBottom: 6 }}>⚠ Lengkapi data berikut di tab <strong>Data Pengajuan</strong> sebelum membuat dokumen:</div>
+          <div style={{ fontWeight: 600, marginBottom: 6 }}>⚠ Lengkapi data berikut di tab <strong>{t("dataPengajuan")}</strong> sebelum membuat dokumen:</div>
           <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.8 }}>
             {missing.map(f => <li key={f.key}><strong>{f.label}</strong></li>)}
           </ul>
@@ -1716,7 +1716,7 @@ function TabPreAudit({ reg, isAdmin, onPreAuditConfirm }) {
         ))}
       </div>
 
-      {/* Konfirmasi Kelengkapan Berkas Pre-Audit */}
+      {/* {t("confirmPreAudit")} */}
       {(() => {
         const [preChecked, setPreChecked] = useState(false);
         const [preDate, setPreDate] = useState("");
@@ -1747,7 +1747,7 @@ function TabPreAudit({ reg, isAdmin, onPreAuditConfirm }) {
         return (
           <div style={{ marginTop:20, padding:"14px 16px", background:preChecked?C.greenLight:C.bgAlt,
             borderRadius:8, border:`1px solid ${preChecked?C.green:C.borderLight}`, fontSize:12 }}>
-            <div style={{ fontWeight:700, fontSize:13, color:C.text, marginBottom:8 }}>Konfirmasi Kelengkapan Berkas Pre-Audit</div>
+            <div style={{ fontWeight:700, fontSize:13, color:C.text, marginBottom:8 }}>{t("confirmPreAudit")}</div>
             {preChecked ? (
               <div>
                 <div style={{ color:C.green, fontSize:12, marginBottom:8 }}>
@@ -1853,13 +1853,14 @@ function TabLaporan({ reg, isAdmin }) {
 
 // ─── Workspace (tabbed view for one registration) ────────────────────────────
 const TABS = [
-  { key: "data", label: "Data Pengajuan" },
-  { key: "preaudit", label: "Dokumen Pre-Audit" },
-  { key: "laporan", label: "Laporan Audit" },
-  { key: "dokumentasi", label: "Dokumentasi" },
+  { key: "data", label: t("dataPengajuan") },
+  { key: "preaudit", label: t("preAudit") },
+  { key: "laporan", label: t("laporan") },
+  { key: "dokumentasi", label: t("dokumentasi") },
 ];
 
 function Workspace({ reg, onUpdate, onBack, role }) {
+  const { t } = useLang();
   const [activeTab, setActiveTab] = useState("data");
   const [editing, setEditing] = useState(false);
   const [tlVersion, setTlVersion] = useState(0);
@@ -1874,7 +1875,7 @@ function Workspace({ reg, onUpdate, onBack, role }) {
           background: "none", border: "none", cursor: "pointer",
           color: C.blue, fontSize: 12.5, fontFamily: font, fontWeight: 600,
           display: "flex", alignItems: "center", gap: 4, padding: "4px 0",
-        }}>← Kembali</button>
+        }}>← {t("back")}</button>
         <span style={{ color: C.faint }}>/</span>
         <span style={{ fontSize: 12.5, color: C.muted, fontWeight: 500 }}>Workspace</span>
       </div>
@@ -2131,6 +2132,7 @@ function TopBar({ role, roleLabel, currentUser, onNavigateUsers, onLogout, onSet
 // ─── Stats Cards ──────────────────────────────────────────────────────────
 
 function StatsCards({ stats, regCount }) {
+  const { t } = useLang();
   const defaultStats = stats || {};
   const formatSize = bytes => {
     if (!bytes && bytes !== 0) return "—";
@@ -2191,6 +2193,7 @@ function StatsCards({ stats, regCount }) {
 // ─── Registration Table ───────────────────────────────────────────────────
 
 function RegTable({ regs, onOpen, onDelete, isAdmin }) {
+  const { t } = useLang();
   const [search, setSearch] = useState("");
   const [filterJenis, setFilterJenis] = useState("");
   const [filterAuditor, setFilterAuditor] = useState("");
@@ -2301,7 +2304,7 @@ function RegTable({ regs, onOpen, onDelete, isAdmin }) {
           {filtered.map((reg, i) => {
             const st = regStatus(reg);
             const badgeMap = { draft: "gray", preaudit: "gold", scheduled: "blue", field: "blue", perbaikan: "gold", done: "green" };
-            const labelMap = { draft: "Draft", preaudit: "Pre-Audit", scheduled: "Terjadwal", field: "Audit Lapangan", perbaikan: "Perbaikan", done: "Selesai" };
+            const labelMap = t("statusLabels");
             const due = fmtDateShort(reg.tanggalAudit);
             const lead = AUDITORS.find(a => a.id === reg.leadAuditor);
             return (
@@ -2367,6 +2370,7 @@ function RegTable({ regs, onOpen, onDelete, isAdmin }) {
 // ─── Sidebar ──────────────────────────────────────────────────────────────
 
 function Sidebar({ auditors, regs }) {
+  const { t } = useLang();
   const fmtRelTime = dateStr => {
     if (!dateStr) return "";
     const d = new Date(dateStr);
@@ -2435,6 +2439,7 @@ function Sidebar({ auditors, regs }) {
 // ─── Root App ─────────────────────────────────────────────────────────────────
 
 export default function HARSApp({ currentUser, onLogout }) {
+  const { t } = useLang();
   const role = currentUser?.role || "auditor";
   const [regs, setRegs] = useState([]);
   const [view, setView] = useState("list");
@@ -2508,7 +2513,7 @@ export default function HARSApp({ currentUser, onLogout }) {
         display: "flex", alignItems: "center", justifyContent: "center",
         fontSize: 13, color: C.muted,
       }}>
-        Memuat data...
+        {t("loading")}
       </div>
     );
   }
@@ -2534,14 +2539,14 @@ export default function HARSApp({ currentUser, onLogout }) {
 
           <div className="hd-head">
             <div>
-              <h1>Selamat datang kembali, {userName.split(" ")[0]}</h1>
+              <h1>{t("welcomeBack")}, {userName.split(" ")[0]}</h1>
               <p className="sub">{[now.getDate(), months[now.getMonth()], now.getFullYear()].join(" ")}</p>
             </div>
             <div className="hd-head-actions">
               {isAdmin && (
                 <button className="hd-btn primary" onClick={() => setShowNew(true)}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                  Registrasi Baru
+                  {t("newRegistration")}
                 </button>
               )}
             </div>
