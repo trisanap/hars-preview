@@ -153,6 +153,7 @@ function Btn({ onClick, variant = "primary", children, disabled, small }) {
 
 // ─── Delete Confirmation Modal ────────────────────────────────────────────────
 function DeleteModal({ reg, onConfirm, onClose }) {
+  const { t } = useLang();
   const [typed, setTyped] = useState("");
   const regName = (reg && reg.namaPU) || "";
   const match = typed.trim().toLowerCase() === regName.trim().toLowerCase();
@@ -210,6 +211,7 @@ function DeleteModal({ reg, onConfirm, onClose }) {
 
 // ─── New Registration Modal ───────────────────────────────────────────────────
 function NewRegModal({ onSave, onClose }) {
+  const { t } = useLang();
   const [form, setForm] = useState({
     id: "", namaPU: "", namaUsaha: "", jenisProduk: "", tanggalDaftar: "",
     tanggalAudit: "", leadAuditor: "", auditor: "", auditor2: "", auditor3: "", observer: "",
@@ -915,6 +917,7 @@ function BerkasEditModal({ reg, onClose }) {
 // ─── Tab: Data Pengajuan ──────────────────────────────────────────────────────
 // ─── Sidebar for Data Pengajuan tab ──────────────────────────────────────────
 function DataSidebar({ reg, tlVersion }) {
+  const { t } = useLang();
   const now = new Date();
   const months = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
   const fmtMon = iso => { if(!iso)return""; const d=new Date(iso+"T00:00:00"); return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`; };
@@ -1054,6 +1057,7 @@ const AGAMA_OPTIONS = ["", "Islam", "Kristen", "Katolik", "Hindu", "Buddha", "Ko
 const AGAMA_LABELS = { "": "—", "Islam": "Islam", "Kristen": "Kristen", "Katolik": "Katolik", "Hindu": "Hindu", "Buddha": "Buddha", "Konghucu": "Konghucu" };
 
 function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
+  const { t } = useLang();
   const [form, setForm] = useState({ ...reg });
   const initExtraAud = (reg.auditor2 ? 1 : 0) + (reg.auditor3 ? 1 : 0);
   const [extraAud, setExtraAud] = useState(initExtraAud);
@@ -1513,6 +1517,7 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
 
 // ─── Tab: Pre-Audit Docs ──────────────────────────────────────────────────────
 function TabPreAudit({ reg, isAdmin, onPreAuditConfirm }) {
+  const { t } = useLang();
   const [previewDoc, setPreviewDoc] = useState(null); // { type, stIndex }
   const [editDoc, setEditDoc] = useState(null);       // { type, stIndex }
 
@@ -1837,6 +1842,7 @@ function TabPreAudit({ reg, isAdmin, onPreAuditConfirm }) {
 
 // ─── Tab: Laporan Audit ───────────────────────────────────────────────────────
 function TabLaporan({ reg, isAdmin }) {
+  const { t } = useLang();
   const role = isAdmin ? "admin" : "auditor";
   const [auditors, setAuditors] = useState(AUDITORS);
   useEffect(() => {
