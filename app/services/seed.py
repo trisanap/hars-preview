@@ -9,31 +9,12 @@ ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 SEED_FILE = os.path.join(ROOT_DIR, "seed-data", "demo-data.json.gz")
 
 AUDITORS = [
-    (1, "Auditor Satu, M.Si.", "", "Perempuan"),
-    (2, "Auditor Dua, M.Si.", "", "Perempuan"),
-    (3, "Auditor Tiga, M.Si.", "", "Perempuan"),
-    (4, "Auditor Empat, M.Si.", "", "Perempuan"),
-    (5, "Auditor Lima, M.Si.", "", "Laki-laki"),
-    (6, "Auditor Enam, M.Si.", "", "Laki-laki"),
-    (7, "Auditor Tujuh, M.Si.", "", "Perempuan"),
-    (8, "Auditor Delapan, M.Si.", "", "Perempuan"),
-    (9, "Auditor Sembilan, M.Si.", "", "Perempuan"),
-    (10, "Auditor Sepuluh, M.Si.", "", "Perempuan"),
-    (11, "Auditor Sebelas, M.Si.", "", "Perempuan"),
+    (13, "Trisan Andrean Putra, S.Si.", "REG RI AH 100196725", "Laki-laki"),
 ]
 
 USERS = [
     ("user_admin", "admin", "demo123", "Administrator LPH", "admin"),
-    ("user_auditor1", "auditor1", "demo123", "Auditor Satu, M.Si.", "auditor"),
-    ("user_auditor2", "auditor2", "demo123", "Auditor Dua, M.Si.", "auditor"),
-    ("user_auditor3", "auditor3", "demo123", "Auditor Tiga, M.Si.", "auditor"),
-    ("user_auditor4", "auditor4", "demo123", "Auditor Empat, M.Si.", "auditor"),
-    ("user_auditor5", "auditor5", "demo123", "Auditor Lima, M.Si.", "auditor"),
-    ("user_auditor6", "auditor6", "demo123", "Auditor Enam, M.Si.", "auditor"),
-    ("user_auditor7", "auditor7", "demo123", "Auditor Tujuh, M.Si.", "auditor"),
-    ("user_auditor8", "auditor8", "demo123", "Auditor Delapan, M.Si.", "auditor"),
-    ("user_auditor9", "auditor9", "demo123", "Auditor Sembilan, M.Si.", "auditor"),
-    ("user_auditor10", "auditor10", "demo123", "Auditor Sepuluh, M.Si.", "auditor"),
+    ("user_trisan", "trisan", "demo123", "Trisan Andrean Putra, S.Si.", "auditor"),
 ]
 
 REGISTRATIONS = []
