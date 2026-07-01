@@ -11,7 +11,7 @@ from fastapi.responses import FileResponse, Response
 from app.config import DIST_DIR, DATABASE_PATH
 from app.database import init_db
 from app.routers import auth, auditors, photos, registrations, reports, state, stats, users
-from app.services.seed import seed_database
+from app.services.seed import seed_database, load_demo_data
 
 BPJPH_TARGET = "https://prod-api-si.halal.go.id"
 
@@ -22,6 +22,7 @@ async def lifespan(_app: FastAPI):
     db = sqlite3.connect(DATABASE_PATH, check_same_thread=False)
     try:
         seed_database(db)
+        load_demo_data(db)
     finally:
         db.close()
     yield
