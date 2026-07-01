@@ -1,0 +1,9 @@
+services:
+  hars:
+    build: .
+    container_name: hars
+    restart: unless-stopped
+    ports:
+      - "0.0.0.0:4561:4561"
+    volumes:
+      - ./data:/app/data

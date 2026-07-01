@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>KONSTAN KAYA INDONESIA — HARS</title>
+<meta name="viewport" content="width=1440">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:        #0b1220;
+    --ink-2:      #1c2538;
+    --ink-3:      #2d3550;
+    --muted:      #5b6478;
+    --muted-2:    #8a93a6;
+    --line:       #e6e8ee;
+    --line-2:     #eef0f5;
+    --line-3:     #f3f4f8;
+    --bg:         #f5f6f3;
+    --paper:      #ffffff;
+    --paper-tint: #fbfbf8;
+
+    --navy:       #0e2a4d;
+    --navy-2:     #163b6b;
+    --blue:       #1e62c4;
+    --blue-2:     #1854ad;
+    --blue-soft:  #eaf1fb;
+    --blue-tint:  #f4f8fd;
+
+    --emerald:    #0f7a4a;
+    --emerald-2:  #0a5a37;
+    --emerald-soft:#e7f3ec;
+    --amber:      #a36a00;
+    --amber-soft: #fbf2dd;
+    --rose:       #a83246;
+    --rose-soft:  #fbe7eb;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+    background:var(--bg);color:var(--ink);
+    font-size:14px;line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-feature-settings:"tnum","zero"}
+
+  /* ============ TOP BAR ============ */
+  .topbar{
+    background:var(--blue);
+    color:#fff;display:flex;align-items:stretch;
+    height:56px;border-bottom:1px solid rgba(0,0,0,.08);
+  }
+  .topbar .brand{
+    display:flex;align-items:center;gap:14px;
+    padding:0 24px;
+    border-right:1px solid rgba(255,255,255,.14);
+  }
+  .brand-mark{
+    width:32px;height:32px;border-radius:8px;
+    background:rgba(255,255,255,.14);
+    display:grid;place-items:center;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.20);
+  }
+  .brand-mark svg{color:#fff}
+  .brand-text{display:flex;flex-direction:column;line-height:1.1}
+  .brand-text b{font-weight:800;letter-spacing:.06em;font-size:14px}
+  .brand-text span{color:rgba(255,255,255,.74);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+
+  .topbar .right{margin-left:auto;display:flex;align-items:center;gap:8px;padding-right:14px}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    height:34px;padding:0 12px;border-radius:8px;
+    background:rgba(255,255,255,.12);
+    color:#fff;font-size:12.5px;font-weight:500;
+    border:1px solid rgba(255,255,255,.18);
+  }
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:#5cf2a0;box-shadow:0 0 0 3px rgba(92,242,160,.20)}
+  .pill.user{padding:4px 4px 4px 12px;gap:10px}
+  .pill.user .role{color:rgba(255,255,255,.78);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+  .pill.user .avatar{
+    width:26px;height:26px;border-radius:6px;
+    background:#fff;color:var(--blue);
+    display:grid;place-items:center;font-weight:800;font-size:11px;
+  }
+  .icon-btn{
+    width:34px;height:34px;border-radius:8px;
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.18);
+    display:grid;place-items:center;cursor:pointer;color:#fff;
+  }
+  .icon-btn:hover{background:rgba(255,255,255,.18)}
+
+  /* ============ PAGE ============ */
+  .page{max-width:1240px;margin:0 auto;padding:22px 32px 56px}
+
+  .crumbs{
+    display:flex;align-items:center;gap:10px;font-size:12.5px;
+    color:var(--muted);margin-bottom:14px;
+  }
+  .crumbs a{color:var(--blue);font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+  .crumbs a:hover{text-decoration:underline}
+  .crumbs .sep{color:var(--muted-2)}
+  .crumbs .here{color:var(--ink-2);font-weight:600}
+
+  /* ============ HEADER CARD ============ */
+  .head-card{
+    background:#fff;border:1px solid var(--line);border-radius:14px;
+    padding:22px 24px;margin-bottom:18px;
+    display:flex;align-items:flex-start;gap:24px;
+    position:relative;overflow:hidden;
+  }
+  .head-card::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--blue);
+  }
+  .head-card .logo{
+    width:56px;height:56px;border-radius:12px;flex-shrink:0;
+    background:linear-gradient(135deg,var(--blue) 0%,var(--blue-2) 100%);
+    color:#fff;display:grid;place-items:center;
+    font-weight:800;font-size:20px;letter-spacing:-.01em;
+    box-shadow:0 6px 16px -8px rgba(30,98,196,.55);
+  }
+  .head-card .body{flex:1;min-width:0}
+  .head-card .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--blue);margin-bottom:6px;
+  }
+  .head-card h1{
+    margin:0 0 8px;font-size:24px;font-weight:800;letter-spacing:-.015em;
+    color:var(--ink);text-wrap:balance;
+  }
+  .head-card .meta{
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    color:var(--muted);font-size:13px;
+  }
+  .head-card .meta b{color:var(--ink-2);font-weight:600}
+  .head-card .meta .mono{color:var(--ink-2);font-weight:500}
+  .head-card .meta .divider{width:1px;height:14px;background:var(--line);display:inline-block}
+
+  .badge{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:4px 10px;border-radius:99px;font-size:11.5px;font-weight:600;line-height:1;
+  }
+  .badge .d{width:6px;height:6px;border-radius:50%}
+  .badge.audit{background:var(--blue-soft);color:var(--blue)} .badge.audit .d{background:var(--blue)}
+  .badge.done{background:var(--emerald-soft);color:var(--emerald-2)} .badge.done .d{background:var(--emerald)}
+  .badge.review{background:var(--amber-soft);color:var(--amber)} .badge.review .d{background:#d49519}
+
+  .head-card .actions{display:flex;gap:8px;align-items:center;flex-shrink:0}
+
+  .btn{
+    height:38px;padding:0 14px;border-radius:8px;
+    font-family:inherit;font-size:13px;font-weight:600;
+    border:1px solid var(--line);background:#fff;color:var(--ink);
+    cursor:pointer;display:inline-flex;align-items:center;gap:8px;
+    transition:background .15s,border-color .15s,box-shadow .15s;
+  }
+  .btn:hover{border-color:#cdd2dc;background:#fafbfc}
+  .btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+  .btn.primary:hover{background:var(--blue-2);border-color:var(--blue-2);box-shadow:0 4px 12px -4px rgba(30,98,196,.45)}
+  .btn.outline{color:var(--blue);border-color:#cfdef5;background:#fff}
+  .btn.outline:hover{background:var(--blue-soft);border-color:#a9c4ec}
+  .btn svg{width:14px;height:14px}
+
+  /* ============ TABS ============ */
+  .tabs{
+    display:flex;gap:2px;border-bottom:1px solid var(--line);
+    margin-bottom:22px;padding:0 2px;
+  }
+  .tab{
+    position:relative;padding:14px 18px 16px;
+    font:inherit;font-size:13.5px;font-weight:600;color:var(--muted);
+    background:transparent;border:0;cursor:pointer;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .tab:hover{color:var(--ink-2)}
+  .tab .num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;font-weight:700;
+    background:var(--line-2);color:var(--muted);
+    padding:2px 6px;border-radius:4px;
+  }
+  .tab.on{color:var(--blue)}
+  .tab.on .num{background:var(--blue-soft);color:var(--blue)}
+  .tab.on::after{
+    content:"";position:absolute;left:14px;right:14px;bottom:-1px;height:2px;
+    background:var(--blue);border-radius:2px 2px 0 0;
+  }
+
+  /* ============ LAYOUT ============ */
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;align-items:flex-start}
+
+  .sections{display:flex;flex-direction:column;gap:14px}
+
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    overflow:hidden;
+  }
+  .card-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;border-bottom:1px solid var(--line-2);
+    background:#fff;
+  }
+  .card-head .title{
+    display:flex;align-items:center;gap:10px;
+  }
+  .card-head .ic{
+    width:28px;height:28px;border-radius:7px;
+    background:var(--blue-soft);color:var(--blue);
+    display:grid;place-items:center;
+  }
+  .card-head h2{
+    margin:0;font-size:14px;font-weight:700;letter-spacing:-.005em;color:var(--ink);
+  }
+  .card-head .count{
+    font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;
+    color:var(--muted-2);letter-spacing:.04em;
+  }
+
+  /* ============ DEFINITION LIST ============ */
+  dl.fields{
+    margin:0;padding:6px 20px 14px;
+    display:grid;grid-template-columns:200px 1fr;
+    column-gap:24px;
+  }
+  dl.fields dt,dl.fields dd{
+    margin:0;padding:11px 0;
+    border-bottom:1px solid var(--line-3);
+    font-size:13.5px;
+  }
+  dl.fields dt:last-of-type,dl.fields dd:last-of-type{border-bottom:0}
+  dl.fields dt{
+    color:var(--muted);font-weight:500;
+  }
+  dl.fields dd{
+    color:var(--ink);font-weight:500;
+    display:flex;align-items:center;gap:8px;
+  }
+  dl.fields dd .mono{color:var(--ink-2)}
+  dl.fields dd .strong{color:var(--ink);font-weight:600}
+  dl.fields dd .empty{color:var(--muted-2);font-style:italic}
+
+  .copy-btn{
+    width:22px;height:22px;border-radius:5px;
+    border:1px solid transparent;background:transparent;
+    display:grid;place-items:center;color:var(--muted-2);
+    cursor:pointer;opacity:0;transition:opacity .15s,color .15s,background .15s;
+  }
+  dl.fields dd:hover .copy-btn{opacity:1}
+  .copy-btn:hover{color:var(--blue);background:var(--blue-soft)}
+
+  .chip-tag{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:3px 9px;border-radius:6px;background:var(--line-2);
+    color:var(--ink-2);font-size:12px;font-weight:600;
+  }
+  .chip-tag.blue{background:var(--blue-soft);color:var(--blue)}
+
+  /* address block */
+  .addr{
+    background:var(--paper-tint);border:1px solid var(--line-2);
+    border-radius:8px;padding:10px 12px;
+    font-size:13px;color:var(--ink-2);line-height:1.55;
+    flex:1;
+  }
+  .addr .ln1{font-weight:600;color:var(--ink)}
+  .addr .ln2{color:var(--muted);font-size:12.5px;margin-top:2px}
+
+  /* ============ AUDITOR TABLE ============ */
+  table.auditors{width:100%;border-collapse:collapse;font-size:13.5px}
+  table.auditors thead th{
+    text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);
+    padding:10px 20px;background:var(--paper-tint);
+    border-bottom:1px solid var(--line-2);
+  }
+  table.auditors tbody td{
+    padding:14px 20px;border-bottom:1px solid var(--line-2);
+    vertical-align:middle;
+  }
+  table.auditors tbody tr:last-child td{border-bottom:0}
+  .avatar-sm{
+    width:32px;height:32px;border-radius:50%;
+    display:grid;place-items:center;font-size:11.5px;font-weight:700;
+    flex-shrink:0;
+  }
+  .avatar-sm.v1{background:#dde6f4;color:#163b6b}
+  .avatar-sm.v2{background:#dceae0;color:#0a5a37}
+  .role-chip{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:3px 9px;border-radius:6px;font-size:11.5px;font-weight:700;
+    letter-spacing:.02em;
+  }
+  .role-chip.lead{background:var(--blue);color:#fff}
+  .role-chip.member{background:var(--line-2);color:var(--ink-2)}
+  .person{display:flex;align-items:center;gap:12px}
+  .person .nm{font-weight:700;color:var(--ink)}
+  .person .sub{color:var(--muted);font-size:11.5px;margin-top:1px}
+
+  /* ============ SIDE ============ */
+  .side{display:flex;flex-direction:column;gap:14px;position:sticky;top:18px}
+
+  .status-card{
+    background:linear-gradient(160deg,var(--blue) 0%,var(--blue-2) 100%);
+    color:#fff;border-radius:14px;padding:18px 20px;
+    position:relative;overflow:hidden;
+  }
+  .status-card::before{
+    content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;
+    border-radius:50%;background:rgba(255,255,255,.08);
+  }
+  .status-card::after{
+    content:"";position:absolute;right:-50px;bottom:-50px;width:180px;height:180px;
+    border-radius:50%;background:rgba(255,255,255,.05);
+  }
+  .status-card .lbl{
+    font-size:10.5px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;
+    color:rgba(255,255,255,.78);
+  }
+  .status-card .val{
+    font-size:18px;font-weight:800;letter-spacing:-.01em;margin:6px 0 14px;
+    position:relative;z-index:1;
+  }
+  .progress{
+    height:6px;border-radius:99px;background:rgba(255,255,255,.18);overflow:hidden;
+    position:relative;z-index:1;
+  }
+  .progress > i{display:block;height:100%;width:62%;background:#fff;border-radius:99px}
+  .status-card .row{
+    display:flex;justify-content:space-between;align-items:baseline;
+    margin-top:10px;font-size:12px;color:rgba(255,255,255,.78);
+    position:relative;z-index:1;
+  }
+  .status-card .row b{color:#fff;font-weight:700;font-family:'JetBrains Mono',monospace}
+
+  .timeline{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px 14px;
+  }
+  .timeline h3{margin:0 0 14px;font-size:13px;font-weight:700;color:var(--ink)}
+  .tl-item{display:flex;gap:12px;position:relative;padding-bottom:14px}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item .line{
+    position:absolute;left:6px;top:14px;bottom:0;width:1px;background:var(--line);
+  }
+  .tl-item:last-child .line{display:none}
+  .tl-dot{
+    width:13px;height:13px;border-radius:50%;flex-shrink:0;
+    background:#fff;border:2px solid var(--line);margin-top:2px;
+    position:relative;z-index:1;
+  }
+  .tl-dot.done{background:var(--emerald);border-color:var(--emerald)}
+  .tl-dot.curr{background:var(--blue);border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
+  .tl-body{flex:1;font-size:13px}
+  .tl-body .stp{font-weight:600;color:var(--ink)}
+  .tl-body .stp.muted{color:var(--muted)}
+  .tl-body .dt{font-size:11.5px;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:2px}
+
+  .quick{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:16px 20px;
+  }
+  .quick h3{margin:0 0 12px;font-size:13px;font-weight:700;color:var(--ink)}
+  .quick a{
+    display:flex;align-items:center;gap:10px;
+    padding:10px 0;text-decoration:none;color:var(--ink-2);
+    font-size:13px;font-weight:500;
+    border-bottom:1px solid var(--line-3);
+  }
+  .quick a:last-of-type{border-bottom:0}
+  .quick a:hover{color:var(--blue)}
+  .quick a .qi{
+    width:28px;height:28px;border-radius:7px;background:var(--blue-soft);
+    color:var(--blue);display:grid;place-items:center;flex-shrink:0;
+  }
+  .quick a .arrow{margin-left:auto;color:var(--muted-2);transition:transform .15s}
+  .quick a:hover .arrow{transform:translateX(2px);color:var(--blue)}
+
+  svg{display:block}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+    </div>
+    <div class="brand-text">
+      <b>HARS</b>
+      <span>LPH UIN Jakarta</span>
+    </div>
+  </div>
+
+  <div class="right">
+    <span class="pill"><span class="dot"></span> Sistem normal</span>
+    <button class="icon-btn" title="Pengaturan">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+    <button class="icon-btn" title="Bantuan">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </button>
+    <span class="pill user">
+      <span class="role">Admin LPH</span>
+      <span class="avatar">A</span>
+    </span>
+    <button class="icon-btn" title="Keluar">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ============ PAGE ============ -->
+<main class="page">
+
+  <div class="crumbs">
+    <a href="#">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Kembali
+    </a>
+    <span class="sep">/</span>
+    <a href="#">Workspace</a>
+    <span class="sep">/</span>
+    <a href="#">Registrasi</a>
+    <span class="sep">/</span>
+    <span class="here">KONSTAN KAYA INDONESIA</span>
+  </div>
+
+  <!-- ============ HEADER CARD ============ -->
+  <section class="head-card">
+    <div class="logo">KK</div>
+    <div class="body">
+      <div class="eyebrow">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Pengajuan Baru
+      </div>
+      <h1>KONSTAN KAYA INDONESIA</h1>
+      <div class="meta">
+        <span class="mono">SH2026-1-2216371</span>
+        <span class="divider"></span>
+        <span>Didaftarkan <b>28 Apr 2026</b></span>
+        <span class="divider"></span>
+        <span class="badge audit"><span class="d"></span> Audit Lapangan · 62%</span>
+        <span class="divider"></span>
+        <span>Jadwal audit <b>12 Mei 2026</b></span>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Ekspor
+      </button>
+      <button class="btn outline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Edit Data
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ TABS ============ -->
+  <nav class="tabs">
+    <button class="tab on">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Data Pengajuan
+    </button>
+    <button class="tab">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+      Dokumen Pre-Audit
+      <span class="num">12</span>
+    </button>
+    <button class="tab">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Laporan Audit
+    </button>
+    <button class="tab">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Dokumentasi
+      <span class="num">8</span>
+    </button>
+  </nav>
+
+  <!-- ============ LAYOUT ============ -->
+  <div class="layout">
+
+    <!-- ============ LEFT: SECTIONS ============ -->
+    <div class="sections">
+
+      <!-- Identitas Registrasi -->
+      <section class="card">
+        <div class="card-head">
+          <div class="title">
+            <div class="ic">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <h2>Identitas Registrasi</h2>
+          </div>
+          <span class="count">3 FIELDS</span>
+        </div>
+        <dl class="fields">
+          <dt>No. Daftar</dt>
+          <dd>
+            <span class="mono strong">SH2026-1-2216371</span>
+            <button class="copy-btn" title="Salin">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </dd>
+          <dt>Tanggal Daftar</dt>
+          <dd><span class="strong">28 April 2026</span></dd>
+          <dt>Jenis Pendaftaran</dt>
+          <dd><span class="chip-tag blue">Pengajuan Baru</span></dd>
+        </dl>
+      </section>
+
+      <!-- Pelaku Usaha -->
+      <section class="card">
+        <div class="card-head">
+          <div class="title">
+            <div class="ic">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/></svg>
+            </div>
+            <h2>Pelaku Usaha</h2>
+          </div>
+          <span class="count">9 FIELDS</span>
+        </div>
+        <dl class="fields">
+          <dt>Nama PU</dt>
+          <dd><span class="strong">KONSTAN KAYA INDONESIA</span></dd>
+
+          <dt>Nama Usaha / Merk / Fasilitas</dt>
+          <dd>KONSTAN KAYA INDONESIA</dd>
+
+          <dt>Jenis Produk</dt>
+          <dd><span class="chip-tag">Kemasan produk</span></dd>
+
+          <dt>Alamat Produksi</dt>
+          <dd>
+            <div class="addr">
+              <div class="ln1">Jalan Raya Ciawi - Sukabumi RT 01 RW 01</div>
+              <div class="ln2">Desa/Kelurahan Benda, Kec. Cicurug, Kab. Sukabumi, Provinsi Jawa Barat · Kode Pos 43359</div>
+            </div>
+          </dd>
+
+          <dt>Agama Pemilik</dt>
+          <dd>Buddha</dd>
+
+          <dt>Nama Pabrik</dt>
+          <dd>KONSTAN KAYA INDONESIA</dd>
+
+          <dt>Alamat Pabrik</dt>
+          <dd>
+            <div class="addr">
+              <div class="ln1">Jalan Raya Ciawi - Sukabumi RT 01 RW 01</div>
+              <div class="ln2">Desa/Kelurahan Benda, Kec. Cicurug, Kab. Sukabumi, Provinsi Jawa Barat · Kode Pos 43359</div>
+            </div>
+          </dd>
+
+          <dt>Kota</dt>
+          <dd>Kab. Sukabumi</dd>
+
+          <dt>Negara</dt>
+          <dd>
+            <svg width="16" height="12" viewBox="0 0 16 12" style="border-radius:2px;flex-shrink:0"><rect width="16" height="6" fill="#dc2626"/><rect y="6" width="16" height="6" fill="#fff" stroke="#e6e8ee" stroke-width=".5"/></svg>
+            Indonesia
+          </dd>
+        </dl>
+      </section>
+
+      <!-- Penyelia Halal -->
+      <section class="card">
+        <div class="card-head">
+          <div class="title">
+            <div class="ic">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <h2>Penyelia Halal</h2>
+          </div>
+          <span class="count">5 FIELDS</span>
+        </div>
+        <dl class="fields">
+          <dt>Nama</dt>
+          <dd><span class="strong">TRI WAHYULI</span></dd>
+          <dt>No. KTP</dt>
+          <dd><span class="mono">3671 0564 0987 0003</span></dd>
+          <dt>No. Sertifikat</dt>
+          <dd>
+            <span class="mono">PHR-4/LPSDMH/6/2024/004</span>
+            <span class="chip-tag" style="background:var(--emerald-soft);color:var(--emerald-2)">Aktif</span>
+          </dd>
+          <dt>No. SK</dt>
+          <dd><span class="empty">Belum dilengkapi</span></dd>
+          <dt>No. Kontak</dt>
+          <dd>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted-2)"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span class="mono">085 8946 50337</span>
+          </dd>
+        </dl>
+      </section>
+
+      <!-- Jadwal & Tim Auditor -->
+      <section class="card">
+        <div class="card-head">
+          <div class="title">
+            <div class="ic">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <h2>Jadwal &amp; Tim Auditor</h2>
+          </div>
+          <span class="count">12 MEI 2026</span>
+        </div>
+        <div style="padding:16px 20px;display:flex;gap:14px;align-items:center;border-bottom:1px solid var(--line-2)">
+          <div style="width:64px;height:64px;border-radius:10px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;text-align:center;flex-shrink:0">
+            <div>
+              <div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Mei</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;line-height:1;margin-top:2px">12</div>
+            </div>
+          </div>
+          <div style="flex:1">
+            <div style="font-size:15px;font-weight:700;color:var(--ink)">Selasa, 12 Mei 2026</div>
+            <div style="font-size:12.5px;color:var(--muted);margin-top:3px">Audit lapangan di lokasi pabrik · estimasi 1 hari · konfirmasi terkirim</div>
+          </div>
+          <span class="badge audit"><span class="d"></span>Terjadwal</span>
+        </div>
+        <table class="auditors">
+          <thead>
+            <tr>
+              <th>Peran</th>
+              <th>Nama</th>
+              <th style="text-align:right">No. Pendaftaran</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="role-chip lead">Lead Auditor</span></td>
+              <td>
+                <div class="person">
+                  <div class="avatar-sm v2">AR</div>
+                  <div>
+                    <div class="nm">Dr. Adi Riyadhi, M.Si.</div>
+                    <div class="sub">Kimia Pangan · Senior</div>
+                  </div>
+                </div>
+              </td>
+              <td style="text-align:right" class="mono">REG·RI·AH·100054723</td>
+            </tr>
+            <tr>
+              <td><span class="role-chip member">Auditor</span></td>
+              <td>
+                <div class="person">
+                  <div class="avatar-sm v1">TA</div>
+                  <div>
+                    <div class="nm">Trisan Andrean Putra, S.Si.</div>
+                    <div class="sub">Mikrobiologi · Junior</div>
+                  </div>
+                </div>
+              </td>
+              <td style="text-align:right" class="mono">REG·RI·AH·100196725</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+    </div>
+
+    <!-- ============ RIGHT: SIDE ============ -->
+    <aside class="side">
+
+      <div class="status-card">
+        <div class="lbl">Tahap Saat Ini</div>
+        <div class="val">Audit Lapangan</div>
+        <div class="progress"><i></i></div>
+        <div class="row">
+          <span>Progres keseluruhan</span>
+          <b>62%</b>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <h3>Linimasa Audit</h3>
+
+        <div class="tl-item">
+          <div class="line"></div>
+          <div class="tl-dot done"></div>
+          <div class="tl-body">
+            <div class="stp">Registrasi diterima</div>
+            <div class="dt">28 Apr 2026</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="line"></div>
+          <div class="tl-dot done"></div>
+          <div class="tl-body">
+            <div class="stp">Verifikasi dokumen</div>
+            <div class="dt">02 Mei 2026</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="line"></div>
+          <div class="tl-dot curr"></div>
+          <div class="tl-body">
+            <div class="stp">Audit Lapangan</div>
+            <div class="dt">12 Mei 2026 · sedang berjalan</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="line"></div>
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="stp muted">Penyusunan laporan</div>
+            <div class="dt">Estimasi 15 Mei</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-body">
+            <div class="stp muted">Sidang Komite Fatwa</div>
+            <div class="dt">Estimasi 22 Mei</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick">
+        <h3>Tindakan Cepat</h3>
+        <a href="#">
+          <span class="qi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span>
+          Unggah dokumen
+          <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+        <a href="#">
+          <span class="qi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+          Kirim pesan ke PU
+          <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+        <a href="#">
+          <span class="qi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
+          Atur ulang jadwal
+          <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+        <a href="#">
+          <span class="qi"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+          Tandai milestone
+          <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+      </div>
+
+    </aside>
+  </div>
+
+</main>
+
+</body>
+</html>

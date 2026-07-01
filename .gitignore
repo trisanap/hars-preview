@@ -1,0 +1,10 @@
+node_modules
+dist
+data
+*.pyc
+__pycache__
+ref/Laporan Audit Bakemood Bakehouse - HARS.pdf
+ref/Surat Tugas - YAYASAN AL-HIKMAH.pdf
+ref/report/Draft Laporan Audit AURORA REMPAH NUSANTARA.docx
+ref/report/Laporan Hasil Audit AURORA REMPAH NUSANTARA.docx
+ref/report/Ringkasan Laporan Audit AURORA REMPAH NUSANTARA.docx

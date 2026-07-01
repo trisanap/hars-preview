@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laporan Audit Halal — LPH UIN Jakarta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-uin: #1565c0;
+    --blue-light: #e3f0fb;
+    --blue-mid: #1976d2;
+    --gold: #b8860b;
+    --gold-light: #fdf8e8;
+    --text: #1a1a1a;
+    --text-muted: #555;
+    --text-faint: #888;
+    --border: #d0d0d0;
+    --border-light: #e8e8e8;
+    --bg: #fff;
+    --bg-alt: #f7f7f5;
+    --red: #c0392b;
+    --blue: #1a5276;
+    --badge-sesuai-bg: #e3f0fb;
+    --badge-sesuai: #1565c0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    color: var(--text);
+    background: #f0ede8;
+    line-height: 1.5;
+  }
+
+  /* ── TOP NAV ── */
+  .app-nav {
+    background: var(--blue-uin);
+    color: #fff;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 48px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    print-color-adjust: exact;
+  }
+  .app-nav .brand { font-size: 13px; font-weight: 600; letter-spacing: 0.03em; opacity: 0.95; }
+  .app-nav .nav-right { display: flex; align-items: center; gap: 8px; }
+
+  .status-tabs { display: flex; gap: 0; background: rgba(255,255,255,0.12); border-radius: 6px; overflow: hidden; }
+  .status-tabs button {
+    background: none; border: none; color: rgba(255,255,255,0.7);
+    padding: 6px 14px; font-size: 12px; font-family: inherit; cursor: pointer;
+    font-weight: 500; transition: all 0.15s;
+  }
+  .status-tabs button.active { background: rgba(255,255,255,0.22); color: #fff; }
+  .status-tabs button:hover:not(.active) { background: rgba(255,255,255,0.1); color: #fff; }
+
+  .btn {
+    border: 1px solid rgba(255,255,255,0.4); background: rgba(255,255,255,0.1);
+    color: #fff; padding: 5px 12px; border-radius: 5px; font-size: 12px;
+    font-family: inherit; cursor: pointer; font-weight: 500; transition: all 0.15s;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .btn:hover { background: rgba(255,255,255,0.22); }
+  .btn-print { background: var(--gold); border-color: var(--gold); color: #fff; }
+  .btn-print:hover { background: #a07709; }
+
+  /* ── PAGE ── */
+  .page-wrap {
+    max-width: 860px;
+    margin: 24px auto;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  /* ── LETTERHEAD ── */
+  .letterhead {
+    border-bottom: 2px solid #1565c0;
+    padding: 18px 32px 14px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+  }
+  .letterhead-corner {
+    position: absolute;
+    top: 0; right: 0;
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 0 72px 72px 0;
+    border-color: transparent #bed4ef transparent transparent;
+    opacity: 0.7;
+  }
+  .letterhead-corner2 {
+    position: absolute;
+    top: 0; right: 0;
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 0 44px 44px 0;
+    border-color: transparent #dae8f7 transparent transparent;
+    opacity: 0.8;
+  }
+  .letterhead-logo {
+    width: 72px; height: 72px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .letterhead-text { flex: 1; }
+  .letterhead-text .org { font-size: 16px; font-weight: 700; color: #1565c0; letter-spacing: 0.01em; }
+  .letterhead-text .uni { font-size: 15px; font-weight: 700; color: #1565c0; margin-top: 0; }
+  .letterhead-text .addr { font-size: 11px; color: var(--text-muted); margin-top: 5px; line-height: 1.5; border-top: 1px solid #dce8f8; padding-top: 5px; }
+
+  /* ── DOCUMENT TITLE ── */
+  .doc-title {
+    background: var(--blue-uin);
+    color: #fff;
+    text-align: center;
+    padding: 14px 32px;
+    print-color-adjust: exact;
+  }
+  .doc-title .title-main { font-size: 14px; font-weight: 600; letter-spacing: 0.04em; }
+  .doc-title .title-sub { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+
+  /* ── VERSION RIBBON ── */
+  .version-ribbon {
+    background: var(--gold-light);
+    border-bottom: 1px solid #e8d58a;
+    padding: 7px 32px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .version-badge {
+    background: var(--gold);
+    color: #fff; font-size: 10px; font-weight: 600;
+    padding: 2px 8px; border-radius: 3px; letter-spacing: 0.05em;
+    print-color-adjust: exact;
+  }
+  .version-ribbon span { font-size: 11px; color: var(--gold); }
+
+  /* ── CONTENT ── */
+  .content { padding: 24px 32px; }
+
+  /* ── PROFILE TABLE ── */
+  .profile-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  .profile-table tr td { padding: 5px 6px; vertical-align: top; font-size: 13px; }
+  .profile-table tr td:first-child { color: var(--text-muted); width: 160px; white-space: nowrap; }
+  .profile-table tr td:nth-child(2) { width: 12px; color: var(--text-muted); }
+  .profile-table tr td:last-child { font-weight: 500; color: var(--text); }
+  .profile-table tr:nth-child(odd) td { background: var(--bg-alt); }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    font-size: 11px; font-weight: 600; color: var(--blue-uin);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 6px 0 6px; margin: 20px 0 8px;
+    border-bottom: 1.5px solid var(--blue-light);
+  }
+
+  /* ── DATA TABLE ── */
+  .data-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 12px; }
+  .data-table th {
+    background: var(--blue-uin);
+    color: #fff; font-weight: 500; font-size: 11px;
+    padding: 7px 8px; text-align: left;
+    print-color-adjust: exact;
+  }
+  .data-table td { padding: 6px 8px; border-bottom: 1px solid var(--border-light); vertical-align: top; }
+  .data-table tr:nth-child(even) td { background: var(--bg-alt); }
+  .data-table tr:hover td { background: #f0f7f3; }
+  .data-table .num { text-align: center; color: var(--text-muted); width: 32px; }
+
+  /* ── BAHAN TABLE ── */
+  .bahan-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 11.5px; table-layout: fixed; }
+  .bahan-table th {
+    background: var(--blue-uin); color: #fff; font-weight: 500; font-size: 11px;
+    padding: 7px 8px; text-align: left; print-color-adjust: exact;
+  }
+  .bahan-table th.col-no { width: 32px; }
+  .bahan-table th.col-nama { width: 160px; }
+  .bahan-table th.col-jenis { width: 72px; }
+  .bahan-table th.col-diragukan { width: 70px; text-align: center; }
+  .bahan-table th.col-temuan { }
+  .bahan-table th.col-ket { width: 70px; }
+
+  .bahan-table td { padding: 5px 8px; border-bottom: 1px solid var(--border-light); vertical-align: top; word-break: break-word; }
+  .bahan-table tr:nth-child(even) td { background: var(--bg-alt); }
+  .bahan-table .num { text-align: center; color: var(--text-muted); }
+  .bahan-table .diragukan { text-align: center; color: var(--blue-mid); font-size: 14px; }
+
+  .badge-sesuai {
+    background: var(--badge-sesuai-bg); color: var(--badge-sesuai);
+    font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 3px;
+    display: inline-block; print-color-adjust: exact;
+  }
+  .badge-positif {
+    background: #e8f0fb; color: #1a4a8a;
+    font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 3px;
+    display: inline-block; print-color-adjust: exact;
+  }
+  .badge-new {
+    background: #fff3e0; color: #b8540a;
+    font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 3px;
+    display: inline-block; print-color-adjust: exact;
+  }
+  .temuan-text { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--text); line-height: 1.4; }
+  .temuan-text.positif { color: var(--blue); font-family: inherit; font-style: italic; }
+
+  /* ── KRITERIA TABLE ── */
+  .kriteria-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 12px; }
+  .kriteria-table th {
+    background: var(--blue-uin); color: #fff; font-weight: 500; font-size: 11px;
+    padding: 7px 8px; text-align: left; print-color-adjust: exact;
+  }
+  .kriteria-table td { padding: 8px 8px; border-bottom: 1px solid var(--border-light); vertical-align: top; }
+  .kriteria-table tr:nth-child(even) td { background: var(--bg-alt); }
+  .kriteria-table .num { text-align: center; color: var(--text-muted); width: 32px; }
+  .kriteria-table .catatan { line-height: 1.6; }
+  .kriteria-table textarea {
+    width: 100%; border: 1px solid var(--border); border-radius: 3px;
+    font-family: inherit; font-size: 12px; padding: 6px 8px; resize: vertical;
+    min-height: 60px; color: var(--text); background: #fff;
+  }
+  .kriteria-table textarea:focus { outline: none; border-color: var(--blue-uin); }
+
+  /* ── VERDICT BANNER ── */
+  .verdict {
+    background: var(--blue-light); border: 1.5px solid var(--blue-uin);
+    border-radius: 4px; padding: 12px 20px; margin: 20px 0;
+    display: flex; align-items: center; gap: 12px;
+    print-color-adjust: exact;
+  }
+  .verdict .verdict-icon { font-size: 24px; }
+  .verdict .verdict-text { }
+  .verdict .verdict-label { font-size: 11px; color: var(--text-muted); }
+  .verdict .verdict-value { font-size: 15px; font-weight: 600; color: var(--blue-uin); }
+
+  /* ── SIGNATURES ── */
+  .signatures { display: flex; justify-content: flex-end; margin: 24px 0 8px; }
+  .sig-block { text-align: center; width: 200px; }
+  .sig-block .sig-city { font-size: 12px; }
+  .sig-block .sig-title { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+  .sig-space { height: 56px; }
+  .sig-block .sig-name { font-weight: 600; font-size: 13px; border-top: 1.5px solid var(--text); padding-top: 4px; display: inline-block; }
+  .sig-block .sig-nip { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ── LAMPIRAN ── */
+  .lampiran-list { list-style: none; }
+  .lampiran-list li {
+    padding: 6px 10px; border: 1px solid var(--border-light);
+    border-radius: 4px; margin-bottom: 6px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; cursor: pointer; transition: background 0.1s;
+  }
+  .lampiran-list li:hover { background: var(--blue-light); }
+  .lampiran-list li .lmp-icon { color: var(--blue-uin); font-size: 16px; }
+  .lampiran-list li .lmp-label { flex: 1; }
+  .lampiran-list li .lmp-badge {
+    font-size: 10px; background: var(--bg-alt); color: var(--text-faint);
+    padding: 2px 6px; border-radius: 3px; border: 1px solid var(--border-light);
+  }
+  .lampiran-list li .lmp-badge.uploaded { background: var(--badge-sesuai-bg); color: var(--badge-sesuai); border-color: #b0d8bf; }
+
+  /* ── LAMPIRAN PREVIEW ── */
+  .lampiran-preview-area { margin-top: 12px; }
+  .lampiran-preview-group { margin-bottom: 16px; }
+  .lampiran-preview-group .lmp-group-label {
+    font-size: 11px; font-weight: 600; color: var(--text-muted);
+    margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .lampiran-previews { display: flex; flex-wrap: wrap; gap: 12px; }
+  .lampiran-img-card {
+    border: 1px solid var(--border-light); border-radius: 4px;
+    overflow: hidden; background: #fff; position: relative;
+    display: inline-flex; flex-direction: column;
+  }
+  .lampiran-img-card .img-wrapper {
+    overflow: hidden; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    background: #f5f5f5; min-width: 80px; min-height: 60px;
+  }
+  .lampiran-img-card .img-wrapper img {
+    display: block; object-fit: contain;
+  }
+  .lampiran-img-card .img-controls {
+    padding: 6px 8px; background: var(--bg-alt);
+    border-top: 1px solid var(--border-light);
+    display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+  }
+  .lampiran-img-card .img-controls label {
+    font-size: 10px; color: var(--text-muted); white-space: nowrap;
+  }
+  .lampiran-img-card .img-controls input[type="number"] {
+    width: 52px; border: 1px solid var(--border); border-radius: 3px;
+    padding: 2px 4px; font-size: 11px; font-family: 'IBM Plex Mono', monospace;
+    text-align: center;
+  }
+  .lampiran-img-card .img-controls input[type="number"]:focus {
+    outline: none; border-color: var(--blue-uin);
+  }
+  .lampiran-img-card .img-controls .sz-sep { color: var(--text-faint); font-size: 10px; }
+  .lampiran-img-card .img-controls .btn-lock {
+    background: none; border: 1px solid var(--border); border-radius: 3px;
+    cursor: pointer; padding: 2px 4px; font-size: 12px; line-height: 1;
+    color: var(--text-muted); transition: all 0.15s;
+  }
+  .lampiran-img-card .img-controls .btn-lock.active {
+    background: var(--blue-light); color: var(--blue-uin); border-color: var(--blue-uin);
+  }
+  .lampiran-img-card .btn-remove-img {
+    position: absolute; top: 4px; right: 4px;
+    background: rgba(0,0,0,0.55); color: #fff; border: none;
+    border-radius: 3px; width: 20px; height: 20px; font-size: 12px;
+    cursor: pointer; line-height: 1; display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.15s;
+  }
+  .lampiran-img-card:hover .btn-remove-img { opacity: 1; }
+  .lampiran-img-card .btn-remove-img:hover { background: var(--red); }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    background: var(--bg-alt); border-top: 1px solid var(--border-light);
+    padding: 12px 32px; display: flex; justify-content: space-between; align-items: center;
+  }
+  .page-footer span { font-size: 11px; color: var(--text-faint); }
+
+  /* ── BAHAN INJECT NOTICE ── */
+  .inject-bar {
+    background: #fff8e6; border: 1px dashed #e0b840;
+    border-radius: 4px; padding: 10px 14px; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px; font-size: 12px;
+  }
+  .inject-bar .ij-icon { color: var(--gold); font-size: 18px; }
+  .inject-bar .ij-text { flex: 1; color: #7a5e00; }
+  .inject-bar button {
+    background: var(--gold); color: #fff; border: none;
+    padding: 5px 12px; border-radius: 4px; font-size: 11px; font-weight: 600;
+    font-family: inherit; cursor: pointer;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; font-size: 11px; }
+    .app-nav, .inject-bar, .lampiran-list li .lmp-badge, .page-footer .btn { display: none !important; }
+    .lampiran-img-card .btn-remove-img, .lampiran-img-card .img-controls { display: none !important; }
+    .page-wrap { margin: 0; border: none; border-radius: 0; max-width: 100%; }
+    .bahan-table, .data-table, .kriteria-table { page-break-inside: auto; }
+    .bahan-table tr, .data-table tr { page-break-inside: avoid; }
+    .section-header { page-break-after: avoid; }
+    .doc-title, .letterhead { page-break-after: avoid; }
+    .kriteria-table textarea { border: none; min-height: auto; }
+  }
+
+  @media (max-width: 600px) {
+    .content { padding: 16px; }
+    .letterhead { padding: 14px 16px; gap: 12px; }
+    .doc-title { padding: 12px 16px; }
+    .status-tabs button { padding: 6px 8px; font-size: 11px; }
+    .bahan-table { font-size: 10.5px; }
+    .bahan-table th.col-nama { width: 120px; }
+    .bahan-table th.col-diragukan { display: none; }
+    .bahan-table td.hide-mobile { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="app-nav">
+  <span class="brand">LPH UIN Jakarta · Workspace</span>
+  <div class="nav-right">
+    <div class="status-tabs">
+      <button class="active" onclick="setMode('draft')">Draft</button>
+      <button onclick="setMode('summary')">Ringkasan</button>
+      <button onclick="setMode('final')">Final / LHA</button>
+    </div>
+    <button class="btn btn-print" onclick="window.print()">&#x2399; Cetak PDF</button>
+  </div>
+</nav>
+
+<!-- DOCUMENT -->
+<div class="page-wrap" id="doc">
+
+  <!-- LETTERHEAD -->
+  <div class="letterhead">
+    <div class="letterhead-corner"></div>
+    <div class="letterhead-corner2"></div>
+    <div class="letterhead-logo"><img src="data:image/png;base64,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" style="width:64px;height:64px;object-fit:contain;" alt="Logo LPH UIN"></div>
+    <div class="letterhead-text">
+      <div class="org">LEMBAGA PEMERIKSA HALAL</div>
+      <div class="uni">UIN SYARIF HIDAYATULLAH JAKARTA</div>
+      <div class="addr">Gedung Wisma Usaha UIN Syarif Hidayatullah Jakarta Lantai 3, Jl. Ir H. Juanda No. 95, Cempaka Putih, Ciputat, Tangerang Selatan, Banten 15412<br>Telp: 08971740444 &nbsp;·&nbsp; Email: lph@apps.uinjkt.ac.id</div>
+    </div>
+  </div>
+
+  <!-- TITLE BAR -->
+  <div class="doc-title">
+    <div class="title-main" id="doc-title-main">RINGKASAN LAPORAN HASIL AUDIT HALAL</div>
+    <div class="title-sub">LPH UIN SYARIF HIDAYATULLAH JAKARTA</div>
+  </div>
+
+  <!-- VERSION RIBBON -->
+  <div class="version-ribbon">
+    <span class="version-badge" id="version-badge">DRAFT</span>
+    <span id="version-desc">Dibuat otomatis dari data perusahaan · Kriteria SJPH dapat diisi langsung</span>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- PROFIL PERUSAHAAN -->
+    <div class="section-header">Profil Perusahaan</div>
+    <table class="profile-table">
+      <tr><td>Nama Perusahaan</td><td>:</td><td contenteditable="true">Bakemood Bakehouse (Gita Meirinda)</td></tr>
+      <tr><td>Agama Pemilik</td><td>:</td><td contenteditable="true">Islam</td></tr>
+      <tr><td>Nomor Pendaftaran</td><td>:</td><td contenteditable="true">SH2026-1-1860101</td></tr>
+      <tr><td>Alamat Perusahaan</td><td>:</td><td contenteditable="true">Komplek Harperindo Jalan Harapan Permai 1 Blok A2 no. 1B, Cempaka Putih, Ciputat Timur, Tangerang Selatan, Banten</td></tr>
+      <tr><td>Jenis Produk</td><td>:</td><td contenteditable="true">Produk Bakeri</td></tr>
+      <tr><td>Jenis Pendaftaran</td><td>:</td><td contenteditable="true">Pengajuan Baru</td></tr>
+      <tr><td>Tanggal Audit</td><td>:</td><td contenteditable="true">Kamis, 16 April 2026</td></tr>
+      <tr><td>Lead Auditor</td><td>:</td><td contenteditable="true">Dr. Yusraini Dian Inayati Siregar, M.Si.</td></tr>
+      <tr><td>Auditor</td><td>:</td><td contenteditable="true">Trisan Andrean Putra, S.Si.</td></tr>
+      <tr><td>Observer</td><td>:</td><td contenteditable="true">Dr. Narti Fitriana, M.Si.</td></tr>
+    </table>
+
+    <!-- FASILITAS -->
+    <div class="section-header">Daftar Fasilitas</div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:32px">No</th>
+          <th>Nama Fasilitas</th>
+          <th>Alamat</th>
+          <th>Kota</th>
+          <th>Negara</th>
+        </tr>
+      </thead>
+      <tbody id="fasilitas-body">
+        <tr>
+          <td class="num">1</td>
+          <td contenteditable="true">Rumah</td>
+          <td contenteditable="true">Komplek Harperindo Jalan Harapan Permai 1 Blok A2 no. 1B, Cempaka Putih, Ciputat Timur, Tangerang Selatan, Banten</td>
+          <td contenteditable="true">Tangerang Selatan</td>
+          <td contenteditable="true">Indonesia</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- PENYELIA HALAL -->
+    <div class="section-header">Penyelia Halal Perusahaan</div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:32px">No</th>
+          <th>Nama</th>
+          <th>No. KTP</th>
+          <th>No./Tgl Sertifikat</th>
+          <th>No./Tgl SK</th>
+          <th>No. Kontak</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">1</td>
+          <td contenteditable="true">Uly Fitria Bale</td>
+          <td contenteditable="true">3175105812010009</td>
+          <td contenteditable="true">PHR-12/LPSDMH/02/2025/004</td>
+          <td contenteditable="true">— / 30/11/2025</td>
+          <td contenteditable="true">089699956671</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- PRODUK -->
+    <div class="section-header">Daftar Produk</div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width:32px">No</th>
+          <th>Nama Produk</th>
+        </tr>
+      </thead>
+      <tbody id="produk-body">
+        <tr><td class="num">1</td><td contenteditable="true">Banana Cheesecake Loafey</td></tr>
+        <tr><td class="num">2</td><td contenteditable="true">Biscoffe Mood Soft Cookies</td></tr>
+        <tr><td class="num">3</td><td contenteditable="true">Brookies (Brownies Cookies)</td></tr>
+        <tr><td class="num">4</td><td contenteditable="true">Cookie Bites</td></tr>
+        <tr><td class="num">5</td><td contenteditable="true">Cookieramisu</td></tr>
+        <tr><td class="num">6</td><td contenteditable="true">Banana Dark Choco Loafey</td></tr>
+        <tr><td class="num">7</td><td contenteditable="true">Lidah Kucing</td></tr>
+        <tr><td class="num">8</td><td contenteditable="true">Lotus Biscoff Creamy Burnt Cheesecake</td></tr>
+        <tr><td class="num">9</td><td contenteditable="true">Matcha Brownies</td></tr>
+        <tr><td class="num">10</td><td contenteditable="true">Matcha Creamy Burnt Cheesecake</td></tr>
+        <tr><td class="num">11</td><td contenteditable="true">Moodcha Cheesecake Soft Cookies</td></tr>
+        <tr><td class="num">12</td><td contenteditable="true">Moodnight Cheesecake Soft Cookies</td></tr>
+        <tr><td class="num">13</td><td contenteditable="true">Moodvelvet Cheesecake Soft Cookies</td></tr>
+        <tr><td class="num">14</td><td contenteditable="true">Pistachio Kunafa Daynight Softcookies</td></tr>
+        <tr><td class="num">15</td><td contenteditable="true">Premium Nastar</td></tr>
+        <tr><td class="num">16</td><td contenteditable="true">Putri Salju</td></tr>
+        <tr><td class="num">17</td><td contenteditable="true">Risol Creamy Wagyu Mushroom with Melted Cheese</td></tr>
+        <tr><td class="num">18</td><td contenteditable="true">Risol Mayo Smokedbeef Egg with Melted Cheese</td></tr>
+        <tr><td class="num">19</td><td contenteditable="true">The Dark Choco Brownies</td></tr>
+        <tr><td class="num">20</td><td contenteditable="true">The OG Creamy Burnt Cheesecake</td></tr>
+        <tr><td class="num">21</td><td contenteditable="true">The OG Soft Cookies</td></tr>
+        <tr><td class="num">22</td><td contenteditable="true">The OG Tiramisu</td></tr>
+        <tr><td class="num">23</td><td contenteditable="true">Valrhona Campvire Soft Cookies</td></tr>
+      </tbody>
+    </table>
+
+    <!-- BAHAN -->
+    <div class="section-header">Daftar Bahan</div>
+
+    <div class="inject-bar">
+      <span style="font-size:18px; color:#b8860b;">&#9889;</span>
+      <span class="ij-text">Tabel bahan dapat diisi otomatis dari hasil analisis AI. Klik untuk mengintegrasikan dari sesi chat terakhir.</span>
+      <button onclick="alert('Integrasi dari chat AI — fitur ini terhubung ke output Excel/JSON dari sesi analisis bahan BPJPH Anda.')">Integrasikan dari Chat</button>
+    </div>
+
+    <table class="bahan-table">
+      <thead>
+        <tr>
+          <th class="col-no">No</th>
+          <th class="col-nama">Nama dan Merek Bahan</th>
+          <th class="col-jenis">Jenis Bahan</th>
+          <th class="col-diragukan">Diragukan</th>
+          <th class="col-temuan">Temuan</th>
+          <th class="col-ket">Keterangan</th>
+        </tr>
+      </thead>
+      <tbody id="bahan-body">
+        <!-- populated by JS -->
+      </tbody>
+    </table>
+
+    <!-- KRITERIA SJPH -->
+    <div class="section-header">Kriteria SJPH</div>
+    <table class="kriteria-table">
+      <thead>
+        <tr>
+          <th class="num">No</th>
+          <th style="width:180px">Kriteria SJPH</th>
+          <th>Catatan Auditor</th>
+        </tr>
+      </thead>
+      <tbody id="kriteria-body">
+        <!-- populated by JS -->
+      </tbody>
+    </table>
+
+    <!-- TANGGAL & TIM -->
+    <div class="section-header">Informasi Audit</div>
+    <table class="profile-table">
+      <tr><td>Hari/Tanggal Audit</td><td>:</td><td contenteditable="true"><strong>Kamis, 16 April 2026</strong></td></tr>
+      <tr><td>Tim Auditor</td><td>:</td><td contenteditable="true">Dr. Yusraini Dian Inayati Siregar, M.Si. &nbsp;·&nbsp; Trisan Andrean Putra, S.Si.</td></tr>
+    </table>
+
+    <!-- VERDICT -->
+    <div class="verdict">
+      <span class="verdict-icon">&#10003;</span>
+      <div class="verdict-text">
+        <div class="verdict-label">Keterangan Laporan Hasil Audit</div>
+        <div class="verdict-value">LULUS</div>
+      </div>
+    </div>
+
+    <!-- SIGNATURE -->
+    <div class="signatures">
+      <div class="sig-block">
+        <div class="sig-city">Tangerang Selatan, <span contenteditable="true">16 April 2026</span></div>
+        <div class="sig-title">Diketahui Oleh,<br>Direktur LPH</div>
+        <div class="sig-space"></div>
+        <span class="sig-name" contenteditable="true">Dr. Yusraini Dian Inayati Siregar, M.Si.</span>
+        <div class="sig-nip" contenteditable="true">NIP. 197705122001122001</div>
+      </div>
+    </div>
+
+    <!-- LAMPIRAN -->
+    <div class="section-header">Lampiran</div>
+    <ul class="lampiran-list" id="lampiran-list">
+      <li data-key="foto" onclick="triggerUpload('foto')">
+        <span class="lmp-icon">&#128247;</span>
+        <span class="lmp-label">Lampiran Foto Audit</span>
+        <span class="lmp-badge" id="badge-foto">Belum diupload</span>
+        <input type="file" id="input-foto" accept="image/*" multiple style="display:none" onchange="handleUpload('foto', this.files)">
+      </li>
+      <li data-key="sertifikat" onclick="triggerUpload('sertifikat')">
+        <span class="lmp-icon">&#128196;</span>
+        <span class="lmp-label">Lampiran Sertifikat Penyelia Halal</span>
+        <span class="lmp-badge" id="badge-sertifikat">Belum diupload</span>
+        <input type="file" id="input-sertifikat" accept="image/*" multiple style="display:none" onchange="handleUpload('sertifikat', this.files)">
+      </li>
+      <li data-key="poster" onclick="triggerUpload('poster')">
+        <span class="lmp-icon">&#128204;</span>
+        <span class="lmp-label">Lampiran Poster Kebijakan Halal</span>
+        <span class="lmp-badge" id="badge-poster">Belum diupload</span>
+        <input type="file" id="input-poster" accept="image/*" multiple style="display:none" onchange="handleUpload('poster', this.files)">
+      </li>
+      <li data-key="denah" onclick="triggerUpload('denah')">
+        <span class="lmp-icon">&#128205;</span>
+        <span class="lmp-label">Lampiran Denah Lokasi Produksi</span>
+        <span class="lmp-badge" id="badge-denah">Belum diupload</span>
+        <input type="file" id="input-denah" accept="image/*" multiple style="display:none" onchange="handleUpload('denah', this.files)">
+      </li>
+      <li data-key="diagram" onclick="triggerUpload('diagram')">
+        <span class="lmp-icon">&#128202;</span>
+        <span class="lmp-label">Lampiran Diagram Alir Produksi</span>
+        <span class="lmp-badge" id="badge-diagram">Belum diupload</span>
+        <input type="file" id="input-diagram" accept="image/*" multiple style="display:none" onchange="handleUpload('diagram', this.files)">
+      </li>
+    </ul>
+    <!-- PREVIEW AREA -->
+    <div class="lampiran-preview-area" id="lampiran-preview-area"></div>
+
+  </div><!-- /content -->
+
+  <div class="page-footer">
+    <span>LPH UIN Syarif Hidayatullah Jakarta · Dokumen Internal</span>
+    <span id="footer-mode">Mode: DRAFT</span>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+const BAHAN_DATA = [
+  { no:1, nama:"ANCHOR FP Keju Cheddar Olahan (Cre)", jenis:"Bahan", temuan:"SH BPJPH ID00410000002160320, terbit tanggal 05/08/2025, dari Produsen PT. Fonterra Brands Indonesia", ket:"Sesuai" },
+  { no:2, nama:"ANCHOR Unsalted Butter", jenis:"Bahan", temuan:"SH BPJPH ID00410000476250922, terbit tanggal 13/10/2022, dari Produsen PT. Fonterra Brands Indonesia", ket:"Sesuai" },
+  { no:3, nama:"Baking Powder Koepoe Koepoe", jenis:"Bahan", temuan:"SH BPJPH ID00410000008110220, terbit tanggal 01/04/2020, dari Produsen PT Gunacipta Multirasa", ket:"" },
+  { no:4, nama:"Barry Callebaut Dark Chocolate Products", jenis:"Bahan", temuan:"SH BPJPH ID00410000500550822, terbit tanggal 27/10/2022, dari Produsen Barry Callebaut Chocolate Asia Pacific Pte Ltd", ket:"Sesuai" },
+  { no:5, nama:"Barry Callebaut White Chocolate Products", jenis:"Bahan", temuan:"SH BPJPH ID00410000500550822, terbit tanggal 27/10/2022, dari Produsen Barry Callebaut Chocolate Asia Pacific Pte Ltd", ket:"Sesuai" },
+  { no:6, nama:"Beeru Pure Matcha", jenis:"Bahan", temuan:"SH BPJPH ID00310000067691220, terbit tanggal 18/07/2024, dari Produsen PT. Matcha Muda Manggala", ket:"" },
+  { no:7, nama:"Biscoff biscuit", jenis:"Bahan", temuan:"SH BPJPH ID00410016295281223, terbit tanggal 21/03/2024, dari Produsen Lotus Bakeries", ket:"" },
+  { no:8, nama:"Biscoff spread crunchy", jenis:"Bahan", temuan:"SH BPJPH ID00410016295241223, terbit tanggal 21/03/2024, dari Produsen Lotus Bakeries", ket:"" },
+  { no:9, nama:"Cheesy Melt Topping Processed Cheese", jenis:"Bahan", temuan:"SH BPJPH ID00410000228910821, terbit tanggal 17/03/2022, dari Produsen PT. Dairygold Indonesia", ket:"" },
+  { no:10, nama:"Cocoa Powder (BENSDORP)", jenis:"Bahan", temuan:"SH BPJPH ID00410000264060622, terbit tanggal 21/07/2022, dari Produsen Papandayan Cocoa Industries", ket:"Sesuai" },
+  { no:11, nama:"Corniche Mega Marshmallow", jenis:"Bahan", temuan:"SH BPJPH ID00410000229550422, terbit tanggal 12/05/2022, dari Produsen Sucere Foods Corporation", ket:"" },
+  { no:12, nama:"Daging Giling Reguler Hijrahfood", jenis:"Bahan", temuan:"SH BPJPH ID32110003736920123, terbit tanggal 08/06/2023, dari Produsen PT. Hijrah Gizi Hewani", ket:"" },
+  { no:13, nama:"Daging Sapi Asap (Smoked Beef) - El Primo", jenis:"Bahan", temuan:"SH BPJPH ID00310000171100820, terbit tanggal 23/07/2021, dari Produsen PT. Indokulina Sarana Utama", ket:"" },
+  { no:14, nama:"DIAMOND - Susu UHT Full Cream", jenis:"Bahan", temuan:"SH BPJPH ID00110000172730921, terbit tanggal 16/12/2021, dari Produsen PT. Diamond Cold Storage", ket:"" },
+  { no:15, nama:"Frisian Flag Susu Kental Manis", jenis:"Bahan", temuan:"SH BPJPH ID00310000153301021, terbit tanggal 15/11/2021, dari Produsen PT. Frisian Flag Indonesia", ket:"" },
+  { no:16, nama:"Garam Dolpin", jenis:"Bahan", temuan:"SH BPJPH ID35310022447900525, terbit tanggal 24/05/2025, dari Produsen PT. Susanti Megah", ket:"" },
+  { no:17, nama:"Gulaku Premium", jenis:"Bahan", temuan:"SH BPJPH ID00410000201600321, terbit tanggal 17/06/2021, dari Produsen PT Sweet Indolampung", ket:"Sesuai" },
+  { no:18, nama:"Kayu Manis Bubuk/Utuh Koepoe Koepoe", jenis:"Bahan", temuan:"SH BPJPH ID00410000112370621, terbit tanggal 02/09/2021, dari Produsen Gunacipta Multirasa", ket:"" },
+  { no:19, nama:"La Dame In Vanilla - Vanilla Ekstrak", jenis:"Bahan", temuan:"SH BPJPH ID18210000103160221, terbit tanggal 03/05/2021, dari Produsen CV. Rindi Jaya", ket:"Sesuai" },
+  { no:20, nama:"Maizenaku", jenis:"Bahan", temuan:"SH BPJPH ID00210000256160322, terbit tanggal 16/06/2022, dari Produsen PT. Ega Multi Cipta", ket:"Sesuai" },
+  { no:21, nama:"Mascarpone", jenis:"Bahan", temuan:"SH NZIDT Limited REG RI HL NZ000001950924, terbit tanggal 07/09/2026, dari Produsen PT. Anta Tirta Kirana", ket:"Sesuai" },
+  { no:22, nama:"MAYUMI Saus Creamy", jenis:"Bahan", temuan:"SH BPJPH ID00410000088320221, terbit tanggal 06/05/2025, dari Produsen PT. Ajinomoto Indonesia", ket:"" },
+  { no:23, nama:'Merica Bubuk "Ladaku"', jenis:"Bahan", temuan:"SH BPJPH ID35410000009970220, terbit tanggal 15/10/2020, dari Produsen PT. Motasa Indonesia", ket:"Sesuai" },
+  { no:24, nama:"NOCPA1R Tulip Noir Black Cocoa Powder", jenis:"Bahan", temuan:"SH BPJPH ID00310000201531021, terbit tanggal 17/02/2025, dari Produsen PT. Freyabadi Indotama", ket:"" },
+  { no:25, nama:"Pewarna Merah Cabe Koepoe Koepoe", jenis:"Bahan", temuan:"SH BPJPH ID00410000230821221, terbit tanggal 17/02/2022, dari Produsen Gunacipta Multirasa", ket:"" },
+  { no:26, nama:"Pewarna Merah Rose Koepoe Koepoe", jenis:"Bahan", temuan:"SH BPJPH ID00410000230821221, terbit tanggal 17/02/2023, dari Produsen Gunacipta Multirasa", ket:"" },
+  { no:27, nama:"Pistachio Kunafa Spread", jenis:"Bahan", temuan:"SH BPJPH ID36110024123230725, terbit tanggal 15/07/2025, dari Produsen Cv. Boga Lezat Sejati", ket:"" },
+  { no:28, nama:"Primsfood Gula Halus (Icing Sugar)", jenis:"Bahan", temuan:"SH BPJPH ID00210021056211224, terbit tanggal 07/01/2025, dari Produsen PT. Primarasa Abadi Sejahtera", ket:"" },
+  { no:29, nama:"Ricoman Light Brown Sugar", jenis:"Bahan", temuan:"SH BPJPH ID00210000012460920, terbit tanggal 13/10/2020, dari Produsen PT Adda Jaya Indonesia", ket:"Sesuai" },
+  { no:30, nama:"Sari Lemon Nutrifarm 500 mL", jenis:"Bahan", temuan:"SH BPJPH ID36110022138220525, terbit tanggal 11/05/2025, dari Produsen PT Nutrifarm Prima Indonesia", ket:"" },
+  { no:31, nama:"Savoiardi Ladyfingers", jenis:"Bahan", temuan:"SH Halal Italia REG RI HL IT000018824224, terbit tanggal 08/11/2026, dari Produsen Senfienta Prima Tama", ket:"" },
+  { no:32, nama:"SUNCO (Frying Oil / Minyak Goreng)", jenis:"Bahan", temuan:"SH BPJPH ID00410000270040722, terbit tanggal 29/07/2025, dari Produsen PT. Mikie Oleo Nabati Industri", ket:"" },
+  { no:33, nama:"Susu Bubuk Dancow Full Cream", jenis:"Bahan", temuan:"SH BPJPH ID00410000234940322, terbit tanggal 19/05/2022, dari Produsen Nestle Indonesia", ket:"" },
+  { no:34, nama:"Tablette et Carres Guanaja 70%", jenis:"Bahan", temuan:"SH Halal Quality Control Group (HQC) France REG RI HL FR000039057825, terbit tanggal 11/07/2026, dari Produsen Valrhona", ket:"" },
+  { no:35, nama:"Tepung Roti (Halus) Foodchef", jenis:"Bahan", temuan:"SH BPJPH ID00410013665411123, terbit tanggal 29/12/2023, dari Produsen PT. Nutrigrain Pangan Industri", ket:"" },
+  { no:36, nama:"Tepung Tapioka Cap Pak Tani Gunung", jenis:"Bahan", temuan:"SH BPJPH ID00410000088710720, terbit tanggal 13/08/2021, dari Produsen PT. Budi Starch & Sweetener, Tbk", ket:"Sesuai" },
+  { no:37, nama:"Tepung Terigu Segitiga Biru", jenis:"Bahan", temuan:"SH BPJPH ID00410000090970121, terbit tanggal 25/03/2021, dari Produsen PT. Indofood Sukses Makmur Tbk Divisi Bogasari", ket:"Sesuai" },
+  { no:38, nama:"Tetangga Blend", jenis:"Bahan", temuan:"SH BPJPH ID36410000227471220, terbit tanggal 21/05/2021, dari Produsen PT Berangan Ragam Rasa", ket:"" },
+  { no:39, nama:"Whipping Cream Millac Gold", jenis:"Bahan", temuan:"SH BPJPH ID31110021166460325, terbit tanggal 15/03/2025, dari Produsen Cv. Permata Tunggal", ket:"" },
+  { no:40, nama:"Wijsman brand butter in tins", jenis:"Bahan", temuan:"SH Halal Feed and Food Inspection Authority REG RI HL NL000043856025, terbit tanggal 31/05/2026, dari Produsen Koninklijke VIV Buisman B.V", ket:"" },
+  { no:41, nama:"Gula Halus Rose Brand", jenis:"Bahan", temuan:"SH BPJPH ID00410000080820320, terbit tanggal 30/09/2021, dari Produsen PT Adikarya Gemilang", ket:"" },
+  { no:42, nama:"Garam Refina", jenis:"Bahan", temuan:"SH BPJPH ID35410000106830221, terbit tanggal 03/06/2021, dari Produsen PT. Unichemcandi Indonesia", ket:"" },
+  { no:43, nama:"Vanilla Powder Koepoe Koepoe", jenis:"Bahan", temuan:"SH BPJPH ID00410000230801221, terbit tanggal 03/03/2022, dari Produsen Gunacipta Multirasa", ket:"" },
+  { no:44, nama:"Kunci Biru", jenis:"Bahan", temuan:"SH BPJPH ID00410000090970121, terbit tanggal 25/03/2021, dari Produsen PT. Indofood Sukses Makmur Tbk Divisi Bogasari", ket:"" },
+  { no:45, nama:"Air", jenis:"Bahan", temuan:"positif", ket:"" },
+  { no:46, nama:"Telur Ayam", jenis:"Bahan", temuan:"positif", ket:"" },
+  { no:47, nama:"Pisang", jenis:"Bahan", temuan:"positif", ket:"" },
+  { no:48, nama:"Nanas", jenis:"Bahan", temuan:"positif", ket:"" },
+  { no:49, nama:"Jamur", jenis:"Bahan", temuan:"positif", ket:"" },
+  { no:50, nama:"Kacang Macadamia", jenis:"Bahan", temuan:"positif", ket:"" },
+  { no:51, nama:"Kacang Mede", jenis:"Bahan", temuan:"positif", ket:"" },
+  { no:52, nama:"Cengkeh", jenis:"Bahan", temuan:"positif", ket:"" },
+  { no:53, nama:"Bawang Bombay", jenis:"Bahan", temuan:"positif", ket:"" },
+  { no:54, nama:"Bawang Putih", jenis:"Bahan", temuan:"positif", ket:"" },
+  { no:55, nama:"Soft Box", jenis:"Kemasan", temuan:"SH BPJPH ID36110028397440925, terbit tanggal 20/09/2025, dari Produsen PT. Fuji Pratama Global", ket:"" },
+  { no:56, nama:"Baking Paper", jenis:"Kemasan", temuan:"SH BPJPH ID00410000476720822, terbit tanggal 13/10/2022, dari Produsen PT. Dragon Pack", ket:"" },
+  { no:57, nama:"Plastik opp", jenis:"Kemasan", temuan:"SH BPJPH ID31310021455600425, terbit tanggal 15/04/2025, dari Produsen PT CHEKO SENTOSA", ket:"" },
+  { no:58, nama:"Toples", jenis:"Kemasan", temuan:"SH BPJPH ID36110020870201024, terbit tanggal 15/07/2025, dari Produsen PT. Triguna Jaya Sentosa", ket:"" },
+  { no:59, nama:"Paper Bowl", jenis:"Kemasan", temuan:"SH BPJPH ID36110021173550325, terbit tanggal 24/03/2025, dari Produsen PT. Triguna Jaya Sentosa", ket:"" },
+  { no:60, nama:"SUNLIGHT Cairan Pencuci Piring", jenis:"Cleaning Agent", temuan:"SH BPJPH ID00410000008400120, terbit tanggal 03/06/2024, dari Produsen PT. Unilever Indonesia Tbk", ket:"" },
+  { no:61, nama:"SELAI PISTACHIO KUNAFA MERK MELTS", jenis:"Bahan", temuan:"ID31110021411980425", ket:"", isNew:true },
+  { no:62, nama:"Elle & Vire Whipping Cream", jenis:"Bahan", temuan:"", ket:"Perlu verifikasi", isNew:true },
+];
+
+const KRITERIA_DATA = [
+  { no:1, kriteria:"Komitmen dan Tanggung Jawab", catatan:"Tidak ada kelemahan\n\nBukti implementasi:\n• Kebijakan halal perusahaan telah ditetapkan pada tanggal [isi]\n• Cara sosialisasi kebijakan halal kepada stakeholder terkait melalui pelatihan internal\n• Penyelia halal adalah Uly Fitria Bale dengan pelatihan Penyelia Halal eksternal tanggal [isi]\n• Penjelasan mengenai tugas, tanggung jawab, dan wewenang tim terdapat dalam manual SJPH\n• Pelatihan dan edukasi dilaksanakan pada tanggal [isi]\n• Audit internal dan Kaji ulang manajemen sudah dilaksanakan pada tanggal [isi]\n• Prosedur tertulis pelatihan terdapat dalam manual SJPH" },
+  { no:2, kriteria:"Bahan", catatan:"Tidak ada kelemahan" },
+  { no:3, kriteria:"Proses Produk Halal", catatan:"Tidak ada kelemahan\n\nBukti implementasi:\n• Fasilitas produksi bersih, bebas dari najis dan hewan peliharaan maupun hewan non halal\n• Tempat jauh dari peternakan babi\n• Ruang produksi khusus ada di dapur terpisah, tidak bercampur dengan dapur rumah\n• Peralatan yang digunakan dari stainless steel\n• Karyawan muslim, saat proses produksi menggunakan APD" },
+  { no:4, kriteria:"Produk", catatan:"Tidak ada kelemahan" },
+  { no:5, kriteria:"Pemantauan dan Evaluasi", catatan:"Tidak ada kelemahan\n\nBukti implementasi:\n• Sudah dilakukan audit internal dan kaji ulang manajemen pada tanggal [isi]" },
+  { no:6, kriteria:"SOP terkait penerapan SJPH", catatan:"Tidak ada kelemahan" },
+  { no:7, kriteria:"Implementasi Keamanan Pangan", catatan:"Tidak ada kelemahan" },
+];
+
+function renderBahan() {
+  const tbody = document.getElementById('bahan-body');
+  tbody.innerHTML = BAHAN_DATA.map(b => {
+    const isPositif = b.temuan === 'positif';
+    const temuanHtml = isPositif
+      ? '<span class="temuan-text positif">Positif list</span>'
+      : `<span class="temuan-text">${b.temuan}</span>`;
+    const ketHtml = b.ket === 'Sesuai'
+      ? '<span class="badge-sesuai">Sesuai</span>'
+      : isPositif ? '<span class="badge-positif">Positif List</span>'
+      : `<span contenteditable="true" style="display:inline-block;min-width:40px;">${b.ket}</span>`;
+    const newTag = b.isNew ? ' <span class="badge-new">Baru</span>' : '';
+    return `<tr>
+      <td class="num">${b.no}</td>
+      <td contenteditable="true">${b.nama}${newTag}</td>
+      <td contenteditable="true">${b.jenis}</td>
+      <td class="diragukan hide-mobile">&#10003;</td>
+      <td>${temuanHtml}</td>
+      <td>${ketHtml}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderKriteria() {
+  const tbody = document.getElementById('kriteria-body');
+  tbody.innerHTML = KRITERIA_DATA.map(k => `<tr>
+    <td class="num">${k.no}</td>
+    <td>${k.kriteria}</td>
+    <td class="catatan"><textarea rows="4">${k.catatan}</textarea></td>
+  </tr>`).join('');
+}
+
+function setMode(mode) {
+  document.querySelectorAll('.status-tabs button').forEach((b,i) => {
+    b.classList.toggle('active', ['draft','summary','final'][i] === mode);
+  });
+  const badge = document.getElementById('version-badge');
+  const desc = document.getElementById('version-desc');
+  const title = document.getElementById('doc-title-main');
+  const footer = document.getElementById('footer-mode');
+  if (mode === 'draft') {
+    badge.textContent = 'DRAFT'; badge.style.background = 'var(--gold)';
+    desc.textContent = 'Dibuat otomatis dari data perusahaan · Kriteria SJPH dapat diisi langsung';
+    title.textContent = 'RINGKASAN LAPORAN HASIL AUDIT HALAL';
+    footer.textContent = 'Mode: DRAFT';
+    document.querySelector('.inject-bar').style.display = 'flex';
+  } else if (mode === 'summary') {
+    badge.textContent = 'RINGKASAN PASCA AUDIT'; badge.style.background = '#1a5276';
+    desc.textContent = 'Ringkasan temuan pasca audit · Bahan baru dan revisi SJPH dapat ditambahkan';
+    title.textContent = 'RINGKASAN PASCA AUDIT HALAL';
+    footer.textContent = 'Mode: RINGKASAN PASCA AUDIT';
+    document.querySelector('.inject-bar').style.display = 'flex';
+  } else {
+    badge.textContent = 'LAPORAN HASIL AUDIT'; badge.style.background = 'var(--blue-uin)';
+    desc.textContent = 'Laporan final · Siap diunduh dan diupload ke SIHALAL oleh admin LPH';
+    title.textContent = 'LAPORAN HASIL AUDIT HALAL';
+    footer.textContent = 'Mode: FINAL — Laporan Hasil Audit';
+    document.querySelector('.inject-bar').style.display = 'none';
+  }
+}
+
+renderBahan();
+renderKriteria();
+
+// ── LAMPIRAN UPLOAD & RESIZE ──
+const LAMPIRAN_LABELS = {
+  foto: 'Lampiran Foto Audit',
+  sertifikat: 'Lampiran Sertifikat Penyelia Halal',
+  poster: 'Lampiran Poster Kebijakan Halal',
+  denah: 'Lampiran Denah Lokasi Produksi',
+  diagram: 'Lampiran Diagram Alir Produksi'
+};
+
+// Store: { key: [ { dataUrl, w, h, lockAspect }, ... ] }
+const lampiranStore = {};
+
+function triggerUpload(key) {
+  document.getElementById('input-' + key).click();
+}
+
+function handleUpload(key, fileList) {
+  if (!fileList || fileList.length === 0) return;
+  if (!lampiranStore[key]) lampiranStore[key] = [];
+
+  let loaded = 0;
+  Array.from(fileList).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.onload = function() {
+        // Default display size: cap at 300px wide, keep aspect
+        const maxW = 300;
+        let dw = img.naturalWidth;
+        let dh = img.naturalHeight;
+        if (dw > maxW) { dh = Math.round(dh * maxW / dw); dw = maxW; }
+
+        lampiranStore[key].push({
+          dataUrl: e.target.result,
+          w: dw,
+          h: dh,
+          lockAspect: true,
+          origW: img.naturalWidth,
+          origH: img.naturalHeight
+        });
+        loaded++;
+        if (loaded === fileList.length) {
+          renderAllPreviews();
+          updateBadge(key);
+        }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // Reset input so re-uploading the same file works
+  document.getElementById('input-' + key).value = '';
+}
+
+function updateBadge(key) {
+  const badge = document.getElementById('badge-' + key);
+  const count = (lampiranStore[key] || []).length;
+  if (count === 0) {
+    badge.textContent = 'Belum diupload';
+    badge.classList.remove('uploaded');
+  } else {
+    badge.textContent = count + ' file terupload';
+    badge.classList.add('uploaded');
+  }
+}
+
+function renderAllPreviews() {
+  const area = document.getElementById('lampiran-preview-area');
+  let html = '';
+  for (const [key, images] of Object.entries(lampiranStore)) {
+    if (!images || images.length === 0) continue;
+    html += '<div class="lampiran-preview-group">';
+    html += '<div class="lmp-group-label">' + LAMPIRAN_LABELS[key] + '</div>';
+    html += '<div class="lampiran-previews">';
+
+    images.forEach((img, idx) => {
+      html += '<div class="lampiran-img-card">';
+      html += '<div class="img-wrapper" style="width:' + img.w + 'px;height:' + img.h + 'px;">';
+      html += '<img src="' + img.dataUrl + '" style="width:' + img.w + 'px;height:' + img.h + 'px;" id="img-' + key + '-' + idx + '">';
+      html += '<button class="btn-remove-img" onclick="removeImage(\'' + key + '\',' + idx + ')" title="Hapus gambar">&times;</button>';
+      html += '</div>';
+      html += '<div class="img-controls">';
+      html += '<label>W:</label><input type="number" value="' + img.w + '" min="20" max="800" onchange="updateSize(\'' + key + '\',' + idx + ',\'w\',this.value)">';
+      html += '<span class="sz-sep">&times;</span>';
+      html += '<label>H:</label><input type="number" value="' + img.h + '" min="20" max="800" onchange="updateSize(\'' + key + '\',' + idx + ',\'h\',this.value)">';
+      html += '<span class="sz-sep">px</span>';
+      html += '<button class="btn-lock' + (img.lockAspect ? ' active' : '') + '" onclick="toggleLock(\'' + key + '\',' + idx + ')" title="Kunci rasio aspek">&#x1F512;</button>';
+      html += '</div>';
+      html += '</div>';
+    });
+
+    html += '</div></div>';
+  }
+  area.innerHTML = html;
+}
+
+function updateSize(key, idx, dim, value) {
+  const img = lampiranStore[key][idx];
+  const newVal = Math.max(20, Math.min(800, parseInt(value) || 20));
+
+  if (img.lockAspect) {
+    const ratio = img.origW / img.origH;
+    if (dim === 'w') {
+      img.w = newVal;
+      img.h = Math.round(newVal / ratio);
+    } else {
+      img.h = newVal;
+      img.w = Math.round(newVal * ratio);
+    }
+  } else {
+    img[dim] = newVal;
+  }
+
+  // Update DOM
+  const wrap = document.querySelector('#img-' + key + '-' + idx).parentElement;
+  wrap.style.width = img.w + 'px';
+  wrap.style.height = img.h + 'px';
+  const imgEl = document.getElementById('img-' + key + '-' + idx);
+  imgEl.style.width = img.w + 'px';
+  imgEl.style.height = img.h + 'px';
+
+  // Update number inputs
+  const inputs = wrap.parentElement.querySelectorAll('.img-controls input[type="number"]');
+  inputs[0].value = img.w;
+  inputs[1].value = img.h;
+}
+
+function toggleLock(key, idx) {
+  const img = lampiranStore[key][idx];
+  img.lockAspect = !img.lockAspect;
+  renderAllPreviews();
+}
+
+function removeImage(key, idx) {
+  lampiranStore[key].splice(idx, 1);
+  updateBadge(key);
+  renderAllPreviews();
+}
+</script>
+</body>
+</html>

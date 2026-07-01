@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>HARS — Halal Audit Report System</title>
+<meta name="viewport" content="width=1440">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:        #0b1220;
+    --ink-2:      #1c2538;
+    --muted:      #5b6478;
+    --muted-2:    #8a93a6;
+    --line:       #e6e8ee;
+    --line-2:     #eef0f5;
+    --bg:         #f5f6f3;
+    --paper:      #ffffff;
+    --paper-tint: #fbfbf8;
+
+    --navy:       #0e2a4d;
+    --navy-2:     #163b6b;
+    --blue:       #1e62c4;
+    --blue-soft:  #eaf1fb;
+
+    --emerald:    #0f7a4a;
+    --emerald-2:  #0a5a37;
+    --emerald-soft:#e7f3ec;
+
+    --amber:      #a36a00;
+    --amber-soft: #fbf2dd;
+    --rose:       #a83246;
+    --rose-soft:  #fbe7eb;
+    --violet:     #4b3b8a;
+    --violet-soft:#ebe7f6;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    font-size:14px;
+    line-height:1.45;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-feature-settings:"tnum","zero"}
+
+  /* ============ TOP BAR ============ */
+  .topbar{
+    background:var(--navy);
+    color:#fff;
+    display:flex;
+    align-items:stretch;
+    height:56px;
+    border-bottom:1px solid #0a1f3a;
+  }
+  .topbar .brand{
+    display:flex;align-items:center;gap:14px;
+    padding:0 22px;
+    border-right:1px solid rgba(255,255,255,.10);
+  }
+  .brand-mark{
+    width:30px;height:30px;border-radius:7px;
+    background:linear-gradient(135deg,#1a5fb4 0%,#0e7a4a 100%);
+    display:grid;place-items:center;
+    font-weight:800;font-size:13px;letter-spacing:.02em;
+    color:#fff;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);
+  }
+  .brand-text{display:flex;flex-direction:column;line-height:1.1}
+  .brand-text b{font-weight:800;letter-spacing:.06em;font-size:14px}
+  .brand-text span{color:#9fb8db;font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+
+  .topbar nav{display:flex;align-items:center;gap:2px;padding:0 8px}
+  .topbar nav a{
+    padding:0 14px;height:100%;display:flex;align-items:center;
+    color:#cfd9eb;text-decoration:none;font-weight:500;font-size:13px;
+    border-bottom:2px solid transparent;
+    transition:color .15s;
+  }
+  .topbar nav a:hover{color:#fff}
+  .topbar nav a.on{color:#fff;border-bottom-color:#3b8dd9;font-weight:600}
+
+  .topbar .right{margin-left:auto;display:flex;align-items:center;gap:8px;padding-right:14px}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    height:34px;padding:0 12px;border-radius:8px;
+    background:rgba(255,255,255,.06);
+    color:#dbe6f6;font-size:12.5px;font-weight:500;
+    border:1px solid rgba(255,255,255,.10);
+  }
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:#3ad36a;box-shadow:0 0 0 2px rgba(58,211,106,.18)}
+  .pill.user{padding:4px 4px 4px 12px;gap:10px}
+  .pill.user .role{color:#9fb8db;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+  .pill.user .avatar{
+    width:26px;height:26px;border-radius:6px;
+    background:#1e62c4;display:grid;place-items:center;
+    color:#fff;font-weight:700;font-size:11px;
+  }
+  .icon-btn{
+    width:34px;height:34px;border-radius:8px;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.10);
+    display:grid;place-items:center;cursor:pointer;color:#cfd9eb;
+  }
+  .icon-btn:hover{background:rgba(255,255,255,.12)}
+
+  /* ============ PAGE LAYOUT ============ */
+  .page{
+    max-width:1360px;margin:0 auto;padding:22px 32px 40px;
+  }
+
+  .crumbs{
+    display:flex;align-items:center;gap:8px;
+    color:var(--muted);font-size:12.5px;margin-bottom:14px;
+  }
+  .crumbs a{color:var(--muted);text-decoration:none}
+  .crumbs .sep{color:var(--muted-2)}
+  .crumbs .here{color:var(--ink);font-weight:600}
+
+  .page-head{
+    display:flex;align-items:flex-end;justify-content:space-between;gap:24px;
+    margin-bottom:20px;
+  }
+  .page-head h1{
+    margin:0 0 4px;font-size:26px;font-weight:800;letter-spacing:-.015em;
+    color:var(--ink);
+  }
+  .page-head .sub{color:var(--muted);font-size:13.5px}
+  .page-head .sub b{color:var(--ink-2);font-weight:600}
+  .head-actions{display:flex;gap:8px;align-items:center}
+
+  .btn{
+    height:38px;padding:0 14px;border-radius:8px;
+    font-family:inherit;font-size:13px;font-weight:600;
+    border:1px solid var(--line);
+    background:#fff;color:var(--ink);cursor:pointer;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:background .15s,border-color .15s;
+  }
+  .btn:hover{border-color:#cdd2dc;background:#fafbfc}
+  .btn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
+  .btn.primary:hover{background:var(--navy-2);border-color:var(--navy-2)}
+  .btn.ghost{background:transparent}
+  .btn svg{width:14px;height:14px}
+
+  /* ============ STAT CARDS ============ */
+  .stats{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+    margin-bottom:24px;
+  }
+  .stat{
+    background:var(--paper);border:1px solid var(--line);border-radius:12px;
+    padding:18px 18px 16px;position:relative;overflow:hidden;
+  }
+  .stat .label{
+    display:flex;align-items:center;gap:8px;
+    font-size:11.5px;font-weight:600;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  .stat .label .ic{
+    width:22px;height:22px;border-radius:6px;display:grid;place-items:center;
+  }
+  .stat .num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:34px;font-weight:600;letter-spacing:-.02em;
+    margin:10px 0 4px;color:var(--ink);
+    font-feature-settings:"tnum","zero";
+  }
+  .stat .num .unit{font-size:16px;color:var(--muted);margin-left:4px;font-weight:500}
+  .stat .meta{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+  .stat .delta{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:600;font-size:11.5px;padding:1px 6px;border-radius:4px;
+  }
+  .delta.up{color:var(--emerald-2);background:var(--emerald-soft)}
+  .delta.down{color:var(--rose);background:var(--rose-soft)}
+  .delta.flat{color:var(--muted);background:var(--line-2)}
+
+  .stat .spark{position:absolute;right:14px;top:18px;width:88px;height:30px;opacity:.85}
+
+  .stat.accent-blue .ic{background:var(--blue-soft);color:var(--blue)}
+  .stat.accent-emerald .ic{background:var(--emerald-soft);color:var(--emerald-2)}
+  .stat.accent-amber .ic{background:var(--amber-soft);color:var(--amber)}
+  .stat.accent-violet .ic{background:var(--violet-soft);color:var(--violet)}
+
+  /* ============ MAIN GRID ============ */
+  .grid{
+    display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;
+  }
+
+  .panel{
+    background:var(--paper);border:1px solid var(--line);border-radius:12px;
+    overflow:hidden;
+  }
+  .panel-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 18px 14px;border-bottom:1px solid var(--line-2);
+    gap:12px;flex-wrap:wrap;
+  }
+  .panel-title h2{
+    margin:0;font-size:16px;font-weight:700;letter-spacing:-.01em;
+  }
+  .panel-title .pt-sub{color:var(--muted);font-size:12.5px;margin-top:2px}
+
+  /* ============ FILTERS ============ */
+  .filters{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .search{
+    position:relative;flex:0 0 280px;
+  }
+  .search input{
+    width:100%;height:36px;border-radius:8px;
+    border:1px solid var(--line);background:#fff;
+    padding:0 12px 0 34px;font-family:inherit;font-size:13px;color:var(--ink);
+    outline:none;transition:border-color .15s,box-shadow .15s;
+  }
+  .search input:focus{border-color:#aac2e8;box-shadow:0 0 0 3px rgba(30,98,196,.12)}
+  .search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted-2);width:14px;height:14px}
+
+  .chips{display:flex;gap:6px;background:var(--line-2);padding:3px;border-radius:9px}
+  .chip{
+    padding:6px 11px;border-radius:6px;font-size:12.5px;font-weight:600;color:var(--muted);
+    cursor:pointer;border:none;background:transparent;font-family:inherit;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .chip .count{
+    font-family:'JetBrains Mono',monospace;
+    color:var(--muted-2);font-size:11px;font-weight:600;
+  }
+  .chip.on{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(11,18,32,.06),0 0 0 1px var(--line)}
+  .chip.on .count{color:var(--blue)}
+
+  .select{
+    height:36px;border-radius:8px;border:1px solid var(--line);background:#fff;
+    padding:0 30px 0 12px;font:inherit;font-size:13px;color:var(--ink);
+    appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%235b6478' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>");
+    background-repeat:no-repeat;background-position:right 11px center;
+  }
+
+  /* ============ TABLE ============ */
+  table.reg{width:100%;border-collapse:collapse;font-size:13px}
+  table.reg thead th{
+    text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--muted);
+    padding:11px 16px;background:var(--paper-tint);
+    border-bottom:1px solid var(--line);
+  }
+  table.reg tbody td{
+    padding:14px 16px;border-bottom:1px solid var(--line-2);
+    vertical-align:middle;
+  }
+  table.reg tbody tr:last-child td{border-bottom:0}
+  table.reg tbody tr:hover{background:#fafbfc}
+  table.reg tbody tr.selected{background:#f1f6fd}
+
+  .nodaftar{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--ink-2);font-weight:500}
+  .pu-name{font-weight:700;color:var(--ink);letter-spacing:-.005em}
+  .pu-sub{color:var(--muted);font-size:11.5px;margin-top:1px}
+  .auditor{display:flex;align-items:center;gap:8px}
+  .avatar-sm{
+    width:24px;height:24px;border-radius:50%;
+    background:#dde4ef;color:var(--navy);
+    display:grid;place-items:center;font-size:10.5px;font-weight:700;
+    flex-shrink:0;
+  }
+  .avatar-sm.v1{background:#dde6f4;color:#163b6b}
+  .avatar-sm.v2{background:#dceae0;color:#0a5a37}
+  .avatar-sm.v3{background:#f4e6cf;color:#7a4d00}
+  .avatar-sm.v4{background:#e8e1f3;color:#3b2d70}
+  .avatar-sm.v5{background:#f4d8de;color:#7a1a2d}
+
+  .progress{display:flex;align-items:center;gap:8px}
+  .bar{flex:1;height:6px;background:var(--line-2);border-radius:99px;overflow:hidden;min-width:80px;max-width:120px}
+  .bar > i{display:block;height:100%;background:var(--emerald);border-radius:99px}
+  .bar.b-blue > i{background:var(--blue)}
+  .bar.b-amber > i{background:#d49519}
+  .bar.b-rose  > i{background:var(--rose)}
+  .progress .pct{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted);min-width:30px;text-align:right}
+
+  .badge{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:3px 8px;border-radius:99px;font-size:11.5px;font-weight:600;
+    line-height:1;
+  }
+  .badge .d{width:6px;height:6px;border-radius:50%}
+  .badge.draft{background:var(--line-2);color:var(--muted)}
+  .badge.draft .d{background:#9aa3b6}
+  .badge.audit{background:var(--blue-soft);color:var(--blue)}
+  .badge.audit .d{background:var(--blue)}
+  .badge.review{background:var(--amber-soft);color:var(--amber)}
+  .badge.review .d{background:#d49519}
+  .badge.done{background:var(--emerald-soft);color:var(--emerald-2)}
+  .badge.done .d{background:var(--emerald)}
+  .badge.hold{background:var(--rose-soft);color:var(--rose)}
+  .badge.hold .d{background:var(--rose)}
+
+  .actions{display:flex;gap:4px;justify-content:flex-end}
+  .action{
+    width:30px;height:30px;border-radius:7px;border:1px solid var(--line);background:#fff;
+    display:grid;place-items:center;cursor:pointer;color:var(--muted);
+  }
+  .action:hover{color:var(--ink);border-color:#cdd2dc}
+  .action.primary{
+    width:auto;padding:0 10px;color:var(--blue);border-color:#cfdef5;background:#fff;
+    font:inherit;font-size:12px;font-weight:600;gap:6px;display:inline-flex;
+  }
+  .action.primary:hover{background:var(--blue-soft)}
+
+  .due{font-family:'JetBrains Mono',monospace;font-size:12.5px}
+  .due small{display:block;font-size:10.5px;color:var(--muted);font-weight:500;margin-top:2px;font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:.04em;text-transform:uppercase}
+  .due.warn{color:var(--amber)}
+  .due.late{color:var(--rose)}
+
+  /* ============ SIDE PANELS ============ */
+  .side{display:flex;flex-direction:column;gap:18px}
+
+  .alert{
+    background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;
+    display:flex;gap:12px;align-items:flex-start;
+    border-left:3px solid var(--amber);
+  }
+  .alert .ic{
+    width:32px;height:32px;border-radius:8px;background:var(--amber-soft);
+    color:var(--amber);display:grid;place-items:center;flex-shrink:0;
+  }
+  .alert h3{margin:0 0 2px;font-size:13.5px;font-weight:700}
+  .alert p{margin:0 0 8px;font-size:12.5px;color:var(--muted);line-height:1.5}
+  .alert a{color:var(--blue);font-weight:600;font-size:12.5px;text-decoration:none}
+
+  .auditors h3{margin:0;font-size:13px;font-weight:700}
+  .auditor-row{
+    display:flex;align-items:center;gap:12px;padding:12px 18px;
+    border-top:1px solid var(--line-2);
+  }
+  .auditor-row:first-of-type{border-top:0}
+  .auditor-row .name{font-weight:600;font-size:13px}
+  .auditor-row .meta{color:var(--muted);font-size:11.5px;margin-top:1px}
+  .auditor-row .load{margin-left:auto;text-align:right}
+  .auditor-row .load .n{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:13px;color:var(--ink)}
+  .auditor-row .load .l{font-size:10.5px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+  .avatar-md{
+    width:34px;height:34px;border-radius:8px;flex-shrink:0;
+    display:grid;place-items:center;font-weight:700;font-size:12px;
+  }
+
+  .activity{padding:6px 0 14px}
+  .act-item{display:flex;gap:12px;padding:10px 18px;position:relative}
+  .act-item .timeline{
+    position:absolute;left:31px;top:0;bottom:0;width:1px;background:var(--line);
+  }
+  .act-item:first-child .timeline{top:18px}
+  .act-item:last-child .timeline{bottom:calc(100% - 18px)}
+  .act-dot{
+    width:10px;height:10px;border-radius:50%;
+    background:#fff;border:2px solid var(--blue);
+    margin-left:8px;margin-top:7px;flex-shrink:0;z-index:1;
+  }
+  .act-dot.green{border-color:var(--emerald)}
+  .act-dot.amber{border-color:#d49519}
+  .act-dot.muted{border-color:#9aa3b6}
+  .act-body{flex:1;font-size:12.5px;color:var(--ink-2);line-height:1.45}
+  .act-body b{font-weight:700}
+  .act-time{font-size:11px;color:var(--muted-2);font-family:'JetBrains Mono',monospace;margin-top:2px}
+
+  /* ============ FOOTER OF TABLE ============ */
+  .tfoot{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:12px 18px;border-top:1px solid var(--line-2);
+    background:var(--paper-tint);font-size:12.5px;color:var(--muted);
+  }
+  .pager{display:flex;align-items:center;gap:4px}
+  .pgbtn{
+    width:28px;height:28px;border-radius:6px;border:1px solid var(--line);background:#fff;
+    font:inherit;font-size:12px;font-weight:600;color:var(--muted);
+    display:inline-grid;place-items:center;cursor:pointer;
+  }
+  .pgbtn.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .pgbtn:disabled{opacity:.45;cursor:default}
+
+  /* SVG icons reset */
+  svg{display:block}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">H</div>
+    <div class="brand-text">
+      <b>HARS</b>
+      <span>LPH UIN Jakarta</span>
+    </div>
+  </div>
+
+  <nav>
+    <a href="#" class="on">Dashboard</a>
+    <a href="#">Registrasi</a>
+    <a href="#">Auditor</a>
+    <a href="#">Laporan</a>
+    <a href="#">Arsip</a>
+    <a href="#">Pengaturan</a>
+  </nav>
+
+  <div class="right">
+    <span class="pill"><span class="dot"></span> Sistem normal</span>
+    <button class="icon-btn" title="Notifikasi" aria-label="Notifikasi">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+    </button>
+    <button class="icon-btn" title="Pengaturan" aria-label="Pengaturan">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+    <span class="pill user">
+      <span class="role">Admin LPH</span>
+      <span class="avatar">RH</span>
+    </span>
+  </div>
+</header>
+
+<!-- ============ PAGE ============ -->
+<main class="page">
+
+  <div class="crumbs">
+    <a href="#">Workspace</a>
+    <span class="sep">/</span>
+    <a href="#">LPH UIN Jakarta</a>
+    <span class="sep">/</span>
+    <span class="here">Dashboard</span>
+  </div>
+
+  <div class="page-head">
+    <div>
+      <h1>Selamat datang kembali, Rahmat</h1>
+      <p class="sub"><b>1 registrasi aktif</b> · 2 auditor tersedia · Periode audit Mei 2026</p>
+    </div>
+    <div class="head-actions">
+      <button class="btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Ekspor laporan
+      </button>
+      <button class="btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        Kelola User
+      </button>
+      <button class="btn primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Registrasi Baru
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ STAT CARDS ============ -->
+  <section class="stats">
+
+    <div class="stat accent-blue">
+      <div class="label">
+        <span class="ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+        Total Registrasi
+      </div>
+      <div class="num">1</div>
+      <div class="meta"><span class="delta flat">0%</span> dibanding April</div>
+      <svg class="spark" viewBox="0 0 88 30" preserveAspectRatio="none">
+        <polyline points="0,22 12,20 24,21 36,19 48,18 60,16 72,15 88,12" fill="none" stroke="#1e62c4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="0,22 12,20 24,21 36,19 48,18 60,16 72,15 88,12 88,30 0,30" fill="#1e62c4" opacity=".08"/>
+      </svg>
+    </div>
+
+    <div class="stat accent-emerald">
+      <div class="label">
+        <span class="ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+        Auditor Aktif
+      </div>
+      <div class="num">2 <span class="unit">/ 2</span></div>
+      <div class="meta"><span class="delta up">+1</span> auditor baru bulan ini</div>
+      <svg class="spark" viewBox="0 0 88 30" preserveAspectRatio="none">
+        <polyline points="0,24 12,24 24,22 36,22 48,18 60,18 72,14 88,12" fill="none" stroke="#0f7a4a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <div class="stat accent-amber">
+      <div class="label">
+        <span class="ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+        Audit Berjalan
+      </div>
+      <div class="num">1</div>
+      <div class="meta"><span class="delta flat">3 hari</span> rata-rata siklus</div>
+      <svg class="spark" viewBox="0 0 88 30" preserveAspectRatio="none">
+        <rect x="2"  y="18" width="6" height="10" fill="#d49519" opacity=".4"/>
+        <rect x="14" y="14" width="6" height="14" fill="#d49519" opacity=".55"/>
+        <rect x="26" y="20" width="6" height="8"  fill="#d49519" opacity=".4"/>
+        <rect x="38" y="10" width="6" height="18" fill="#d49519" opacity=".7"/>
+        <rect x="50" y="16" width="6" height="12" fill="#d49519" opacity=".55"/>
+        <rect x="62" y="8"  width="6" height="20" fill="#d49519" opacity=".85"/>
+        <rect x="74" y="6"  width="6" height="22" fill="#d49519"/>
+      </svg>
+    </div>
+
+    <div class="stat accent-violet">
+      <div class="label">
+        <span class="ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
+        Penyimpanan Sistem
+      </div>
+      <div class="num">88 <span class="unit">KB</span></div>
+      <div class="meta">
+        <span class="delta up">0.001%</span> dari 10 GB kuota
+      </div>
+      <svg class="spark" viewBox="0 0 88 30" preserveAspectRatio="none">
+        <rect x="0" y="22" width="88" height="6" rx="3" fill="#ebe7f6"/>
+        <rect x="0" y="22" width="2"  height="6" rx="3" fill="#4b3b8a"/>
+      </svg>
+    </div>
+
+  </section>
+
+  <!-- ============ MAIN GRID ============ -->
+  <div class="grid">
+
+    <!-- ============ MAIN: REGISTRATION TABLE ============ -->
+    <section class="panel">
+      <div class="panel-head">
+        <div class="panel-title">
+          <h2>Daftar Registrasi</h2>
+          <div class="pt-sub">Pelaku usaha & status audit halal di workspace</div>
+        </div>
+        <div class="filters">
+          <div class="chips">
+            <button class="chip on">Semua <span class="count">1</span></button>
+            <button class="chip">Aktif <span class="count">1</span></button>
+            <button class="chip">Selesai <span class="count">0</span></button>
+            <button class="chip">Ditahan <span class="count">0</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:12px 18px 0;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input placeholder="Cari nomor daftar, nama PU, jenis produk…">
+        </div>
+        <select class="select">
+          <option>Semua jenis produk</option>
+          <option>Kemasan produk</option>
+          <option>Makanan & minuman</option>
+          <option>Kosmetik</option>
+          <option>Obat-obatan</option>
+        </select>
+        <select class="select">
+          <option>Semua auditor</option>
+          <option>Dr. Adi Riyadhi, M.Si.</option>
+          <option>Dr. Siti Nurhaliza, M.Sc.</option>
+        </select>
+        <select class="select">
+          <option>Bulan ini · Mei 2026</option>
+          <option>April 2026</option>
+          <option>Maret 2026</option>
+        </select>
+        <button class="btn ghost" style="margin-left:auto;color:var(--muted)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          Kolom
+        </button>
+      </div>
+
+      <div style="padding:14px 0 0">
+      <table class="reg">
+        <thead>
+          <tr>
+            <th style="padding-left:18px">No. Daftar</th>
+            <th>Pelaku Usaha</th>
+            <th>Jenis Produk</th>
+            <th>Lead Auditor</th>
+            <th>Status</th>
+            <th>Progres</th>
+            <th>Tgl Audit</th>
+            <th style="padding-right:18px;text-align:right">Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr class="selected">
+            <td style="padding-left:18px"><span class="nodaftar">SH2026-1-2216371</span></td>
+            <td>
+              <div class="pu-name">KONSTAN KAYA INDONESIA</div>
+              <div class="pu-sub">PT · Tangerang Selatan</div>
+            </td>
+            <td>
+              Kemasan produk
+              <div class="pu-sub">3 SKU terdaftar</div>
+            </td>
+            <td>
+              <div class="auditor">
+                <div class="avatar-sm v2">AR</div>
+                <div>
+                  <div style="font-weight:600">Dr. Adi Riyadhi</div>
+                  <div class="pu-sub">M.Si. · Kimia Pangan</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="badge audit"><span class="d"></span> Audit Lapangan</span></td>
+            <td>
+              <div class="progress">
+                <div class="bar b-blue"><i style="width:62%"></i></div>
+                <span class="pct">62%</span>
+              </div>
+            </td>
+            <td>
+              <span class="due">12 Mei 2026<small>Hari ini</small></span>
+            </td>
+            <td style="padding-right:18px">
+              <div class="actions">
+                <button class="action primary">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  Buka
+                </button>
+                <button class="action" title="Lainnya">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+      </div>
+
+      <div class="tfoot">
+        <div>Menampilkan <b style="color:var(--ink)">1</b> dari <b style="color:var(--ink)">1</b> registrasi</div>
+        <div class="pager">
+          <button class="pgbtn" disabled>‹</button>
+          <button class="pgbtn on">1</button>
+          <button class="pgbtn" disabled>›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SIDE ============ -->
+    <aside class="side">
+
+      <div class="alert">
+        <div class="ic">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div style="flex:1">
+          <h3>1 audit menunggu verifikasi</h3>
+          <p>Laporan SH2026-1-2216371 perlu ditinjau oleh Komite Fatwa sebelum 15 Mei.</p>
+          <a href="#">Tinjau sekarang →</a>
+        </div>
+      </div>
+
+      <div class="panel auditors">
+        <div class="panel-head" style="padding-bottom:12px">
+          <div class="panel-title">
+            <h2>Beban Auditor</h2>
+            <div class="pt-sub">Periode Mei 2026</div>
+          </div>
+          <a href="#" style="color:var(--blue);font-size:12.5px;font-weight:600;text-decoration:none">Semua →</a>
+        </div>
+
+        <div class="auditor-row">
+          <div class="avatar-md" style="background:#dceae0;color:#0a5a37">AR</div>
+          <div>
+            <div class="name">Dr. Adi Riyadhi, M.Si.</div>
+            <div class="meta">Kimia Pangan · Senior</div>
+          </div>
+          <div class="load">
+            <div class="n">1</div>
+            <div class="l">audit aktif</div>
+          </div>
+        </div>
+
+        <div class="auditor-row">
+          <div class="avatar-md" style="background:#dde6f4;color:#163b6b">SN</div>
+          <div>
+            <div class="name">Dr. Siti Nurhaliza, M.Sc.</div>
+            <div class="meta">Mikrobiologi · Senior</div>
+          </div>
+          <div class="load">
+            <div class="n">0</div>
+            <div class="l">audit aktif</div>
+          </div>
+        </div>
+
+        <div style="padding:12px 18px 16px;border-top:1px solid var(--line-2)">
+          <button class="btn" style="width:100%;justify-content:center">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Tambah Auditor
+          </button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head" style="padding-bottom:10px">
+          <div class="panel-title">
+            <h2>Aktivitas Terbaru</h2>
+            <div class="pt-sub">7 hari terakhir</div>
+          </div>
+        </div>
+        <div class="activity">
+          <div class="act-item">
+            <div class="timeline"></div>
+            <div class="act-dot green"></div>
+            <div class="act-body">
+              <b>Dr. Adi Riyadhi</b> mengunggah berkas BAP untuk <b>KONSTAN KAYA INDONESIA</b>
+              <div class="act-time">2 jam lalu</div>
+            </div>
+          </div>
+          <div class="act-item">
+            <div class="timeline"></div>
+            <div class="act-dot"></div>
+            <div class="act-body">
+              Registrasi <b>SH2026-1-2216371</b> dialihkan ke tahap <b>Audit Lapangan</b>
+              <div class="act-time">Kemarin · 14:22</div>
+            </div>
+          </div>
+          <div class="act-item">
+            <div class="timeline"></div>
+            <div class="act-dot amber"></div>
+            <div class="act-body">
+              <b>Rahmat (Admin)</b> menugaskan Dr. Adi Riyadhi sebagai lead auditor
+              <div class="act-time">3 hari lalu</div>
+            </div>
+          </div>
+          <div class="act-item">
+            <div class="timeline"></div>
+            <div class="act-dot muted"></div>
+            <div class="act-body">
+              Registrasi baru diterima dari <b>PT Konstan Kaya Indonesia</b>
+              <div class="act-time">5 hari lalu</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+</main>
+
+</body>
+</html>
