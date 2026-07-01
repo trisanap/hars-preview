@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS auditors (
     id         INTEGER PRIMARY KEY AUTOINCREMENT,
     nama       TEXT NOT NULL,
     reg        TEXT DEFAULT '',
-    jk         TEXT NOT NULL CHECK(jk IN ('Laki-laki','Perempuan'))
+    jk         TEXT NOT NULL CHECK(jk IN ('Laki-laki','Perempuan')),
+    user_id    TEXT UNIQUE REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS users (
