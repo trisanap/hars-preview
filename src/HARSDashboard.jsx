@@ -915,6 +915,7 @@ function BerkasEditModal({ reg, onClose }) {
 // ─── Tab: Data Pengajuan ──────────────────────────────────────────────────────
 // ─── Sidebar for Data Pengajuan tab ──────────────────────────────────────────
 function DataSidebar({ reg, tlVersion }) {
+  const { t } = useLang();
   const now = new Date();
   const months = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
   const fmtMon = iso => { if(!iso)return""; const d=new Date(iso+"T00:00:00"); return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`; };
@@ -950,13 +951,14 @@ function DataSidebar({ reg, tlVersion }) {
 
   // Timeline steps (after all state declarations)
   const hasPerbaikan = !!tlData.perbaikanDate;
+  const tlLabels = t("timelineSteps");
   const tlSteps = [
-    { key:"registered", label:"Registrasi dibuat", date: reg.tanggalDaftar ? fmtMon(reg.tanggalDaftar) : "—" },
-    { key:"preaudit", label:"Verifikasi pre-audit", date: tlData.preAuditDate ? fmtMon(tlData.preAuditDate) : "—" },
-    { key:"field", label:"Audit lapangan", date: reg.tanggalAudit ? fmtMon(reg.tanggalAudit) : "—" },
-    { key:"perbaikan", label:"Perbaikan Hasil Audit", date: tlData.perbaikanDate ? fmtMon(tlData.perbaikanDate) : "—" },
-    { key:"report", label:"Penyelesaian laporan audit", date: "—" },
-    { key:"fatwa", label:"Sidang fatwa", date: fatwaDate ? fmtMon(fatwaDate) : "—" },
+    { key:"registered", label: tlLabels[0], date: reg.tanggalDaftar ? fmtMon(reg.tanggalDaftar) : "—" },
+    { key:"preaudit", label: tlLabels[1], date: tlData.preAuditDate ? fmtMon(tlData.preAuditDate) : "—" },
+    { key:"field", label: tlLabels[2], date: reg.tanggalAudit ? fmtMon(reg.tanggalAudit) : "—" },
+    { key:"perbaikan", label: tlLabels[3], date: tlData.perbaikanDate ? fmtMon(tlData.perbaikanDate) : "—" },
+    { key:"report", label: tlLabels[4], date: "—" },
+    { key:"fatwa", label: tlLabels[5], date: fatwaDate ? fmtMon(fatwaDate) : "—" },
   ];
 
   // Determine current step
@@ -979,7 +981,7 @@ function DataSidebar({ reg, tlVersion }) {
   }));
 
   const progress = currIdx === 0 ? 0 : currIdx === 1 ? 17 : currIdx === 2 ? 33 : currIdx === 3 ? 50 : currIdx === 4 ? 75 : 100;
-  const phaseLabel = ["Registrasi","Verifikasi Pre-Audit","Audit Lapangan","Perbaikan Hasil Audit","Penyelesaian Laporan","Sidang Fatwa"][currIdx];
+  const phaseLabel = t("phases")[currIdx];
 
   const icon = (name) => {
     const icons = {
@@ -1852,14 +1854,15 @@ function TabLaporan({ reg, isAdmin }) {
 // ─── Tab: Laporan Audit ───────────────────────────────────────────────────────
 
 // ─── Workspace (tabbed view for one registration) ────────────────────────────
-const TABS = [
-  { key: "data", label: "Data Pengajuan" },
-  { key: "preaudit", label: "Dokumen Pre-Audit" },
-  { key: "laporan", label: "Laporan Audit" },
-  { key: "dokumentasi", label: "Dokumentasi" },
-];
 
 function Workspace({ reg, onUpdate, onBack, role }) {
+  const { t } = useLang();
+  const TABS = [
+    { key: "data", label: t("dataPengajuan") },
+    { key: "preaudit", label: t("preAudit") },
+    { key: "laporan", label: t("laporan") },
+    { key: "dokumentasi", label: t("dokumentasi") },
+  ];
   const [activeTab, setActiveTab] = useState("data");
   const [editing, setEditing] = useState(false);
   const [tlVersion, setTlVersion] = useState(0);
@@ -1874,7 +1877,7 @@ function Workspace({ reg, onUpdate, onBack, role }) {
           background: "none", border: "none", cursor: "pointer",
           color: C.blue, fontSize: 12.5, fontFamily: font, fontWeight: 600,
           display: "flex", alignItems: "center", gap: 4, padding: "4px 0",
-        }}>← Kembali</button>
+        }}>← {t("back")}</button>
         <span style={{ color: C.faint }}>/</span>
         <span style={{ fontSize: 12.5, color: C.muted, fontWeight: 500 }}>Workspace</span>
       </div>
@@ -2131,6 +2134,7 @@ function TopBar({ role, roleLabel, currentUser, onNavigateUsers, onLogout, onSet
 // ─── Stats Cards ──────────────────────────────────────────────────────────
 
 function StatsCards({ stats, regCount }) {
+  const { t } = useLang();
   const defaultStats = stats || {};
   const formatSize = bytes => {
     if (!bytes && bytes !== 0) return "—";
@@ -2156,7 +2160,7 @@ function StatsCards({ stats, regCount }) {
       <div className="hd-stat accent-blue">
         <div className="lbl">
           <span className="ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
-          Total Registrasi
+          {t("totalRegs")}
         </div>
         <div className="num">{nRegs}</div>
       </div>
@@ -2164,7 +2168,7 @@ function StatsCards({ stats, regCount }) {
       <div className="hd-stat accent-emerald">
         <div className="lbl">
           <span className="ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-          Jumlah Auditor
+          {t("totalAuditors")}
         </div>
         <div className="num">{nAuditors}</div>
       </div>
@@ -2172,7 +2176,7 @@ function StatsCards({ stats, regCount }) {
       <div className="hd-stat accent-amber">
         <div className="lbl">
           <span className="ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
-          Audit Berjalan
+          {t("activeAudits")}
         </div>
         <div className="num">{nRegs}</div>
       </div>
@@ -2180,7 +2184,7 @@ function StatsCards({ stats, regCount }) {
       <div className="hd-stat accent-violet">
         <div className="lbl">
           <span className="ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
-          Penyimpanan Sistem
+          {t("systemStorage")}
         </div>
         <div className="num">{diskSize} <span className="unit">{diskU}</span></div>
       </div>
@@ -2191,6 +2195,7 @@ function StatsCards({ stats, regCount }) {
 // ─── Registration Table ───────────────────────────────────────────────────
 
 function RegTable({ regs, onOpen, onDelete, isAdmin }) {
+  const { t } = useLang();
   const [search, setSearch] = useState("");
   const [filterJenis, setFilterJenis] = useState("");
   const [filterAuditor, setFilterAuditor] = useState("");
@@ -2257,7 +2262,7 @@ function RegTable({ regs, onOpen, onDelete, isAdmin }) {
       <div className="hd-filters">
         <div className="hd-search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input placeholder="Cari nomor daftar, nama PU…" value={search} onChange={e => setSearch(e.target.value)} />
+          <input placeholder={t("searchRegs")} value={search} onChange={e => setSearch(e.target.value)} />
         </div>
         {isAdmin && (
           <div className="hd-filter-row">
@@ -2294,7 +2299,7 @@ function RegTable({ regs, onOpen, onDelete, isAdmin }) {
           {filtered.length === 0 && (
             <tr>
               <td colSpan={7} style={{ padding: 40, textAlign: "center", color: "var(--muted)", fontSize: 13 }}>
-                {search ? "Tidak ada hasil pencarian." : "Belum ada registrasi."}
+                {search ? t("noSearchResults") : t("noRegistrations")}
               </td>
             </tr>
           )}
@@ -2435,6 +2440,7 @@ function Sidebar({ auditors, regs }) {
 // ─── Root App ─────────────────────────────────────────────────────────────────
 
 export default function HARSApp({ currentUser, onLogout }) {
+  const { t } = useLang();
   const role = currentUser?.role || "auditor";
   const [regs, setRegs] = useState([]);
   const [view, setView] = useState("list");
@@ -2508,7 +2514,7 @@ export default function HARSApp({ currentUser, onLogout }) {
         display: "flex", alignItems: "center", justifyContent: "center",
         fontSize: 13, color: C.muted,
       }}>
-        Memuat data...
+        {t("loading")}
       </div>
     );
   }
@@ -2534,14 +2540,14 @@ export default function HARSApp({ currentUser, onLogout }) {
 
           <div className="hd-head">
             <div>
-              <h1>Selamat datang kembali, {userName.split(" ")[0]}</h1>
+              <h1>{t("welcomeBack")}, {userName.split(" ")[0]}</h1>
               <p className="sub">{[now.getDate(), months[now.getMonth()], now.getFullYear()].join(" ")}</p>
             </div>
             <div className="hd-head-actions">
               {isAdmin && (
                 <button className="hd-btn primary" onClick={() => setShowNew(true)}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                  Registrasi Baru
+                  {t("newRegistration")}
                 </button>
               )}
             </div>
