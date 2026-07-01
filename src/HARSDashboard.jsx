@@ -200,7 +200,7 @@ function DeleteModal({ reg, onConfirm, onClose }) {
           <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
             <Btn variant="ghost" onClick={onClose}>{t("cancel")}</Btn>
             <Btn variant="danger" onClick={onConfirm} disabled={!match}>
-              Hapus Permanen
+              {t("deletePermanent")}
             </Btn>
           </div>
         </div>
@@ -448,7 +448,7 @@ function NewRegModal({ onSave, onClose }) {
             {extraAud < 2 && (
               <div style={{ marginTop: 10 }}>
                 <Btn variant="ghost" small onClick={() => setExtraAud(extraAud + 1)}>
-                  + Tambah Auditor
+                  {t("addAuditor")}
                 </Btn>
               </div>
             )}
@@ -762,37 +762,37 @@ function STEditModal({ reg, stEntry, stIndex, onClose, onSave }) {
     <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.5)",zIndex:2000,display:"flex",alignItems:"center",justifyContent:"center",padding:16}}
       onClick={e=>e.target===e.currentTarget&&onClose()}>
       <div style={{background:C.bg,borderRadius:8,width:"100%",maxWidth:480,boxShadow:"0 12px 40px rgba(0,0,0,0.18)",padding:24,fontFamily:font}}>
-        <div style={{fontSize:14,fontWeight:600,marginBottom:18}}>Edit Surat Tugas</div>
+        <div style={{fontSize:14,fontWeight:600,marginBottom:18}}>{t("editAssignmentLetter")}</div>
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:12}}>
           <div>
-            <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>NO. SURAT</label>
+            <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>{t("letterNo")}</label>
             <input value={nomor} onChange={e=>setNomor(e.target.value)} style={inp} placeholder="001"/>
           </div>
           <div>
-            <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>BULAN (ROMawi)</label>
+            <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>{t("romanMonth")}</label>
             <input value={bulan} onChange={e=>setBulan(e.target.value.toUpperCase())} style={inp} placeholder="IV"/>
           </div>
         </div>
         <div style={{marginBottom:12}}>
-          <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>TAHUN</label>
+          <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>{t("year")}</label>
           <input value={tahun} onChange={e=>setTahun(e.target.value.replace(/\D/g,"").slice(0,4))} style={{...inp,maxWidth:120}}/>
         </div>
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:20}}>
           <div>
             <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>{t("auditDateLabel")}</label>
             <input type="date" value={tglAudit} onChange={e=>setTglAudit(e.target.value)} style={inp}/>
-            <div style={{fontSize:10,color:C.faint,marginTop:2}}>Akan muncul dengan nama hari</div>
+            <div style={{fontSize:10,color:C.faint,marginTop:2}}>{t("willShowDay")}</div>
           </div>
           <div>
-            <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>TANGGAL SURAT</label>
+            <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>{t("letterDate")}</label>
             <input type="date" value={tglSurat} onChange={e=>setTglSurat(e.target.value)} style={inp}/>
-            <div style={{fontSize:10,color:C.faint,marginTop:2}}>Format: DD Bulan Tahun</div>
+            <div style={{fontSize:10,color:C.faint,marginTop:2}}>{t("dateFormat")}</div>
           </div>
         </div>
         <div style={{display:"flex",gap:8,justifyContent:"flex-end"}}>
           <button onClick={onClose} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:4,padding:"7px 16px",fontSize:12,cursor:"pointer",fontFamily:font}}>{t("cancel")}</button>
           <button onClick={save} disabled={saving} style={{background:C.blue,color:"#fff",border:"none",borderRadius:4,padding:"7px 16px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font,opacity:saving?0.6:1}}>
-            {saving?"Menyimpan…":"Simpan"}
+            {saving?t("saving"):t("saveBtn")}
           </button>
         </div>
       </div>
@@ -836,36 +836,36 @@ function SPKEditModal({ reg, onClose }) {
     <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.5)",zIndex:2000,display:"flex",alignItems:"center",justifyContent:"center",padding:16}}
       onClick={e=>e.target===e.currentTarget&&onClose()}>
       <div style={{background:C.bg,borderRadius:8,width:"100%",maxWidth:480,boxShadow:"0 12px 40px rgba(0,0,0,0.18)",padding:24,fontFamily:font}}>
-        <div style={{fontSize:14,fontWeight:600,marginBottom:18}}>Edit SPK</div>
+        <div style={{fontSize:14,fontWeight:600,marginBottom:18}}>{t("editSPK")}</div>
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:12}}>
           <div>
-            <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>NO. SURAT</label>
+            <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>{t("letterNo")}</label>
             <input value={nomor} onChange={e=>setNomor(e.target.value)} style={inp} placeholder="001"/>
           </div>
           <div>
-            <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>BULAN (ROMawi)</label>
+            <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>{t("romanMonth")}</label>
             <input value={bulan} onChange={e=>setBulan(e.target.value.toUpperCase())} style={inp} placeholder="IV"/>
           </div>
         </div>
         <div style={{marginBottom:12}}>
-          <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>TAHUN</label>
+          <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>{t("year")}</label>
           <input value={tahun} onChange={e=>setTahun(e.target.value.replace(/\D/g,"").slice(0,4))} style={{...inp,maxWidth:120}}/>
         </div>
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:12}}>
           <div>
             <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>{t("auditDateLabel")}</label>
             <input type="date" value={tglAudit} onChange={e=>setTglAudit(e.target.value)} style={inp}/>
-            <div style={{fontSize:10,color:C.faint,marginTop:2}}>Akan muncul dengan nama hari</div>
+            <div style={{fontSize:10,color:C.faint,marginTop:2}}>{t("willShowDay")}</div>
           </div>
           <div>
-            <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>TEMPAT</label>
+            <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>{t("place")}</label>
             <input value={tempat} onChange={e=>setTempat(e.target.value)} style={inp}/>
           </div>
         </div>
         <div style={{display:"flex",gap:8,justifyContent:"flex-end"}}>
           <button onClick={onClose} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:4,padding:"7px 16px",fontSize:12,cursor:"pointer",fontFamily:font}}>{t("cancel")}</button>
           <button onClick={save} disabled={saving} style={{background:C.blue,color:"#fff",border:"none",borderRadius:4,padding:"7px 16px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font,opacity:saving?0.6:1}}>
-            {saving?"Menyimpan…":"Simpan"}
+            {saving?t("saving"):t("saveBtn")}
           </button>
         </div>
       </div>
@@ -897,16 +897,16 @@ function BerkasEditModal({ reg, onClose }) {
     <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.5)",zIndex:2000,display:"flex",alignItems:"center",justifyContent:"center",padding:16}}
       onClick={e=>e.target===e.currentTarget&&onClose()}>
       <div style={{background:C.bg,borderRadius:8,width:"100%",maxWidth:420,boxShadow:"0 12px 40px rgba(0,0,0,0.18)",padding:24,fontFamily:font}}>
-        <div style={{fontSize:14,fontWeight:600,marginBottom:18}}>Edit Berkas Audit</div>
+        <div style={{fontSize:14,fontWeight:600,marginBottom:18}}>{t("editAuditFile")}</div>
         <div style={{marginBottom:12}}>
           <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>{t("auditDateLabel")}</label>
           <input type="date" value={hariTanggal} onChange={e=>setHariTanggal(e.target.value)} style={inp}/>
-          <div style={{fontSize:10,color:C.faint,marginTop:2}}>Akan muncul dengan nama hari di dokumen</div>
+          <div style={{fontSize:10,color:C.faint,marginTop:2}}>{t("willShowDayDoc")}</div>
         </div>
         <div style={{display:"flex",gap:8,justifyContent:"flex-end"}}>
           <button onClick={onClose} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:4,padding:"7px 16px",fontSize:12,cursor:"pointer",fontFamily:font}}>{t("cancel")}</button>
           <button onClick={save} disabled={saving} style={{background:C.blue,color:"#fff",border:"none",borderRadius:4,padding:"7px 16px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font,opacity:saving?0.6:1}}>
-            {saving?"Menyimpan…":"Simpan"}
+            {saving?t("saving"):t("saveBtn")}
           </button>
         </div>
       </div>
@@ -1001,20 +1001,20 @@ function DataSidebar({ reg, tlVersion }) {
       borderRadius:14,padding:"18px 20px",position:"relative",overflow:"hidden" }}>
       <div style={{ position:"absolute",right:-30,top:-30,width:140,height:140,borderRadius:"50%",background:"rgba(255,255,255,0.08)" }}></div>
       <div style={{ position:"absolute",right:-50,bottom:-50,width:180,height:180,borderRadius:"50%",background:"rgba(255,255,255,0.05)" }}></div>
-      <div style={{ fontSize:10.5,fontWeight:700,letterSpacing:"0.10em",textTransform:"uppercase",color:"rgba(255,255,255,0.78)",position:"relative",zIndex:1 }}>Tahap Saat Ini</div>
+      <div style={{ fontSize:10.5,fontWeight:700,letterSpacing:"0.10em",textTransform:"uppercase",color:"rgba(255,255,255,0.78)",position:"relative",zIndex:1 }}>{t("currentPhase")}</div>
       <div style={{ fontSize:18,fontWeight:800,letterSpacing:"-0.01em",margin:"6px 0 14px",position:"relative",zIndex:1 }}>{phaseLabel}</div>
       <div style={{ height:6,borderRadius:99,background:"rgba(255,255,255,0.18)",overflow:"hidden",position:"relative",zIndex:1 }}>
         <div style={{ height:"100%",width:`${progress}%`,background:"#fff",borderRadius:99 }}></div>
       </div>
       <div style={{ display:"flex",justifyContent:"space-between",alignItems:"baseline",marginTop:10,fontSize:12,color:"rgba(255,255,255,0.78)",position:"relative",zIndex:1 }}>
-        <span>Progres</span>
+        <span>{t("progress")}</span>
         <b style={{ color:"#fff",fontWeight:700,fontFamily:mono }}>{progress}%</b>
       </div>
     </div>
 
     {/* Linimasa Audit */}
     <div style={{ background:C.bgCard,border:`1px solid ${C.borderLight}`,borderRadius:12,padding:"18px 20px 14px" }}>
-      <h3 style={{ margin:"0 0 14px",fontSize:13,fontWeight:700,color:C.text }}>Linimasa Audit</h3>
+      <h3 style={{ margin:"0 0 14px",fontSize:13,fontWeight:700,color:C.text }}>{t("auditTimeline")}</h3>
       {steps.map((s,i) => (
         <div key={s.key} style={{ display:"flex",gap:12,position:"relative",paddingBottom:14 }}>
           {i < steps.length-1 && <div style={{ position:"absolute",left:5.5,top:14,bottom:0,width:1,background:C.borderLight }}></div>}
@@ -1033,19 +1033,19 @@ function DataSidebar({ reg, tlVersion }) {
 
     {/* Status Update */}
     <div style={{ background:C.bgCard,border:`1px solid ${C.borderLight}`,borderRadius:12,padding:"16px 20px" }}>
-      <h3 style={{ margin:"0 0 12px",fontSize:13,fontWeight:700,color:C.text }}>Status Update</h3>
-      <div style={{ fontSize:11,fontWeight:700,letterSpacing:"0.06em",textTransform:"uppercase",color:C.muted,marginBottom:8 }}>Perbaikan Hasil Audit</div>
+      <h3 style={{ margin:"0 0 12px",fontSize:13,fontWeight:700,color:C.text }}>{t("statusUpdate")}</h3>
+      <div style={{ fontSize:11,fontWeight:700,letterSpacing:"0.06em",textTransform:"uppercase",color:C.muted,marginBottom:8 }}>{t("phaseCorrection")}</div>
       <input type="date" value={tlData.perbaikanDate || ""} onChange={e=>saveTimeline({perbaikanDate:e.target.value})}
         style={{ width:"100%",padding:"6px 8px",fontSize:12,fontFamily:font,border:`1px solid ${C.borderLight}`,borderRadius:6,color:C.text,background:C.bg,marginBottom:14,boxSizing:"border-box" }} />
       <div style={{ borderTop:`1px solid ${C.borderLight}`,paddingTop:12 }}>
-        <div style={{ fontSize:11,fontWeight:700,letterSpacing:"0.06em",textTransform:"uppercase",color:C.muted,marginBottom:8 }}>Sidang Fatwa</div>
+        <div style={{ fontSize:11,fontWeight:700,letterSpacing:"0.06em",textTransform:"uppercase",color:C.muted,marginBottom:8 }}>{t("phaseFatwa")}</div>
         <select value={fatwaBody} onChange={e=>saveTimeline({fatwaBody:e.target.value})}
           style={{ width:"100%",padding:"6px 8px",fontSize:12,fontFamily:font,border:`1px solid ${C.borderLight}`,borderRadius:6,color:C.text,background:C.bg,marginBottom:8,boxSizing:"border-box" }}>
           <option value="">Pilih badan fatwa…</option>
-          <option value="MUI">Komisi Fatwa MUI</option>
-          <option value="BPJPH">Komite Fatwa BPJPH</option>
+          <option value="MUI">{t("muiFatwaCommission")}</option>
+          <option value="BPJPH">{t("bpjphFatwaCommittee")}</option>
         </select>
-        <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:3 }}>Tanggal Sidang</label>
+        <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:3 }}>{t("sessionDate")}</label>
         <input type="date" value={fatwaDate} onChange={e=>saveTimeline({fatwaDate:e.target.value})}
           style={{ width:"100%",padding:"6px 8px",fontSize:12,fontFamily:font,border:`1px solid ${C.borderLight}`,borderRadius:6,color:C.text,background:C.bg,boxSizing:"border-box" }} />
       </div>
@@ -1233,7 +1233,7 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
               padding: "6px 14px", fontSize: 12, color: C.blue, cursor: "pointer",
               fontFamily: font, fontWeight: 500, width: "100%",
             }}>
-              + Tambah Fasilitas
+              {t("addFacility")}
             </button>
           </div>
         </div>
@@ -1332,7 +1332,7 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
               </div>
             )}
             {extraAud < 2 && (
-              <Btn variant="ghost" small onClick={() => setExtraAud(extraAud + 1)}>+ Tambah Auditor</Btn>
+              <Btn variant="ghost" small onClick={() => setExtraAud(extraAud + 1)}>{t("addAuditor")}</Btn>
             )}
           </div>
         </div>
@@ -1361,11 +1361,11 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
           </div>
         </div>
         <dl style={{ margin:0,padding:"6px 20px 14px",display:"grid",gridTemplateColumns:"200px 1fr",columnGap:24 }}>
-          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>No. Daftar</dt>
+          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>{t("no")} Daftar</dt>
           <dd style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.text,fontWeight:500,display:"flex",alignItems:"center",gap:8 }}><span style={{ fontFamily:mono,color:C.text,fontWeight:600 }}>{reg.id}</span></dd>
-          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>Tanggal Daftar</dt>
+          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>{t("registrationDate")}</dt>
           <dd style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.text,fontWeight:500 }}><span style={{ fontWeight:600 }}>{fmtDate(reg.tanggalDaftar)}</span></dd>
-          <dt style={{ padding:"11px 0",borderBottom:"none",fontSize:13.5,color:C.muted,fontWeight:500 }}>Jenis Pendaftaran</dt>
+          <dt style={{ padding:"11px 0",borderBottom:"none",fontSize:13.5,color:C.muted,fontWeight:500 }}>{t("registrationType")}</dt>
           <dd style={{ padding:"11px 0",borderBottom:"none",fontSize:13.5,color:C.text,fontWeight:500 }}><span style={{ display:"inline-flex",alignItems:"center",gap:6,padding:"3px 9px",borderRadius:6,background:C.blueSoft,color:C.blue,fontSize:12,fontWeight:600 }}>{reg.jenisPendaftaran}</span></dd>
         </dl>
       </div>
@@ -1468,9 +1468,9 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
         <table style={{ width:"100%",borderCollapse:"collapse",fontSize:13.5 }}>
           <thead>
             <tr>
-              <th style={{ textAlign:"left",fontSize:10.5,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",color:C.muted,padding:"10px 20px",background:C.bgAlt,borderBottom:`1px solid ${C.borderLight}` }}>Peran</th>
+              <th style={{ textAlign:"left",fontSize:10.5,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",color:C.muted,padding:"10px 20px",background:C.bgAlt,borderBottom:`1px solid ${C.borderLight}` }}>{t("role")}</th>
               <th style={{ textAlign:"left",fontSize:10.5,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",color:C.muted,padding:"10px 20px",background:C.bgAlt,borderBottom:`1px solid ${C.borderLight}` }}>{t("name")}</th>
-              <th style={{ textAlign:"right",fontSize:10.5,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",color:C.muted,padding:"10px 20px",background:C.bgAlt,borderBottom:`1px solid ${C.borderLight}` }}>No. Pendaftaran</th>
+              <th style={{ textAlign:"right",fontSize:10.5,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",color:C.muted,padding:"10px 20px",background:C.bgAlt,borderBottom:`1px solid ${C.borderLight}` }}>{t("no")} Pendaftaran</th>
             </tr>
           </thead>
           <tbody>
@@ -1499,7 +1499,7 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
             {reg.observer && (
               <tr>
                 <td style={{ padding:"14px 20px" }}>
-                  <span style={{ display:"inline-flex",alignItems:"center",gap:6,padding:"3px 9px",borderRadius:6,fontSize:11.5,fontWeight:700,background:"#e8eae9",color:C.text }}>Observer</span>
+                  <span style={{ display:"inline-flex",alignItems:"center",gap:6,padding:"3px 9px",borderRadius:6,fontSize:11.5,fontWeight:700,background:"#e8eae9",color:C.text }}>{t("observer")}</span>
                 </td>
                 <td style={{ padding:"14px 20px" }} colSpan={2}>
                   <div style={{ display:"flex",alignItems:"center",gap:12 }}>
@@ -1689,7 +1689,7 @@ function TabPreAudit({ reg, isAdmin, onPreAuditConfirm }) {
               padding: "8px 18px", fontSize: 12, color: C.blue, cursor: "pointer",
               fontFamily: font, fontWeight: 500,
             }}>
-              + Tambah Surat Tugas
+              {t("addAssignmentLetter")}
             </button>
           </div>
         )}
@@ -1764,12 +1764,12 @@ function TabPreAudit({ reg, isAdmin, onPreAuditConfirm }) {
                   await api.setState("tl_"+reg.id, JSON.stringify(data));
                   setPreChecked(false); setPreDate(""); setPreBy("");
                   if (onPreAuditConfirm) onPreAuditConfirm();
-                }}>Batalkan Konfirmasi</Btn>
+                }}>{t("cancelConfirmation")}</Btn>
               </div>
             ) : (
               <div style={{ display:"flex", alignItems:"center", gap:12 }}>
-                <span style={{ color:C.muted }}>Belum dikonfirmasi.</span>
-                <Btn variant="primary" small onClick={confirmPreAudit}>Konfirmasi Sekarang</Btn>
+                <span style={{ color:C.muted }}>{t("notConfirmed")}</span>
+                <Btn variant="primary" small onClick={confirmPreAudit}>{t("confirmNow")}</Btn>
               </div>
             )}
           </div>
@@ -1781,8 +1781,8 @@ function TabPreAudit({ reg, isAdmin, onPreAuditConfirm }) {
         background: C.bgAlt, borderRadius: 5, border: `1px solid ${C.borderLight}`,
         fontSize: 11, color: C.muted,
       }}>
-        <strong style={{ color: C.text }}>Catatan:</strong> Surat Tugas dan SPK akan dibuka di modal preview dengan nomor surat yang bisa diedit. Klik Cetak untuk mencetak atau simpan sebagai PDF.
-        Dokumen dengan tanda tangan akan diupload setelah ditandatangani di tab <strong>Dokumen Pendukung</strong>.
+        <strong style={{ color: C.text }}>{t("notesLabel")}</strong> Surat Tugas dan SPK akan dibuka di modal preview dengan nomor surat yang bisa diedit. Klik Cetak untuk mencetak atau simpan sebagai PDF.
+        Dokumen dengan tanda tangan akan diupload setelah ditandatangani di tab <strong>{t("supportingDocs")}</strong>.
       </div>
 
       <div style={{
@@ -1790,7 +1790,7 @@ function TabPreAudit({ reg, isAdmin, onPreAuditConfirm }) {
         background: C.amberLight || "#fbf2dd", borderRadius: 5, border: `1px solid ${C.borderLight}`,
         fontSize: 11, color: C.muted,
       }}>
-        <strong style={{ color: "#a36a00" }}>Penting:</strong> Konfirmasi Nomor Surat pada Surat Tugas dan SPK ke Admin LPH.
+        <strong style={{ color: "#a36a00" }}>{t("important")}</strong> Konfirmasi Nomor Surat pada Surat Tugas dan SPK ke Admin LPH.
       </div>
 
       {previewDoc?.type === "st" && (
@@ -1883,7 +1883,7 @@ function Workspace({ reg, onUpdate, onBack, role }) {
           display: "flex", alignItems: "center", gap: 4, padding: "4px 0",
         }}>← {t("back")}</button>
         <span style={{ color: C.faint }}>/</span>
-        <span style={{ fontSize: 12.5, color: C.muted, fontWeight: 500 }}>Workspace</span>
+        <span style={{ fontSize: 12.5, color: C.muted, fontWeight: 500 }}>{t("workspace")}</span>
       </div>
 
       {/* Head card */}
@@ -1904,10 +1904,10 @@ function Workspace({ reg, onUpdate, onBack, role }) {
           <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", color: C.muted, fontSize: 13 }}>
             <span style={{ fontFamily: mono, color: C.text, fontWeight: 500 }}>{reg.id}</span>
             <span style={{ width: 1, height: 14, background: C.borderLight, display: "inline-block" }}></span>
-            <span>Didaftarkan <b style={{ color: C.text, fontWeight: 600 }}>{fmtDate(reg.tanggalDaftar)}</b></span>
+            <span>{t("registeredOn")}<b style={{ color: C.text, fontWeight: 600 }}>{fmtDate(reg.tanggalDaftar)}</b></span>
             {reg.tanggalAudit && (<>
               <span style={{ width: 1, height: 14, background: C.borderLight, display: "inline-block" }}></span>
-              <span>Jadwal audit <b style={{ color: C.text, fontWeight: 600 }}>{fmtDate(reg.tanggalAudit)}</b></span>
+              <span>{t("auditScheduleLabel")}<b style={{ color: C.text, fontWeight: 600 }}>{fmtDate(reg.tanggalAudit)}</b></span>
             </>)}
           </div>
         </div>
@@ -2100,8 +2100,8 @@ function TopBar({ role, roleLabel, currentUser, onNavigateUsers, onLogout, onSet
       <div className="brand">
         <div className="hd-mark"><img src="/favicon.png" alt="HARS"/></div>
         <div className="hd-brand-text">
-          <b>HARS</b>
-          <span>LPH UIN Jakarta</span>
+          <b>{t("appName")}</b>
+          <span>{t("lphShortName")}</span>
         </div>
       </div>
       <div className="hd-right">
@@ -2257,7 +2257,7 @@ function RegTable({ regs, onOpen, onDelete, isAdmin }) {
         <div style={{position:"absolute",right:-50,bottom:-50,width:180,height:180,borderRadius:"50%",background:"rgba(255,255,255,0.05)"}}></div>
         <div style={{position:"relative",zIndex:1,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
           <div>
-            <h2 style={{margin:0,fontSize:20,fontWeight:800,letterSpacing:"-0.01em",color:"#fff"}}>Daftar Registrasi</h2>
+            <h2 style={{margin:0,fontSize:20,fontWeight:800,letterSpacing:"-0.01em",color:"#fff"}}>{t("registrationList")}</h2>
             <div style={{fontSize:13,opacity:0.85,marginTop:4}}>Pelaku usaha & status audit halal di workspace</div>
           </div>
         </div>
@@ -2271,16 +2271,16 @@ function RegTable({ regs, onOpen, onDelete, isAdmin }) {
         {isAdmin && (
           <div className="hd-filter-row">
             <select className="hd-select" value={filterJenis} onChange={e => setFilterJenis(e.target.value)}>
-              <option value="">Semua jenis produk</option>
+              <option value="">{t("allProductTypes")}</option>
               {JENIS_PRODUK_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
             </select>
             <select className="hd-select" value={filterAuditor} onChange={e => setFilterAuditor(e.target.value)}>
-              <option value="">Semua auditor</option>
+              <option value="">{t("allAuditors")}</option>
               {AUDITORS.map(a => <option key={a.id} value={a.id}>{a.nama}</option>)}
             </select>
             <select className="hd-select" value={filterMonth} onChange={e => setFilterMonth(e.target.value)} style={{flex:1}}>
               <option value="">Bulan ini · {months[now.getMonth()]} {now.getFullYear()}</option>
-              <option value="all">Semua bulan</option>
+              <option value="all">{t("allMonths")}</option>
             </select>
           </div>
         )}
@@ -2290,13 +2290,13 @@ function RegTable({ regs, onOpen, onDelete, isAdmin }) {
       <table className="hd-table">
         <thead>
           <tr>
-            <th style={{ paddingLeft: 18 }}>No. Daftar</th>
-            <th>Pelaku Usaha</th>
+            <th style={{ paddingLeft: 18 }}>{t("no")} Daftar</th>
+            <th>{t("businessOwner")}</th>
             <th>{t("productTypeLabel")}</th>
-            <th>Lead Auditor</th>
-            <th>Status</th>
-            <th>Tgl Audit</th>
-            <th style={{ paddingRight: 18, textAlign: "right" }}>Aksi</th>
+            <th>{t("leadAuditorLabel")}</th>
+            <th>{t("status")}</th>
+            <th>{t("auditDateShort")}</th>
+            <th style={{ paddingRight: 18, textAlign: "right" }}>{t("action")}</th>
           </tr>
         </thead>
         <tbody>
@@ -2335,7 +2335,7 @@ function RegTable({ regs, onOpen, onDelete, isAdmin }) {
                   {reg.tanggalAudit ? (
                     <span className={due.cls}>
                       {due.label}
-                      {due.isToday && <small>Hari ini</small>}
+                      {due.isToday && <small>{t("today")}</small>}
                     </span>
                   ) : (
                     <span className="hd-badge gold"><span className="d"></span> Belum</span>
@@ -2348,7 +2348,7 @@ function RegTable({ regs, onOpen, onDelete, isAdmin }) {
                       Buka
                     </button>
                     {isAdmin && (
-                      <button className="hd-action" title="Hapus" onClick={e => { e.stopPropagation(); setDeleteTarget(reg); }}>
+                      <button className="hd-action" title={t("delete")} onClick={e => { e.stopPropagation(); setDeleteTarget(reg); }}>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                       </button>
                     )}
@@ -2362,7 +2362,7 @@ function RegTable({ regs, onOpen, onDelete, isAdmin }) {
       </div>
 
       <div className="hd-tfoot">
-        <div>Menampilkan <b style={{ color: "var(--ink)" }}>{filtered.length}</b> dari <b style={{ color: "var(--ink)" }}>{regs.length}</b> registrasi</div>
+        <div>{t("showing")}<b style={{ color: "var(--ink)" }}>{filtered.length}</b> dari <b style={{ color: "var(--ink)" }}>{regs.length}</b> registrasi</div>
         <div className="hd-pager">
           <button className="hd-pgbtn" disabled>‹</button>
           <button className="hd-pgbtn on">1</button>
@@ -2415,13 +2415,13 @@ function Sidebar({ auditors, regs }) {
       <div className="hd-panel">
         <div className="hd-panel-head" style={{ paddingBottom: 10 }}>
           <div className="hd-panel-title">
-            <h2>Aktivitas Terbaru</h2>
-            <div className="pt-sub">Registrasi terbaru</div>
+            <h2>{t("recentActivity")}</h2>
+            <div className="pt-sub">{t("latestRegistrations")}</div>
           </div>
         </div>
         <div className="hd-activity">
           {sortedRegs.length === 0 && (
-            <div style={{ padding: "16px 18px", color: "var(--muted)", fontSize: 12 }}>Belum ada aktivitas.</div>
+            <div style={{ padding: "16px 18px", color: "var(--muted)", fontSize: 12 }}>{t("noActivity")}</div>
           )}
           {sortedRegs.slice(0, 5).map((reg, i) => {
             const dotColors = ["green", "", "amber", "gray", ""];

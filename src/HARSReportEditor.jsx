@@ -154,22 +154,22 @@ function BPJPHModal({ onClose, onSelect }) {
       border:`1px solid ${C.border}`,fontFamily:font,maxHeight:"80vh",display:"flex",flexDirection:"column"}}>
       <div style={{background:C.blue,color:"#fff",padding:"11px 16px",borderRadius:"8px 8px 0 0",
         display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-        <span style={{fontWeight:600,fontSize:13}}>🔍 Cari Sertifikat BPJPH</span>
+        <span style={{fontWeight:600,fontSize:13}}>{t("searchCertBPJPH")}</span>
         <button onClick={onClose} style={{background:"none",border:"none",color:"#fff",cursor:"pointer",fontSize:18}}>×</button>
       </div>
       <div style={{padding:"12px 16px",borderBottom:`1px solid ${C.borderLight}`,display:"flex",flexDirection:"column",gap:8}}>
-        <div><label style={lbl}>Nama Produk</label>
+        <div><label style={lbl}>{t("productName")}</label>
           <input value={np} onChange={e=>setNp(e.target.value)} onKeyDown={e=>e.key==="Enter"&&search()} style={inp} placeholder="Contoh: AQUA"/></div>
-        <div><label style={lbl}>Produsen / Pelaku Usaha</label>
+        <div><label style={lbl}>{t("producerOrOwner")}</label>
           <input value={pu} onChange={e=>setPu(e.target.value)} onKeyDown={e=>e.key==="Enter"&&search()} style={inp} placeholder="Contoh: PT. Tirta Investama"/></div>
-        <div><label style={lbl}>No. Sertifikat Halal (SH)</label>
+        <div><label style={lbl}>{t("halalCertNoSH")}</label>
           <input value={sh} onChange={e=>setSh(e.target.value)} onKeyDown={e=>e.key==="Enter"&&search()} style={inp} placeholder="Contoh: ID00410000009301219"/></div>
         <button onClick={search} style={{background:C.blue,color:"#fff",border:"none",borderRadius:4,
-          padding:"7px 0",fontSize:13,fontWeight:600,cursor:"pointer",fontFamily:font,width:"100%"}}>Cari</button>
+          padding:"7px 0",fontSize:13,fontWeight:600,cursor:"pointer",fontFamily:font,width:"100%"}}>{t("search")}</button>
       </div>
       <div style={{overflowY:"auto",flex:1}}>
         {loading&&<div style={{padding:24,textAlign:"center",color:C.muted,fontSize:13}}>Memeriksa ke BPJPH…</div>}
-        {!loading&&searched&&res.length===0&&<div style={{padding:24,textAlign:"center",color:C.muted,fontSize:13}}>Sertifikat tidak ditemukan.</div>}
+        {!loading&&searched&&res.length===0&&<div style={{padding:24,textAlign:"center",color:C.muted,fontSize:13}}>{t("certNotFound")}</div>}
         {!loading&&res.map((r,i)=><div key={i} style={{padding:"10px 16px",borderBottom:`1px solid ${C.borderLight}`,
           display:"flex",alignItems:"flex-start",gap:12,background:i%2===0?C.bg:C.bgAlt}}>
           <div style={{flex:1,minWidth:0}}>
@@ -180,7 +180,7 @@ function BPJPHModal({ onClose, onSelect }) {
           </div>
           <button onClick={()=>onSelect(r)} style={{background:C.blue,color:"#fff",border:"none",borderRadius:4,
             padding:"6px 12px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font,flexShrink:0}}>
-            ← Tambah
+            {t("backAdd")}
           </button>
         </div>)}
         {!loading&&!searched&&<div style={{padding:20,textAlign:"center",color:C.faint,fontSize:12}}>
@@ -233,26 +233,26 @@ function ManualRowForm({ initial, onSave, onCancel, showKet }) {
           <input value={form.nama} onChange={f("nama")} style={inp} placeholder={t("ingredientNamePlaceholder")} autoFocus/>
         </div>
         <div>
-          <label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>JENIS</label>
+          <label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>{t("type")}</label>
           <select value={form.jenis} onChange={f("jenis")} style={inp}>
-            <option>Bahan</option><option>Kemasan</option><option>Cleaning Agent</option><option>Lainnya</option>
+            <option>{t("ingredient")}</option><option>{t("packaging")}</option><option>{t("cleaningAgent")}</option><option>{t("other")}</option>
           </select>
         </div>
       </div>
       <div style={{marginBottom:8}}>
-        <label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>TEMUAN</label>
+        <label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>{t("findings")}</label>
         <textarea value={form.temuan} onChange={f("temuan")} rows={2}
           style={{...inp,resize:"vertical",minHeight:44}} placeholder="SH BPJPH ID..., terbit tanggal ..., dari Produsen ..."/>
       </div>
       {showKet&&<div style={{marginBottom:8}}>
-        <label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>KETERANGAN</label>
+        <label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>{t("notes")}</label>
         <input value={form.ket} onChange={f("ket")} style={inp} placeholder="Sesuai / Perlu verifikasi"/>
       </div>}
       <div style={{display:"flex",gap:8}}>
         <button onClick={()=>onSave(form)} style={{background:C.blue,color:"#fff",border:"none",borderRadius:4,
-          padding:"5px 14px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font}}>Simpan</button>
+          padding:"5px 14px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font}}>{t("saveChanges")}</button>
         <button onClick={onCancel} style={{background:"transparent",color:C.muted,
-          border:`1px solid ${C.border}`,borderRadius:4,padding:"5px 14px",fontSize:12,cursor:"pointer",fontFamily:font}}>Batal</button>
+          border:`1px solid ${C.border}`,borderRadius:4,padding:"5px 14px",fontSize:12,cursor:"pointer",fontFamily:font}}>{t("cancelBtn")}</button>
       </div>
     </td>
   </tr>;
@@ -315,30 +315,30 @@ function BahanImportModal({ onImport, onClose }) {
       boxShadow:"0 8px 32px rgba(0,0,0,0.18)",fontFamily:font,overflow:"hidden"}}>
       <div style={{background:C.blue,color:"#fff",padding:"11px 16px",fontWeight:600,fontSize:13,
         display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-        <span>📊 Import Excel — Daftar Bahan</span>
+        <span>{t("importExcelIngredients")}</span>
         <button onClick={onClose} style={{background:"none",border:"none",color:"#fff",cursor:"pointer",fontSize:18}}>×</button>
       </div>
       <div style={{padding:16}}>
-        <div style={{fontSize:11,fontWeight:600,color:C.muted,marginBottom:6}}>Template:</div>
+        <div style={{fontSize:11,fontWeight:600,color:C.muted,marginBottom:6}}>{t("template")}</div>
         <div style={{overflowX:"auto",marginBottom:14}}>
           <table style={{width:"100%",borderCollapse:"collapse",fontSize:11,minWidth:420}}>
             <thead><tr style={{background:C.blueLight}}>
-              <th style={{border,width:30,padding:"4px 6px"}}>No.</th>
-              <th style={{border,padding:"4px 8px"}}>Nama dan Merek Bahan</th>
-              <th style={{border,width:90,padding:"4px 6px"}}>Jenis Bahan</th>
-              <th style={{border,width:140,padding:"4px 6px"}}>Produsen</th>
-              <th style={{border,width:130,padding:"4px 6px"}}>No. Sertifikat Halal</th>
+              <th style={{border,width:30,padding:"4px 6px"}}>{t("no")}</th>
+              <th style={{border,padding:"4px 8px"}}>{t("ingredientNameBrand")}</th>
+              <th style={{border,width:90,padding:"4px 6px"}}>{t("ingredientType")}</th>
+              <th style={{border,width:140,padding:"4px 6px"}}>{t("producer")}</th>
+              <th style={{border,width:130,padding:"4px 6px"}}>{t("halalCertNo")}</th>
             </tr></thead>
             <tbody>
               <tr><td style={{border,padding:"4px 6px",textAlign:"center",color:C.faint}}>1</td>
                 <td style={{border,padding:"4px 8px"}}>Tepung Terigu</td>
-                <td style={{border,padding:"4px 6px"}}>Bahan</td>
+                <td style={{border,padding:"4px 6px"}}>{t("ingredient")}</td>
                 <td style={{border,padding:"4px 6px"}}>PT. ABC</td>
                 <td style={{border,padding:"4px 6px",fontFamily:mono,fontSize:10}}>ID00410000090970121</td>
               </tr>
               <tr><td style={{border,padding:"4px 6px",textAlign:"center",color:C.faint}}>2</td>
                 <td style={{border,padding:"4px 8px"}}>Beras Putih</td>
-                <td style={{border,padding:"4px 6px"}}>Bahan</td>
+                <td style={{border,padding:"4px 6px"}}>{t("ingredient")}</td>
                 <td style={{border,padding:"4px 6px"}}>-</td>
                 <td style={{border,padding:"4px 6px"}}>-</td>
               </tr>
@@ -350,7 +350,7 @@ function BahanImportModal({ onImport, onClose }) {
           background:C.bgAlt,cursor:"pointer"}}
           onClick={()=>document.getElementById("bahan-excel-input")?.click()}>
           <div style={{fontSize:28,marginBottom:6}}>📁</div>
-          <div style={{fontSize:12,color:C.muted}}>Klik untuk upload file Excel (.xlsx / .xls)</div>
+          <div style={{fontSize:12,color:C.muted}}>{t("uploadExcelHint")}</div>
           <input id="bahan-excel-input" type="file" accept=".xlsx,.xls" style={{display:"none"}} onChange={handleFile}/>
         </div>
 
@@ -360,7 +360,7 @@ function BahanImportModal({ onImport, onClose }) {
         {preview!==null&&!parsing&&<div>
           <div style={{maxHeight:180,overflowY:"auto",border:border,borderRadius:4,marginBottom:12}}>
             {preview.length===0
-              ? <div style={{padding:12,textAlign:"center",color:C.faint,fontSize:11}}>Tidak ada data ditemukan.</div>
+              ? <div style={{padding:12,textAlign:"center",color:C.faint,fontSize:11}}>{t("noDataFound")}</div>
               : preview.slice(0,50).map((item,i)=><div key={i} style={{padding:"4px 10px",fontSize:12,
                   borderBottom:border,background:i%2===0?C.bg:C.bgAlt,display:"flex",gap:6}}>
                   <span style={{color:C.faint,width:24,flexShrink:0}}>{i+1}.</span>
@@ -532,7 +532,7 @@ function BahanTable({ mode, canEdit, rows, setRows }) {
         <div style={{display:"flex",gap:8,justifyContent:"flex-end"}}>
           <button onClick={()=>setShowDeleteConfirm(null)} style={{background:"transparent",
             border:`1px solid ${C.border}`,borderRadius:4,padding:"6px 16px",fontSize:12,
-            cursor:"pointer",fontFamily:font}}>Batal</button>
+            cursor:"pointer",fontFamily:font}}>{t("cancelBtn")}</button>
           <button onClick={()=>{
             if (showDeleteConfirm==="__bulk__") {
               setRows(r=>r.filter(x=>!selectedIds.has(x.id)));
@@ -543,7 +543,7 @@ function BahanTable({ mode, canEdit, rows, setRows }) {
             setShowDeleteConfirm(null);
           }}
             style={{background:C.red,border:"none",borderRadius:4,padding:"6px 16px",fontSize:12,
-              fontWeight:600,color:"#fff",cursor:"pointer",fontFamily:font}}>Ya, Hapus</button>
+              fontWeight:600,color:"#fff",cursor:"pointer",fontFamily:font}}>{t("yesDelete")}</button>
         </div>
       </div>
     </div>}
@@ -576,24 +576,24 @@ function BahanTable({ mode, canEdit, rows, setRows }) {
       <div style={{background:C.bg,borderRadius:8,padding:"20px 24px",maxWidth:340,width:"100%",
         boxShadow:"0 8px 30px rgba(0,0,0,0.18)",fontFamily:font}}>
         <div style={{fontSize:14,fontWeight:600,marginBottom:6}}>{t("markIngredients").replace("{n}", selectedIds.size)}</div>
-        <div style={{fontSize:12,color:C.muted,marginBottom:12}}>Atur keterangan untuk semua bahan terpilih:</div>
+        <div style={{fontSize:12,color:C.muted,marginBottom:12}}>{t("setNotesBulk")}</div>
         <select value={markValue} onChange={e=>setMarkValue(e.target.value)}
           style={{width:"100%",border:`1px solid ${C.border}`,borderRadius:4,padding:"7px 10px",
             fontSize:12,fontFamily:font,marginBottom:14}}>
           <option value="Sesuai">{t("compliant")}</option>
-          <option value="Butuh SH">Butuh SH</option>
-          <option value="Diganti">Diganti</option>
-          <option value="Dikeluarkan">Dikeluarkan</option>
+          <option value="Butuh SH">{t("needSH")}</option>
+          <option value="Diganti">{t("replaced")}</option>
+          <option value="Dikeluarkan">{t("excluded")}</option>
           <option value="Tambahan">{t("additional")}</option>
           <option value="Butuh Spec Bahan/MSDS">{t("needSpec")}</option>
         </select>
         <div style={{display:"flex",gap:8,justifyContent:"flex-end"}}>
           <button onClick={()=>setShowMarkModal(false)}
             style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:4,
-              padding:"6px 16px",fontSize:12,cursor:"pointer",fontFamily:font}}>Batal</button>
+              padding:"6px 16px",fontSize:12,cursor:"pointer",fontFamily:font}}>{t("cancelBtn")}</button>
           <button onClick={()=>{setRows(r=>r.map(x=>selectedIds.has(x.id)?{...x,ket:markValue}:x));setShowMarkModal(false);}}
             style={{background:C.blue,border:"none",borderRadius:4,padding:"6px 16px",fontSize:12,
-              fontWeight:600,color:"#fff",cursor:"pointer",fontFamily:font}}>Terapkan</button>
+              fontWeight:600,color:"#fff",cursor:"pointer",fontFamily:font}}>{t("apply")}</button>
         </div>
       </div>
     </div>}
@@ -615,7 +615,7 @@ function BahanTable({ mode, canEdit, rows, setRows }) {
         <button onClick={()=>setShowDeleteConfirm("__bulk__")}
           style={{background:C.red,border:"none",borderRadius:4,padding:"5px 14px",fontSize:12,
             color:"#fff",cursor:"pointer",fontFamily:font,fontWeight:500}}>
-          🗑 Hapus ({selectedIds.size})
+          {t("deleteSelected")} ({selectedIds.size})
         </button>
       </>}
     </div>}
@@ -639,12 +639,12 @@ function BahanTable({ mode, canEdit, rows, setRows }) {
               style={{cursor:"pointer",margin:0}}/>
           </th>
           <th style={th}>No</th>
-          <th style={th}>Nama dan Merek Bahan</th>
-          <th style={th}>Jenis</th>
-          <th style={{...th,textAlign:"center"}}>Diragukan</th>
-          <th style={th}>Temuan</th>
-          {showKet&&<th style={th}>Keterangan</th>}
-          <th style={{...th,textAlign:"center"}} className="aksi-col">Aksi</th>
+          <th style={th}>{t("ingredientNameBrand")}</th>
+          <th style={th}>{t("type")}</th>
+          <th style={{...th,textAlign:"center"}}>{t("questioned")}</th>
+          <th style={th}>{t("findings")}</th>
+          {showKet&&<th style={th}>{t("notes")}</th>}
+          <th style={{...th,textAlign:"center"}} className="aksi-col">{t("action")}</th>
         </tr></thead>
         <tbody>
           {rows.map((row,i)=>{
@@ -679,16 +679,16 @@ function BahanTable({ mode, canEdit, rows, setRows }) {
                       {isPositif
                         ? <><option value="Sesuai">{t("compliant")}</option><option value="Butuh Spec Bahan/MSDS">{t("needSpec")}</option></>
                         : <><option value="Sesuai">{t("compliant")}</option>
-                          <option value="Butuh SH">Butuh SH</option>
-                          <option value="Diganti">Diganti</option>
-                          <option value="Dikeluarkan">Dikeluarkan</option>
+                          <option value="Butuh SH">{t("needSH")}</option>
+                          <option value="Diganti">{t("replaced")}</option>
+                          <option value="Dikeluarkan">{t("excluded")}</option>
                           <option value="Tambahan">{t("additional")}</option></>}
                     </select>
                   : <span style={{fontSize:11,color:C.muted}}>{row.ket||"—"}</span>}
               </td>}
               <td style={{padding:"4px 6px",textAlign:"center",verticalAlign:"top",whiteSpace:"nowrap"}} className="aksi-col">
                 {canEdit&&<><IconBtn title="Edit" onClick={()=>setShowPicker(`edit:${row.id}`)}>✏️</IconBtn>
-                <IconBtn title="Hapus" color="red" onClick={()=>deleteRow(row.id)}>🗑</IconBtn></>}
+                <IconBtn title={t("delete")} color="red" onClick={()=>deleteRow(row.id)}>🗑</IconBtn></>}
               </td>
             </tr>;
           })}
@@ -724,7 +724,7 @@ function KriteriaTable({ mode, canEdit, rows, setRows }) {
     <table style={{width:"100%",borderCollapse:"collapse",fontSize:12}}>
       <colgroup><col style={{width:28}}/><col style={{width:200}}/><col/></colgroup>
       <thead><tr>
-        <th style={th}>No</th><th style={th}>Kriteria SJPH</th><th style={th}>Catatan Auditor</th>
+        <th style={th}>No</th><th style={th}>{t("sjphCriteria")}</th><th style={th}>{t("auditorNotes")}</th>
       </tr></thead>
       <tbody>{rows.map((row,i)=><tr key={row.id} style={{background:i%2===0?C.bg:C.bgAlt}}>
         <td style={{padding:"8px",textAlign:"center",color:C.faint,fontSize:11,verticalAlign:"top"}}>{row.id}</td>
@@ -749,9 +749,9 @@ function FasilitasTable({ reg, mode, canEdit, rows, setRows }) {
     <table style={{width:"100%",borderCollapse:"collapse",fontSize:12}}>
       <colgroup><col style={{width:28}}/><col style={{width:160}}/><col style={{width:200}}/><col style={{width:100}}/><col style={{width:80}}/><col className="aksi-col" style={{width:52}}/></colgroup>
       <thead><tr>
-        <th style={th}>No</th><th style={th}>Nama Fasilitas</th><th style={th}>Alamat</th>
-        <th style={th}>Kota</th><th style={th}>Negara</th>
-        {canEdit&&<th style={{...th,textAlign:"center"}} className="aksi-col">Aksi</th>}
+        <th style={th}>No</th><th style={th}>{t("facilityName")}</th><th style={th}>{t("address")}</th>
+        <th style={th}>{t("city")}</th><th style={th}>{t("country")}</th>
+        {canEdit&&<th style={{...th,textAlign:"center"}} className="aksi-col">{t("action")}</th>}
       </tr></thead>
       <tbody>
         {rows.map((r,i)=>editing===r.id
@@ -760,12 +760,12 @@ function FasilitasTable({ reg, mode, canEdit, rows, setRows }) {
                 <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
                   <div><label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>{t("facilityNameLabel")}</label>
                     <input value={r.nama} onChange={e=>setRows(rr=>rr.map(x=>x.id===r.id?{...x,nama:e.target.value}:x))} style={inp} autoFocus/></div>
-                  <div><label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>KOTA</label>
+                  <div><label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>{t("city")}</label>
                     <input value={r.kota} onChange={e=>setRows(rr=>rr.map(x=>x.id===r.id?{...x,kota:e.target.value}:x))} style={inp}/></div>
                 </div>
-                <div style={{marginBottom:8}}><label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>ALAMAT</label>
+                <div style={{marginBottom:8}}><label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>{t("address")}</label>
                   <input value={r.alamat} onChange={e=>setRows(rr=>rr.map(x=>x.id===r.id?{...x,alamat:e.target.value}:x))} style={inp}/></div>
-                <button onClick={()=>setEditing(null)} style={{background:C.blue,color:"#fff",border:"none",borderRadius:4,padding:"5px 14px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font}}>Simpan</button>
+                <button onClick={()=>setEditing(null)} style={{background:C.blue,color:"#fff",border:"none",borderRadius:4,padding:"5px 14px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font}}>{t("saveChanges")}</button>
               </td>
             </tr>
           : <tr key={r.id} style={{background:i%2===0?C.bg:C.bgAlt}}>
@@ -776,14 +776,14 @@ function FasilitasTable({ reg, mode, canEdit, rows, setRows }) {
               <td style={{padding:"6px 8px",color:C.muted}}>{r.negara}</td>
               {canEdit&&<td style={{padding:"4px 6px",textAlign:"center"}} className="aksi-col">
                 <IconBtn title="Edit" onClick={()=>setEditing(r.id)}>✏️</IconBtn>
-                {rows.length>1&&<IconBtn title="Hapus" color="red" onClick={()=>setRows(rr=>rr.filter(x=>x.id!==r.id))}>🗑</IconBtn>}
+                {rows.length>1&&<IconBtn title={t("delete")} color="red" onClick={()=>setRows(rr=>rr.filter(x=>x.id!==r.id))}>🗑</IconBtn>}
               </td>}
             </tr>
         )}
         {canEdit&&editing===null&&<tr className="tambah-row"><td colSpan={6} style={{padding:"6px 8px",borderTop:`1px dashed ${C.border}`}}>
           <button onClick={()=>{const nr={id:Date.now(),nama:"",alamat:"",kota:"",negara:"Indonesia"};setRows(r=>[...r,nr]);setEditing(nr.id);}}
             style={{background:"transparent",border:`1px dashed ${C.blue}`,borderRadius:4,padding:"5px 14px",fontSize:12,color:C.blue,cursor:"pointer",fontFamily:font,fontWeight:500}}>
-            + Tambah Fasilitas
+            {t("addFacility")}
           </button>
         </td></tr>}
       </tbody>
@@ -806,39 +806,39 @@ function PenyeliaTable({ reg, canEdit, rows, setRows }) {
         <div style={{fontSize:13,fontWeight:600,marginBottom:12}}>{t("supervisorFromSubmission")}</div>
         <table style={{width:"100%",fontSize:12}}>
           <tbody>
-            <tr><td style={{padding:"4px 8px",color:C.muted,width:100}}>Nama</td><td style={{padding:"4px 8px",fontWeight:500}}>{reg.penyeliaHalal||"—"}</td></tr>
-            <tr><td style={{padding:"4px 8px",color:C.muted}}>No. KTP</td><td style={{padding:"4px 8px"}}>{reg.penyeliaNoKTP||"—"}</td></tr>
-            <tr><td style={{padding:"4px 8px",color:C.muted}}>No. Sertifikat</td><td style={{padding:"4px 8px"}}>{reg.penyeliaNoSertifikat||"—"}</td></tr>
-            <tr><td style={{padding:"4px 8px",color:C.muted}}>No. SK</td><td style={{padding:"4px 8px"}}>{reg.penyeliaNoSK||"—"}</td></tr>
-            <tr><td style={{padding:"4px 8px",color:C.muted}}>No. Kontak</td><td style={{padding:"4px 8px"}}>{reg.penyeliaNoKontak||"—"}</td></tr>
+            <tr><td style={{padding:"4px 8px",color:C.muted,width:100}}>{t("name")}</td><td style={{padding:"4px 8px",fontWeight:500}}>{reg.penyeliaHalal||"—"}</td></tr>
+            <tr><td style={{padding:"4px 8px",color:C.muted}}>{t("idNumber")}</td><td style={{padding:"4px 8px"}}>{reg.penyeliaNoKTP||"—"}</td></tr>
+            <tr><td style={{padding:"4px 8px",color:C.muted}}>{t("certNumber")}</td><td style={{padding:"4px 8px"}}>{reg.penyeliaNoSertifikat||"—"}</td></tr>
+            <tr><td style={{padding:"4px 8px",color:C.muted}}>{t("decreeNumber")}</td><td style={{padding:"4px 8px"}}>{reg.penyeliaNoSK||"—"}</td></tr>
+            <tr><td style={{padding:"4px 8px",color:C.muted}}>{t("contactNumber")}</td><td style={{padding:"4px 8px"}}>{reg.penyeliaNoKontak||"—"}</td></tr>
           </tbody>
         </table>
         <div style={{display:"flex",gap:8,marginTop:14,justifyContent:"flex-end"}}>
-          <button onClick={()=>setShowPickPenyelia(false)} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:4,padding:"6px 14px",fontSize:12,cursor:"pointer",fontFamily:font}}>Batal</button>
+          <button onClick={()=>setShowPickPenyelia(false)} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:4,padding:"6px 14px",fontSize:12,cursor:"pointer",fontFamily:font}}>{t("cancelBtn")}</button>
           <button onClick={()=>{setRows(r=>[...r,{id:Date.now(),nama:reg.penyeliaHalal||"",noKTP:reg.penyeliaNoKTP||"",noSertifikat:reg.penyeliaNoSertifikat||"",noSK:reg.penyeliaNoSK||"",noKontak:reg.penyeliaNoKontak||""}]);setShowPickPenyelia(false);}}
-            style={{background:C.blue,color:"#fff",border:"none",borderRadius:4,padding:"6px 14px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font}}>Gunakan</button>
+            style={{background:C.blue,color:"#fff",border:"none",borderRadius:4,padding:"6px 14px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font}}>{t("use")}</button>
         </div>
       </div>
     </div>}
     <table style={{width:"100%",borderCollapse:"collapse",fontSize:11}}>
       <colgroup><col style={{width:28}}/><col style={{width:140}}/><col style={{width:110}}/><col style={{width:130}}/><col style={{width:130}}/><col style={{width:110}}/>{canEdit&&<col className="aksi-col" style={{width:56}}/>}</colgroup>
       <thead><tr>
-        <th style={th}>No</th><th style={th}>Nama</th><th style={th}>No. KTP</th>
-        <th style={th}>No./Tgl Sertifikat</th><th style={th}>No./Tgl SK</th><th style={th}>No. Kontak</th>
-        {canEdit&&<th style={{...th,textAlign:"center"}} className="aksi-col">Aksi</th>}
+        <th style={th}>No</th><th style={th}>{t("name")}</th><th style={th}>{t("idNumber")}</th>
+        <th style={th}>{t("certNoDate")}</th><th style={th}>{t("decreeNoDate")}</th><th style={th}>{t("contactNumber")}</th>
+        {canEdit&&<th style={{...th,textAlign:"center"}} className="aksi-col">{t("action")}</th>}
       </tr></thead>
       <tbody>
         {rows.map((r,i)=>editing===r.id
           ? <tr key={r.id} style={{background:C.blueLight}}>
               <td colSpan={canEdit?7:6} style={{padding:"10px 12px"}}>
                 <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:8}}>
-                  <div><label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>NAMA</label><input value={r.nama} onChange={e=>setRows(rr=>rr.map(x=>x.id===r.id?{...x,nama:e.target.value}:x))} style={inp} autoFocus/></div>
-                  <div><label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>NO. KTP</label><input value={r.noKTP} onChange={e=>setRows(rr=>rr.map(x=>x.id===r.id?{...x,noKTP:e.target.value}:x))} style={inp}/></div>
-                  <div><label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>NO./TGL SERTIFIKAT</label><input value={r.noSertifikat} onChange={e=>setRows(rr=>rr.map(x=>x.id===r.id?{...x,noSertifikat:e.target.value}:x))} style={inp}/></div>
-                  <div><label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>NO./TGL SK</label><input value={r.noSK} onChange={e=>setRows(rr=>rr.map(x=>x.id===r.id?{...x,noSK:e.target.value}:x))} style={inp}/></div>
-                  <div><label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>NO. KONTAK</label><input value={r.noKontak} onChange={e=>setRows(rr=>rr.map(x=>x.id===r.id?{...x,noKontak:e.target.value}:x))} style={inp}/></div>
+                  <div><label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>{t("name")}</label><input value={r.nama} onChange={e=>setRows(rr=>rr.map(x=>x.id===r.id?{...x,nama:e.target.value}:x))} style={inp} autoFocus/></div>
+                  <div><label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>{t("idNumber")}</label><input value={r.noKTP} onChange={e=>setRows(rr=>rr.map(x=>x.id===r.id?{...x,noKTP:e.target.value}:x))} style={inp}/></div>
+                  <div><label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>{t("certNoDateUpper")}</label><input value={r.noSertifikat} onChange={e=>setRows(rr=>rr.map(x=>x.id===r.id?{...x,noSertifikat:e.target.value}:x))} style={inp}/></div>
+                  <div><label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>{t("decreeNoDateUpper")}</label><input value={r.noSK} onChange={e=>setRows(rr=>rr.map(x=>x.id===r.id?{...x,noSK:e.target.value}:x))} style={inp}/></div>
+                  <div><label style={{fontSize:10,fontWeight:600,color:C.muted,display:"block",marginBottom:2}}>{t("contactNumber")}</label><input value={r.noKontak} onChange={e=>setRows(rr=>rr.map(x=>x.id===r.id?{...x,noKontak:e.target.value}:x))} style={inp}/></div>
                 </div>
-                <button onClick={()=>setEditing(null)} style={{background:C.blue,color:"#fff",border:"none",borderRadius:4,padding:"5px 14px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font}}>Simpan</button>
+                <button onClick={()=>setEditing(null)} style={{background:C.blue,color:"#fff",border:"none",borderRadius:4,padding:"5px 14px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font}}>{t("saveChanges")}</button>
               </td>
             </tr>
           : <tr key={r.id} style={{background:i%2===0?C.bg:C.bgAlt}}>
@@ -850,7 +850,7 @@ function PenyeliaTable({ reg, canEdit, rows, setRows }) {
               <td style={{padding:"6px 8px"}}>{r.noKontak||"—"}</td>
               {canEdit&&<td style={{padding:"4px 6px",textAlign:"center"}} className="aksi-col">
                 <IconBtn title="Edit" onClick={()=>setEditing(r.id)}>✏️</IconBtn>
-                {rows.length>1&&<IconBtn title="Hapus" color="red" onClick={()=>setRows(rr=>rr.filter(x=>x.id!==r.id))}>🗑</IconBtn>}
+                {rows.length>1&&<IconBtn title={t("delete")} color="red" onClick={()=>setRows(rr=>rr.filter(x=>x.id!==r.id))}>🗑</IconBtn>}
               </td>}
             </tr>
         )}
@@ -858,7 +858,7 @@ function PenyeliaTable({ reg, canEdit, rows, setRows }) {
           <div style={{display:"flex",gap:8}}>
           <button onClick={()=>{const nr={id:Date.now(),nama:"",noKTP:"",noSertifikat:"",noSK:"",noKontak:""};setRows(r=>[...r,nr]);setEditing(nr.id);}}
             style={{background:"transparent",border:`1px dashed ${C.blue}`,borderRadius:4,padding:"5px 14px",fontSize:12,color:C.blue,cursor:"pointer",fontFamily:font,fontWeight:500}}>
-            + Tambah Penyelia
+            {t("addSupervisor")}
           </button>
           {regPenyelia&&<button onClick={()=>setShowPickPenyelia(true)}
             style={{background:"transparent",border:`1px dashed ${C.gold}`,borderRadius:4,padding:"5px 14px",fontSize:12,color:C.gold,cursor:"pointer",fontFamily:font,fontWeight:500}}>
@@ -907,17 +907,17 @@ function ProdukImportModal({ onImport, onClose }) {
       boxShadow:"0 8px 32px rgba(0,0,0,0.18)",fontFamily:font,overflow:"hidden"}}>
       <div style={{background:C.blue,color:"#fff",padding:"11px 16px",fontWeight:600,fontSize:13,
         display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-        <span>📊 Import Excel — Daftar Produk</span>
+        <span>{t("importExcelProducts")}</span>
         <button onClick={onClose} style={{background:"none",border:"none",color:"#fff",cursor:"pointer",fontSize:18}}>×</button>
       </div>
       <div style={{padding:16}}>
         {/* Template */}
         <div style={{marginBottom:14}}>
-          <div style={{fontSize:11,fontWeight:600,color:C.muted,marginBottom:6}}>Template:</div>
+          <div style={{fontSize:11,fontWeight:600,color:C.muted,marginBottom:6}}>{t("template")}</div>
           <table style={{width:"100%",borderCollapse:"collapse",fontSize:11}}>
             <thead><tr style={{background:C.blueLight}}>
-              <th style={{border,width:40,padding:"4px 8px"}}>No.</th>
-              <th style={{border,padding:"4px 8px"}}>Nama Produk</th>
+              <th style={{border,width:40,padding:"4px 8px"}}>{t("no")}</th>
+              <th style={{border,padding:"4px 8px"}}>{t("productName")}</th>
             </tr></thead>
             <tbody>
               <tr><td style={{border,padding:"4px 8px",textAlign:"center",color:C.faint}}>1</td>
@@ -933,7 +933,7 @@ function ProdukImportModal({ onImport, onClose }) {
           background:C.bgAlt,cursor:"pointer"}}
           onClick={()=>document.getElementById("produk-excel-input")?.click()}>
           <div style={{fontSize:28,marginBottom:6}}>📁</div>
-          <div style={{fontSize:12,color:C.muted}}>Klik untuk upload file Excel (.xlsx / .xls)</div>
+          <div style={{fontSize:12,color:C.muted}}>{t("uploadExcelHint")}</div>
           <input id="produk-excel-input" type="file" accept=".xlsx,.xls" style={{display:"none"}} onChange={handleFile}/>
         </div>
 
@@ -947,7 +947,7 @@ function ProdukImportModal({ onImport, onClose }) {
           </div>
           <div style={{maxHeight:180,overflowY:"auto",border:border,borderRadius:4,marginBottom:12}}>
             {preview.length===0
-              ? <div style={{padding:12,textAlign:"center",color:C.faint,fontSize:11}}>Tidak ada data ditemukan.</div>
+              ? <div style={{padding:12,textAlign:"center",color:C.faint,fontSize:11}}>{t("noDataFound")}</div>
               : preview.slice(0,50).map((name,i)=><div key={i} style={{padding:"4px 10px",fontSize:12,
                   borderBottom:border,background:i%2===0?C.bg:C.bgAlt}}>
                 {i+1}. {name}
@@ -983,7 +983,7 @@ function ProdukTable({ canEdit, rows, setRows }) {
       onClose={()=>setShowImport(false)}/>}
     {canEdit&&<div style={{marginBottom:8,display:"flex",gap:8}} className="print-hide">
       <button onClick={()=>setAdding(true)} style={{background:"transparent",border:`1px dashed ${C.blue}`,
-        borderRadius:4,padding:"5px 14px",fontSize:12,color:C.blue,cursor:"pointer",fontFamily:font,fontWeight:500}}>+ Tambah Produk</button>
+        borderRadius:4,padding:"5px 14px",fontSize:12,color:C.blue,cursor:"pointer",fontFamily:font,fontWeight:500}}>{t("addProduct")}</button>
       <button onClick={()=>setShowImport(true)}
         style={{background:"transparent",border:`1px dashed ${C.gold}`,borderRadius:4,padding:"5px 14px",
           fontSize:12,color:C.gold,cursor:"pointer",fontFamily:font,fontWeight:500}}>
@@ -992,13 +992,13 @@ function ProdukTable({ canEdit, rows, setRows }) {
     </div>}
     <table style={{width:"100%",borderCollapse:"collapse",fontSize:12}}>
       <colgroup><col style={{width:36}}/><col/>{canEdit&&<col className="aksi-col" style={{width:48}}/>}</colgroup>
-      <thead><tr><th style={th}>No.</th><th style={th}>Nama Produk</th>{canEdit&&<th style={{...th,textAlign:"center"}} className="aksi-col">Aksi</th>}</tr></thead>
+      <thead><tr><th style={th}>{t("no")}</th><th style={th}>{t("productName")}</th>{canEdit&&<th style={{...th,textAlign:"center"}} className="aksi-col">{t("action")}</th>}</tr></thead>
       <tbody>
         {rows.map((r,i)=><tr key={r.id} style={{background:i%2===0?C.bg:C.bgAlt}}>
           <td style={{padding:"5px 8px",textAlign:"center",color:C.faint,fontSize:11}}>{i+1}</td>
           <td style={{padding:"5px 8px"}}>{r.nama}</td>
           {canEdit&&<td style={{padding:"4px 6px",textAlign:"center"}} className="aksi-col">
-            <IconBtn title="Hapus" color="red" onClick={()=>setRows(rr=>rr.filter(x=>x.id!==r.id))}>🗑</IconBtn>
+            <IconBtn title={t("delete")} color="red" onClick={()=>setRows(rr=>rr.filter(x=>x.id!==r.id))}>🗑</IconBtn>
           </td>}
         </tr>)}
         {canEdit&&adding&&<tr className="tambah-row"><td colSpan={3} style={{padding:"6px 8px",borderTop:`1px dashed ${C.border}`}}>
@@ -1041,9 +1041,9 @@ function TtdPickerModal({ regId, onSelect, onClose }) {
         <button onClick={onClose} style={{background:"none",border:"none",color:"#fff",cursor:"pointer",fontSize:18}}>×</button>
       </div>
       <div style={{padding:16}}>
-        {loading ? <div style={{textAlign:"center",color:C.muted,padding:20}}>Memuat...</div>
+        {loading ? <div style={{textAlign:"center",color:C.muted,padding:20}}>{t("loadingDots")}</div>
         : sigs.length === 0 ? <div style={{textAlign:"center",color:C.muted,padding:20}}>
-            Belum ada TTD yang diekstrak. Upload dan ekstrak di tab <strong>Dokumentasi → Ekstrak TTD</strong>.
+            {t("noSignatureExtracted")} <strong>Dokumentasi → Ekstrak TTD</strong>.
           </div>
         : <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:10}}>
             {sigs.map(s => (
@@ -1075,11 +1075,11 @@ function TimAuditorTTD({ rows, setRows, auditors, ttdAssign, onAssignTtd, canEdi
   return <div style={{fontFamily:font}}>
     <table style={{width:"100%",borderCollapse:"collapse",fontSize:12}}>
       <thead><tr>
-        <th style={{...th,width:28}}>No.</th>
-        <th style={th}>Nama Auditor</th>
-        <th style={th}>Peran</th>
-        <th style={{...th,width:160}}>Tanda Tangan</th>
-        {canEdit && <th style={{...th,width:36,textAlign:"center"}} className="print-hide">Aksi</th>}
+        <th style={{...th,width:28}}>{t("no")}</th>
+        <th style={th}>{t("auditorName")}</th>
+        <th style={th}>{t("role")}</th>
+        <th style={{...th,width:160}}>{t("signature")}</th>
+        {canEdit && <th style={{...th,width:36,textAlign:"center"}} className="print-hide">{t("action")}</th>}
       </tr></thead>
       <tbody>{rows.map((r,i)=><tr key={r.id} style={{background:i%2===0?C.bg:C.bgAlt}}>
         <td style={{padding:"14px 10px",textAlign:"center",color:C.faint,fontSize:11}}>{i+1}</td>
@@ -1099,7 +1099,7 @@ function TimAuditorTTD({ rows, setRows, auditors, ttdAssign, onAssignTtd, canEdi
               style={{border:`1px solid ${C.border}`,borderRadius:3,padding:"5px 8px",fontSize:12,fontFamily:font,outline:"none"}}>
               <option value="Lead Auditor">{t("leadAuditor")}</option>
               <option value="Auditor">{t("auditor")}</option>
-              <option value="Observer">Observer</option>
+              <option value="Observer">{t("observer")}</option>
             </select>
           ) : (
             <Badge color={r.peran==="Lead Auditor"?"blue":"gray"}>{r.peran}</Badge>
@@ -1109,24 +1109,24 @@ function TimAuditorTTD({ rows, setRows, auditors, ttdAssign, onAssignTtd, canEdi
           {ttdAssign["ta_"+r.id] ? (
             <div style={{display:"flex",alignItems:"center",gap:4}}>
               <img src={ttdAssign["ta_"+r.id]} alt="TTD" style={{height:32,objectFit:"contain"}} />
-              <button onClick={()=>onAssignTtd("ta_"+r.id,null)} title="Hapus" className="print-hide"
+              <button onClick={()=>onAssignTtd("ta_"+r.id,null)} title={t("delete")} className="print-hide"
                 style={{background:"none",border:"none",color:C.red,cursor:"pointer",fontSize:10}}>✕</button>
             </div>
           ) : (
             canEdit && <button onClick={()=>setPickerRow(r.id)} title="Pilih TTD" className="print-hide"
               style={{background:"none",border:`1px dashed ${C.border}`,borderRadius:3,padding:"3px 8px",fontSize:10,
-                color:C.muted,cursor:"pointer",fontFamily:font}}>Pilih TTD</button>
+                color:C.muted,cursor:"pointer",fontFamily:font}}>{t("chooseSignature")}</button>
           )}
         </td>
         {canEdit && <td style={{padding:"8px 6px",textAlign:"center"}} className="print-hide">
-          <button onClick={()=>deleteRow(r.id)} title="Hapus baris"
+          <button onClick={()=>deleteRow(r.id)} title={t("deleteRow")}
             style={{background:"none",border:"none",color:C.red,cursor:"pointer",fontSize:14,padding:2,lineHeight:1}}>✕</button>
         </td>}
       </tr>)}</tbody>
     </table>
     {canEdit && <div style={{marginTop:8}}>
       <button onClick={()=>setRows(prev=>[...prev,{id:Date.now(),nama:"",peran:"Auditor"}])} className="print-hide"
-        style={{background:"none",border:`1px dashed ${C.border}`,borderRadius:4,padding:"4px 12px",fontSize:11,color:C.muted,cursor:"pointer",fontFamily:font}}>+ Tambah Baris</button>
+        style={{background:"none",border:`1px dashed ${C.border}`,borderRadius:4,padding:"4px 12px",fontSize:11,color:C.muted,cursor:"pointer",fontFamily:font}}>{t("addRow")}</button>
     </div>}
     {/* Hidden datalist for auditor name autocomplete */}
     {canEdit && <datalist id="auditor-list">
@@ -1146,11 +1146,11 @@ function PerwakilanTable({ rows, setRows, canEdit, regId, ttdAssign, onAssignTtd
   return <div style={{fontFamily:font}}>
     <table style={{width:"100%",borderCollapse:"collapse",fontSize:12}}>
       <thead><tr>
-        <th style={{...th,width:28}}>No.</th>
-        <th style={th}>Nama</th>
-        <th style={th}>Jabatan</th>
-        <th style={{...th,width:160}}>Tanda Tangan</th>
-        {canEdit && <th style={{...th,width:36,textAlign:"center"}} className="print-hide">Aksi</th>}
+        <th style={{...th,width:28}}>{t("no")}</th>
+        <th style={th}>{t("name")}</th>
+        <th style={th}>{t("position")}</th>
+        <th style={{...th,width:160}}>{t("signature")}</th>
+        {canEdit && <th style={{...th,width:36,textAlign:"center"}} className="print-hide">{t("action")}</th>}
       </tr></thead>
       <tbody>{rows.map((r,i)=><tr key={r.id} style={{background:i%2===0?C.bg:C.bgAlt}}>
         <td style={{padding:"14px 10px",textAlign:"center",color:C.faint,fontSize:11}}>{i+1}</td>
@@ -1176,24 +1176,24 @@ function PerwakilanTable({ rows, setRows, canEdit, regId, ttdAssign, onAssignTtd
           {ttdAssign["pw_"+r.id] ? (
             <div style={{display:"flex",alignItems:"center",gap:4}}>
               <img src={ttdAssign["pw_"+r.id]} alt="TTD" style={{height:32,objectFit:"contain"}} />
-              <button onClick={()=>onAssignTtd("pw_"+r.id,null)} title="Hapus" className="print-hide"
+              <button onClick={()=>onAssignTtd("pw_"+r.id,null)} title={t("delete")} className="print-hide"
                 style={{background:"none",border:"none",color:C.red,cursor:"pointer",fontSize:10}}>✕</button>
             </div>
           ) : (
             canEdit && <button onClick={()=>setPickerRow(r.id)} title="Pilih TTD"
               style={{background:"none",border:`1px dashed ${C.border}`,borderRadius:3,padding:"3px 8px",fontSize:10,
-                color:C.muted,cursor:"pointer",fontFamily:font}}>Pilih TTD</button>
+                color:C.muted,cursor:"pointer",fontFamily:font}}>{t("chooseSignature")}</button>
           )}
         </td>
         {canEdit && <td style={{padding:"8px 6px",textAlign:"center"}} className="print-hide">
-          <button onClick={()=>deleteRow(r.id)} title="Hapus baris"
+          <button onClick={()=>deleteRow(r.id)} title={t("deleteRow")}
             style={{background:"none",border:"none",color:C.red,cursor:"pointer",fontSize:14,padding:2,lineHeight:1}}>✕</button>
         </td>}
       </tr>)}</tbody>
     </table>
     {canEdit && <div style={{marginTop:8}}>
       <button onClick={()=>setRows(prev=>[...prev,{id:Date.now(),nama:"",jabatan:""}])} className="print-hide"
-        style={{background:"none",border:`1px dashed ${C.border}`,borderRadius:4,padding:"4px 12px",fontSize:11,color:C.muted,cursor:"pointer",fontFamily:font}}>+ Tambah Baris</button>
+        style={{background:"none",border:`1px dashed ${C.border}`,borderRadius:4,padding:"4px 12px",fontSize:11,color:C.muted,cursor:"pointer",fontFamily:font}}>{t("addRow")}</button>
     </div>}
     {pickerRow && <TtdPickerModal regId={regId} onSelect={dataUrl=>{onAssignTtd("pw_"+pickerRow,dataUrl);setPickerRow(null);}} onClose={()=>setPickerRow(null)} />}
   </div>;
@@ -1217,7 +1217,7 @@ function ProfileTable({ reg, mode, canEdit, auditors, namaPemilik, onNamaPemilik
     ["Alamat Perusahaan", reg?.alamat],
     ["Jenis Produk", reg?.jenisProduk],
     ["Jenis Pendaftaran", reg?.jenisPendaftaran],
-    ["Tanggal Audit", reg?.tanggalAudit ? fmtDateLong(reg.tanggalAudit) : <Badge color="gold">Belum dijadwalkan</Badge>],
+    ["Tanggal Audit", reg?.tanggalAudit ? fmtDateLong(reg.tanggalAudit) : <Badge color="gold">{t("notScheduled")}</Badge>],
     ["Lead Auditor", getA(reg?.leadAuditor)],
     ["Auditor", getA(reg?.auditor)],
     reg?.auditor2 && ["Auditor 2", getA(reg.auditor2)],
@@ -1248,8 +1248,8 @@ function LH() {
     <img src={cornerLogoSrc} alt="" style={{position:"absolute",top:0,right:0,width:72,opacity:0.7}}/>
     <img src={logoSrc} alt="LPH UIN" style={{width:72,height:72,objectFit:"contain",flexShrink:0}}/>
     <div style={{flex:1}}>
-      <div style={{fontSize:16,fontWeight:700,color:C.blue}}>LEMBAGA PEMERIKSA HALAL</div>
-      <div style={{fontSize:15,fontWeight:700,color:C.blue}}>UIN SYARIF HIDAYATULLAH JAKARTA</div>
+      <div style={{fontSize:16,fontWeight:700,color:C.blue}}>{t("lphInstitutionName")}</div>
+      <div style={{fontSize:15,fontWeight:700,color:C.blue}}>{t("lphUniversityName")}</div>
       <div style={{fontSize:11,color:C.muted,marginTop:5,lineHeight:1.5,borderTop:`1px solid #dce8f8`,paddingTop:5}}>
         Gedung Wisma Usaha UIN Syarif Hidayatullah Jakarta Lantai 3, Jl. Ir H. Juanda No. 95, Cempaka Putih, Ciputat, Tangerang Selatan, Banten 15412
         <br/>Telp: 08971740444 &nbsp;·&nbsp; Email: lph@apps.uinjkt.ac.id
@@ -1342,7 +1342,7 @@ function LampiranPickerModal({ regId, onSelect, onClose }) {
         <button onClick={onClose} style={{background:"none",border:"none",color:"#fff",cursor:"pointer",fontSize:18}}>×</button>
       </div>
       <div style={{padding:16,overflow:"auto",flex:1}}>
-        {loading ? <div style={{textAlign:"center",color:C.muted,padding:20}}>Memuat...</div>
+        {loading ? <div style={{textAlign:"center",color:C.muted,padding:20}}>{t("loadingDots")}</div>
         : images.length === 0 ? <div style={{textAlign:"center",color:C.muted,padding:20}}>
             Belum ada gambar di Dokumentasi. Upload gambar terlebih dahulu di tab Dokumentasi.
           </div>
@@ -1350,7 +1350,7 @@ function LampiranPickerModal({ regId, onSelect, onClose }) {
           <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:10}}>
             <button onClick={allSelected ? deselectAll : selectAll}
               style={{background:"none",border:"none",color:C.blue,cursor:"pointer",fontSize:11,fontWeight:600,fontFamily:font}}>
-              {allSelected ? "✕ Batal Semua" : "☐ Pilih Semua"}
+              {allSelected ? t("cancelAll") : t("selectAll")}
             </button>
             <span style={{fontSize:11,color:C.muted}}>{selected.size} dipilih</span>
           </div>
@@ -1376,7 +1376,7 @@ function LampiranPickerModal({ regId, onSelect, onClose }) {
           <button onClick={addSelected} disabled={selected.size === 0 || adding}
             style={{background:selected.size===0?C.borderLight:C.blue,color:"#fff",border:"none",borderRadius:5,
               padding:"6px 16px",fontSize:12,fontWeight:600,cursor:selected.size===0?"not-allowed":"pointer",fontFamily:font}}>
-            {adding ? "Memuat..." : `+ Tambah ${selected.size > 0 ? `(${selected.size})` : ""}`}
+            {adding ? t("loadingWithDots") : t("addSelected")}
           </button>
         </div>
       )}
@@ -1448,7 +1448,7 @@ function AturFotoModal({ itemName, photos, onSave, onClose }) {
         </div>
         <div style={{padding:16,overflow:"auto",flex:1}}>
           {items.length === 0 ? (
-            <div style={{textAlign:"center",color:C.muted,padding:30,fontSize:12}}>Tidak ada foto.</div>
+            <div style={{textAlign:"center",color:C.muted,padding:30,fontSize:12}}>{t("noPhotos")}</div>
           ) : (
             <div style={{display:"flex",flexDirection:"column",gap:10}}>
               {items.map((p, idx) => (
@@ -1494,7 +1494,7 @@ function AturFotoModal({ itemName, photos, onSave, onClose }) {
                   {/* Delete */}
                   <button onClick={() => remove(idx)}
                     style={{background:"none",border:"none",color:C.red,cursor:"pointer",fontSize:14,padding:4,lineHeight:1,flexShrink:0}}
-                    title="Hapus foto">✕</button>
+                    title={t("deletePhoto")}>✕</button>
                 </div>
               ))}
             </div>
@@ -1506,10 +1506,10 @@ function AturFotoModal({ itemName, photos, onSave, onClose }) {
           <div style={{display:"flex",gap:8}}>
             <button onClick={onClose}
               style={{background:"none",border:`1px solid ${C.border}`,borderRadius:5,padding:"6px 14px",fontSize:11,
-                color:C.muted,cursor:"pointer",fontFamily:font}}>Batal</button>
+                color:C.muted,cursor:"pointer",fontFamily:font}}>{t("cancelBtn")}</button>
             <button onClick={handleSave}
               style={{background:C.blue,color:"#fff",border:"none",borderRadius:5,padding:"6px 16px",fontSize:11,
-                fontWeight:600,cursor:"pointer",fontFamily:font}}>Simpan</button>
+                fontWeight:600,cursor:"pointer",fontFamily:font}}>{t("saveChanges")}</button>
           </div>
         </div>
       </div>
@@ -1530,7 +1530,7 @@ function LampiranSection({ regId, lampiranImgs, onAssignLampiran, lampiranItems,
       <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
         <span style={{fontWeight:600,fontSize:12}}>Lampiran {item}</span>
         <div style={{display:"flex",gap:4}}>
-          <button onClick={()=>{const n=items.filter((_,j)=>j!==i);onUpdateItems(n);}} title="Hapus lampiran" className="print-hide"
+          <button onClick={()=>{const n=items.filter((_,j)=>j!==i);onUpdateItems(n);}} title={t("deleteAttachment")} className="print-hide"
             style={{background:"none",border:"none",color:C.red,cursor:"pointer",fontSize:11,fontFamily:font}}>✕</button>
         </div>
       </div>
@@ -1546,7 +1546,7 @@ function LampiranSection({ regId, lampiranImgs, onAssignLampiran, lampiranItems,
               <img src={url} alt={`Lampiran ${item} #${pi+1}`}
                 onClick={()=>setPreviewUrl(url)}
                 style={{width:"100%",height:"auto",maxHeight:"none",objectFit:"contain",borderRadius:4,border:`1px solid ${C.borderLight}`,cursor:"pointer",background:"#fafafa"}} />
-              <button onClick={()=>{const n=[...imgs[i]];n.splice(pi,1);const upd={...imgs};if(n.length)upd[i]=n;else delete upd[i];onAssignLampiran(upd);}} title="Hapus foto" className="print-hide"
+              <button onClick={()=>{const n=[...imgs[i]];n.splice(pi,1);const upd={...imgs};if(n.length)upd[i]=n;else delete upd[i];onAssignLampiran(upd);}} title={t("deletePhoto")} className="print-hide"
                 style={{position:"absolute",top:-4,right:-4,width:16,height:16,borderRadius:"50%",
                   background:C.red,color:"#fff",border:"none",fontSize:9,cursor:"pointer",lineHeight:1}}>✕</button>
             </div>
@@ -1557,11 +1557,11 @@ function LampiranSection({ regId, lampiranImgs, onAssignLampiran, lampiranItems,
         <div style={{display:"flex",gap:8,marginTop:4}}>
           <button onClick={()=>setPickerIdx(i)} title="Tambah foto" className="print-hide"
             style={{background:"none",border:`1px dashed ${C.border}`,borderRadius:4,padding:"3px 10px",fontSize:11,
-              color:C.muted,cursor:"pointer",fontFamily:font}}>+ Tambah Foto</button>
+              color:C.muted,cursor:"pointer",fontFamily:font}}>{t("addPhoto")}</button>
           {imgs[i] && imgs[i].length > 0 && (
             <button onClick={()=>setAturIdx(i)} title="Atur ulang foto" className="print-hide"
               style={{background:"none",border:`1px dashed ${C.border}`,borderRadius:4,padding:"3px 10px",fontSize:11,
-                color:C.muted,cursor:"pointer",fontFamily:font}}>Atur Foto</button>
+                color:C.muted,cursor:"pointer",fontFamily:font}}>{t("arrangePhoto")}</button>
           )}
         </div>
       )}
@@ -1569,7 +1569,7 @@ function LampiranSection({ regId, lampiranImgs, onAssignLampiran, lampiranItems,
     {canEdit && (
       <button onClick={()=>{const name=prompt("Nama lampiran baru:");if(name)onUpdateItems([...items,name]);}} className="print-hide"
         style={{marginTop:4,background:"none",border:`1px dashed ${C.blue}`,borderRadius:5,padding:"6px 14px",fontSize:12,
-          color:C.blue,cursor:"pointer",fontFamily:font,fontWeight:600}}>+ Tambah Lampiran</button>
+          color:C.blue,cursor:"pointer",fontFamily:font,fontWeight:600}}>{t("addAttachment")}</button>
     )}
     {pickerIdx !== null && <LampiranPickerModal regId={regId}
       onSelect={dataUrls=>{
@@ -1882,9 +1882,9 @@ select{-webkit-appearance:none;appearance:none;border:none!important;background:
       alignItems:"center",justifyContent:"space-between",height:48,
       position:"sticky",top:0,zIndex:200,boxShadow:"0 2px 8px rgba(0,0,0,0.15)"}}>
       <div style={{display:"flex",alignItems:"center",gap:12}}>
-        <span style={{fontSize:13,fontWeight:700,letterSpacing:"0.04em"}}>HARS</span>
+        <span style={{fontSize:13,fontWeight:700,letterSpacing:"0.04em"}}>{t("appName")}</span>
         <span style={{opacity:0.4,fontSize:16}}>|</span>
-        <span style={{fontSize:12,opacity:0.85}}>Laporan Audit · {reg?.namaPU||"—"}</span>
+        <span style={{fontSize:12,opacity:0.85}}>{t("auditReportTitle")} · {reg?.namaPU||"—"}</span>
       </div>
       <div style={{display:"flex",alignItems:"center",gap:10}}>
         <button onClick={()=>saveReport("final")} disabled={!dataLoaded || saving}
@@ -1892,9 +1892,9 @@ select{-webkit-appearance:none;appearance:none;border:none!important;background:
           color:"#fff",borderRadius:5,padding:"5px 12px",fontSize:12,fontWeight:600,
           cursor:dataLoaded&&!saving?"pointer":"not-allowed",fontFamily:font,
           display:"flex",alignItems:"center",gap:5,opacity:dataLoaded?1:0.5}}>
-          {!dataLoaded ? "⏳ Memuat..."
-            : saving ? "⏳ Menyimpan..."
-            : <>💾 Simpan{savedFeedback&&<span style={{marginLeft:4}}>✓</span>}</>}
+          {!dataLoaded ? t("loadingWithDots")
+            : saving ? t("saving")
+            : <>{t("saveBtn")}{savedFeedback&&<span style={{marginLeft:4}}>✓</span>}</>}
         </button>
         <button type="button" onClick={handlePrint} disabled={printing}
           style={{background:C.gold,border:"none",color:"#fff",
@@ -1914,8 +1914,8 @@ select{-webkit-appearance:none;appearance:none;border:none!important;background:
       {/* Title bar */}
       <div style={{background:C.blue,color:"#fff",textAlign:"center",padding:"14px 32px"}}>
         <div id="doc-title" style={{fontSize:14,fontWeight:600,letterSpacing:"0.04em"}}>{t("auditReportTitle")}</div>
-        <div style={{fontSize:12,opacity:0.85,marginTop:2}}>LPH UIN SYARIF HIDAYATULLAH JAKARTA</div>
-        <span id="doc-badge" style={{display:"none"}}>LAPORAN HASIL AUDIT</span>
+        <div style={{fontSize:12,opacity:0.85,marginTop:2}}>{t("lphFullName")}</div>
+        <span id="doc-badge" style={{display:"none"}}>{t("auditReportTitle")}</span>
       </div>
 
       {/* Content */}
@@ -1953,7 +1953,7 @@ select{-webkit-appearance:none;appearance:none;border:none!important;background:
 
         {/* Perwakilan Perusahaan */}
         <div>
-        <SecHdr>Perwakilan Perusahaan</SecHdr>
+        <SecHdr>{t("companyRepresentative")}</SecHdr>
         <PerwakilanTable rows={perwakilanRows} setRows={setPerwakilanRows} canEdit={canEdit} regId={reg.id}
           ttdAssign={ttdAssign} onAssignTtd={(key,url)=>setTtdAssign(p=>({...p,[key]:url}))}/>
         </div>
@@ -1972,7 +1972,7 @@ select{-webkit-appearance:none;appearance:none;border:none!important;background:
               padding:"12px 20px",margin:"20px 0",display:"flex",alignItems:"center",gap:12,cursor:canEdit?"pointer":"default"}}>
               <span style={{fontSize:24}}>{cur.icon}</span>
               <div>
-                <div style={{fontSize:11,color:C.muted}}>Keterangan Laporan Hasil Audit</div>
+                <div style={{fontSize:11,color:C.muted}}>{t("auditResultNotes")}</div>
                 <div style={{fontSize:15,fontWeight:600,color:cur.color}}>{cur.label}</div>
               </div>
             </div>
@@ -1989,7 +1989,7 @@ select{-webkit-appearance:none;appearance:none;border:none!important;background:
                 {reg?.tanggalAudit?fmtDate(reg.tanggalAudit):"__________"}
               </span>
             </div>
-            <div style={{fontSize:12,color:C.muted,marginTop:4}}>Diketahui Oleh,<br/>Direktur LPH</div>
+            <div style={{fontSize:12,color:C.muted,marginTop:4}}>{t("knownBy")}<br/>{t("lphDirector")}</div>
             <div style={{ position: "relative", height: "115px", width: "100%", marginBottom: "4px" }}>
               <img src={sigImg} alt="Signature"
                 style={{
@@ -2020,7 +2020,7 @@ select{-webkit-appearance:none;appearance:none;border:none!important;background:
 
         {/* Lampiran — own page when printed */}
         <div className="pgbrk" style={{pageBreakBefore:"always"}}>
-        <SecHdr>Lampiran</SecHdr>
+        <SecHdr>{t("attachment")}</SecHdr>
         <LampiranSection regId={reg.id} lampiranImgs={lampiranImgs}
           lampiranItems={lampiranItems} onUpdateItems={setLampiranItems}
           onAssignLampiran={setLampiranImgs} canEdit={canEdit} />

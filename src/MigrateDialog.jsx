@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { api } from "./api";
+import { useLang } from "./i18n";
 
 export default function MigrateDialog({ onComplete }) {
+  const { t } = useLang();
   const [status, setStatus] = useState("idle"); // idle | migrating | done | error
   const [progress, setProgress] = useState("");
 
@@ -9,7 +11,7 @@ export default function MigrateDialog({ onComplete }) {
     setStatus("migrating");
     try {
       // Migrate registrations
-      setProgress("Memigrasi data registrasi...");
+      setProgress(t("migratingRegs"));
       const regs = await getAllFromIDB("registrations");
       for (const reg of regs) {
         try {
@@ -20,7 +22,7 @@ export default function MigrateDialog({ onComplete }) {
       }
 
       // Migrate app state (ST/SPK metadata, foto metadata)
-      setProgress("Memigrasi state aplikasi...");
+      setProgress(t("migratingState"));
       const allState = await getAllFromIDB("app_state");
       for (const s of allState) {
         try {
@@ -31,7 +33,7 @@ export default function MigrateDialog({ onComplete }) {
       }
 
       // Migrate users (with temp password)
-      setProgress("Memigrasi data pengguna...");
+      setProgress(t("migratingUsers"));
       const users = await getAllFromIDB("users");
       for (const u of users) {
         try {
@@ -47,7 +49,7 @@ export default function MigrateDialog({ onComplete }) {
       }
 
       // Migrate reports
-      setProgress("Memigrasi laporan audit...");
+      setProgress(t("migratingReports"));
       const reports = await getAllFromIDB("reports");
       for (const r of reports) {
         try {
@@ -68,7 +70,7 @@ export default function MigrateDialog({ onComplete }) {
       }
 
       // Migrate auditors
-      setProgress("Memigrasi auditor...");
+      setProgress(t("migratingAuditors"));
       const auditors = await getAllFromIDB("auditors");
       for (const a of auditors) {
         try {
@@ -107,11 +109,9 @@ export default function MigrateDialog({ onComplete }) {
           fontFamily: "'Plus Jakarta Sans', sans-serif",
         }}
       >
-        <h3 style={{ margin: "0 0 12px", color: "#0a6fc0" }}>Migrasi Data</h3>
+        <h3 style={{ margin: "0 0 12px", color: "#0a6fc0" }}>{t("migrateTitle")}</h3>
         <p style={{ fontSize: 13, color: "#555", lineHeight: 1.6 }}>
-          Data Anda saat ini tersimpan di browser (IndexedDB). Untuk
-          menyimpannya ke server agar bisa diakses dari perangkat lain, klik
-          tombol Migrasi.
+          {t("migrateDesc")}
         </p>
         {status === "idle" && (
           <button
@@ -127,7 +127,7 @@ export default function MigrateDialog({ onComplete }) {
               cursor: "pointer",
             }}
           >
-            Mulai Migrasi
+            {t("migrateBtn")}
           </button>
         )}
         {status === "migrating" && (
@@ -135,12 +135,12 @@ export default function MigrateDialog({ onComplete }) {
         )}
         {status === "done" && (
           <p style={{ fontSize: 13, color: "#1b5e20" }}>
-            Migrasi selesai! Halaman akan dimuat ulang.
+            {t("migrateDone")}
           </p>
         )}
         {status === "error" && (
           <div>
-            <p style={{ fontSize: 13, color: "#c0392b" }}>Error: {progress}</p>
+            <p style={{ fontSize: 13, color: "#c0392b" }}>{t("migrateError")}{progress}</p>
             <button
               onClick={() => setStatus("idle")}
               style={{
@@ -154,7 +154,7 @@ export default function MigrateDialog({ onComplete }) {
                 cursor: "pointer",
               }}
             >
-              Coba Lagi
+              {t("retryBtn")}
             </button>
           </div>
         )}

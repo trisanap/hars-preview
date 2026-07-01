@@ -1041,7 +1041,7 @@ function ModeDokumenPendukung({ regId }) {
           </div>
           {/* Daftar Hadir Audit */}
           <div style={{ background: C.bg, borderRadius: 6, padding: "10px 12px", border: `1px solid ${C.borderLight}` }}>
-            <div style={{ fontWeight: 600, fontSize: 12, color: C.text, marginBottom: 6 }}>Daftar Hadir Audit (PDF)</div>
+            <div style={{ fontWeight: 600, fontSize: 12, color: C.text, marginBottom: 6 }}>{t("attendanceListPDF")}</div>
             {signedHadir ? (
               <div>
                 <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:4 }}>
@@ -1113,7 +1113,7 @@ function ModeDokumenPendukung({ regId }) {
             )}
           </div>
         ) : (
-          <Btn variant="primary" onClick={() => setAdding(true)}>+ Tambah Dokumen</Btn>
+          <Btn variant="primary" onClick={() => setAdding(true)}>{t("addDocument")}</Btn>
         )}
       </div>
 
@@ -1125,12 +1125,12 @@ function ModeDokumenPendukung({ regId }) {
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
           <thead>
             <tr style={{ background: C.bgAlt }}>
-              <th style={{ padding: "7px 10px", textAlign: "left", fontSize: 11, fontWeight: 600, color: C.muted, borderBottom: `1px solid ${C.borderLight}` }}>LABEL</th>
-              <th style={{ padding: "7px 10px", textAlign: "left", fontSize: 11, fontWeight: 600, color: C.muted, borderBottom: `1px solid ${C.borderLight}` }}>JENIS</th>
-              <th style={{ padding: "7px 10px", textAlign: "left", fontSize: 11, fontWeight: 600, color: C.muted, borderBottom: `1px solid ${C.borderLight}` }}>FILE</th>
-              <th style={{ padding: "7px 10px", textAlign: "left", fontSize: 11, fontWeight: 600, color: C.muted, borderBottom: `1px solid ${C.borderLight}` }}>TANGGAL</th>
-              <th style={{ padding: "7px 10px", textAlign: "left", fontSize: 11, fontWeight: 600, color: C.muted, borderBottom: `1px solid ${C.borderLight}` }}>UKURAN</th>
-              <th style={{ padding: "7px 10px", textAlign: "center", fontSize: 11, fontWeight: 600, color: C.muted, borderBottom: `1px solid ${C.borderLight}` }}>AKSI</th>
+              <th style={{ padding: "7px 10px", textAlign: "left", fontSize: 11, fontWeight: 600, color: C.muted, borderBottom: `1px solid ${C.borderLight}` }}>{t("label")}</th>
+              <th style={{ padding: "7px 10px", textAlign: "left", fontSize: 11, fontWeight: 600, color: C.muted, borderBottom: `1px solid ${C.borderLight}` }}>{t("type")}</th>
+              <th style={{ padding: "7px 10px", textAlign: "left", fontSize: 11, fontWeight: 600, color: C.muted, borderBottom: `1px solid ${C.borderLight}` }}>{t("file")}</th>
+              <th style={{ padding: "7px 10px", textAlign: "left", fontSize: 11, fontWeight: 600, color: C.muted, borderBottom: `1px solid ${C.borderLight}` }}>{t("date")}</th>
+              <th style={{ padding: "7px 10px", textAlign: "left", fontSize: 11, fontWeight: 600, color: C.muted, borderBottom: `1px solid ${C.borderLight}` }}>{t("size")}</th>
+              <th style={{ padding: "7px 10px", textAlign: "center", fontSize: 11, fontWeight: 600, color: C.muted, borderBottom: `1px solid ${C.borderLight}` }}>{t("action")}</th>
             </tr>
           </thead>
           <tbody>
@@ -1188,7 +1188,7 @@ function PDFViewerModal({ doc, regId, onClose, onSnapshot }) {
         <iframe ref={iframeRef} src={doc.data} style={{width:"100%",height:"100%",minHeight:500,border:"none"}} title={doc.label} />
       </div>
       <div style={{padding:"10px 16px",borderTop:`1px solid ${C.borderLight}`,display:"flex",alignItems:"center",justifyContent:"flex-end",flexShrink:0}}>
-        <span style={{fontSize:11,color:C.muted,marginRight:12}}>Untuk snapshot: screenshot halaman PDF, lalu upload sebagai gambar</span>
+        <span style={{fontSize:11,color:C.muted,marginRight:12}}>{t("snapshotHint")}</span>
         <button onClick={onClose}
           style={{background:C.blue,color:"#fff",border:"none",borderRadius:5,padding:"6px 14px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font}}>
           Tutup
@@ -1307,14 +1307,14 @@ function ModeEkstrakTTD({ regId }) {
 
   return <div>
     <div style={{ marginBottom: 16, fontSize: 12, color: C.muted }}>
-      Upload hasil scan TTD Audit. Gunakan <strong>🤖 Ekstrak AI</strong> untuk deteksi otomatis, atau <strong>seret (drag)</strong> pada gambar untuk crop manual.
+      {t("uploadTTDHint")} <strong>🤖 Ekstrak AI</strong> untuk deteksi otomatis, atau <strong>seret (drag)</strong> pada gambar untuk crop manual.
     </div>
 
     {!ttdImage ? (
       <div style={{ border: `2px dashed ${C.border}`, borderRadius: 8, padding: 24, textAlign: "center", marginBottom: 16 }}>
         <input ref={ttdFileRef} type="file" accept="image/*,.pdf" style={{ display: "none" }}
           onChange={e => { const f = e.target.files?.[0]; if (f) handleUpload(f); e.target.value = ""; }} />
-        <Btn variant="primary" onClick={() => ttdFileRef.current?.click()}>📤 Upload TTD</Btn>
+        <Btn variant="primary" onClick={() => ttdFileRef.current?.click()}>{t("uploadTTD")}</Btn>
         <div style={{ marginTop: 8, fontSize: 11, color: C.faint }}>PDF atau gambar — klik dan seret pada gambar untuk memotong setiap tanda tangan</div>
       </div>
     ) : (
@@ -1411,7 +1411,7 @@ export default function TabDokumentasi({ reg }) {
       </div>
 
       {loading ? (
-        <div style={{ padding: 40, textAlign: "center", color: C.muted, fontSize: 13, fontFamily: font }}>⏳ Memuat...</div>
+        <div style={{ padding: 40, textAlign: "center", color: C.muted, fontSize: 13, fontFamily: font }}>t("loadingWithDots")</div>
       ) : (
         <>
           {subTab === "label" && <ModeLabelBahan regId={reg.id} />}

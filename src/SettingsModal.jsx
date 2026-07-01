@@ -33,15 +33,15 @@ function AIConfigForm({ label, description, getConfig, setConfig, clearConfig, s
     <div style={{ fontSize: 12, fontWeight: 600, marginBottom: 6, color: C.text }}>{label}</div>
     <div style={{ fontSize: 11, color: C.faint, marginBottom: 14, lineHeight: 1.4 }}>{description}</div>
     <div style={{ marginBottom: 14 }}>
-      <label style={lblStyle}>API Endpoint</label>
+      <label style={lblStyle}>{t("apiEndpoint")}</label>
       <input value={form.endpoint} onChange={f("endpoint")} style={inp} placeholder="https://api.example.com/v1/chat/completions" />
     </div>
     <div style={{ marginBottom: 14 }}>
-      <label style={lblStyle}>API Key</label>
+      <label style={lblStyle}>{t("apiKey")}</label>
       <input value={form.apiKey} onChange={f("apiKey")} type="password" style={inp} placeholder="sk-xxxxxxxxxxxxxxxx" />
     </div>
     <div style={{ marginBottom: 14 }}>
-      <label style={lblStyle}>Model</label>
+      <label style={lblStyle}>{t("model")}</label>
       <input value={form.model} onChange={f("model")} style={inp} placeholder="model-name" />
     </div>
     <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
@@ -136,7 +136,7 @@ export default function SettingsModal({ onClose }) {
           {tab === "about" && (
             <div style={{ fontSize: 12, color: C.text, lineHeight: 1.7 }}>
               <p><strong>HARS</strong> — {t("aboutHARS")}</p>
-              <p>LPH UIN Syarif Hidayatullah Jakarta</p>
+              <p>{t("lphFullName")}</p>
               <p style={{ color: C.muted, marginTop: 8 }}>
                 Sistem audit halal berbasis web. Backend FastAPI + SQLite dengan
                 autentikasi JWT. Data tersimpan di server — persisten antar perangkat.

@@ -85,7 +85,7 @@ export default function UserManagement({ onClose }) {
     setError("");
   };
 
-  if (loading) return <div style={{ padding: 40, textAlign: "center", color: C.muted, fontFamily: font }}>Memuat...</div>;
+  if (loading) return <div style={{ padding: 40, textAlign: "center", color: C.muted, fontFamily: font }}>{t("loadingDots")}</div>;
 
   return (
     <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.45)", display: "flex",
@@ -120,7 +120,7 @@ export default function UserManagement({ onClose }) {
           padding: "16px 18px", marginBottom: 20, background: C.blueLight,
         }}>
           <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 12, color: C.blue }}>
-            {editId ? "Edit User" : "Tambah User Baru"}
+            {editId ? t("editUser") : t("addNewUser")}
           </div>
           {error && (
             <div style={{
@@ -207,7 +207,7 @@ export default function UserManagement({ onClose }) {
               <th style={{ padding: "8px 12px", textAlign: "left", color: "#fff", fontSize: 11, fontWeight: 600 }}>{t("roleLabel2")}</th>
               <th style={{ padding: "8px 12px", textAlign: "left", color: "#fff", fontSize: 11, fontWeight: 600 }}>{t("regAuditor")}</th>
               <th style={{ padding: "8px 12px", textAlign: "left", color: "#fff", fontSize: 11, fontWeight: 600 }}>{t("status")}</th>
-              <th style={{ padding: "8px 12px", textAlign: "center", color: "#fff", fontSize: 11, fontWeight: 600 }}>AKSI</th>
+              <th style={{ padding: "8px 12px", textAlign: "center", color: "#fff", fontSize: 11, fontWeight: 600 }}>{t("action")}</th>
             </tr>
           </thead>
           <tbody>
@@ -264,7 +264,7 @@ export default function UserManagement({ onClose }) {
                             background: "none", border: "1px solid #d0d0d0", borderRadius: 3,
                             padding: "3px 8px", fontSize: 10, cursor: "pointer", fontFamily: font,
                             color: C.red,
-                          }}>🗑 Hapus</button>
+                          }}>{t("delete")}</button>
                       </>
                     )}
                   </div>

@@ -416,8 +416,8 @@ export default function LoginPage() {
               <img src="/uin-logo.png" alt="UIN Syarif Hidayatullah Jakarta"/>
             </div>
             <div className="name">
-              <b>HARS</b>
-              <span>LPH UIN Syarif Hidayatullah Jakarta</span>
+              <b>{t("appName")}</b>
+              <span>{t("lphFullName")}</span>
             </div>
           </div>
           </a>
