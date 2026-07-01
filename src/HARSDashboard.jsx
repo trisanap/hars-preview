@@ -153,6 +153,7 @@ function Btn({ onClick, variant = "primary", children, disabled, small }) {
 
 // ─── Delete Confirmation Modal ────────────────────────────────────────────────
 function DeleteModal({ reg, onConfirm, onClose }) {
+  const { t } = useLang();
   const [typed, setTyped] = useState("");
   const regName = (reg && reg.namaPU) || "";
   const match = typed.trim().toLowerCase() === regName.trim().toLowerCase();
@@ -168,7 +169,7 @@ function DeleteModal({ reg, onConfirm, onClose }) {
         fontFamily: font, overflow: "hidden",
       }}>
         <div style={{ background: C.red, color: "#fff", padding: "12px 18px", fontWeight: 600, fontSize: 13 }}>
-          ⚠ Hapus Registrasi
+          ⚠ {t("delRegTitle")}
         </div>
         <div style={{ padding: 20 }}>
           <p style={{ fontSize: 13, color: C.text, marginBottom: 14, lineHeight: 1.6 }}>
@@ -176,7 +177,7 @@ function DeleteModal({ reg, onConfirm, onClose }) {
             <strong>{regName}</strong> ({reg?.id}) akan dihapus permanen.
           </p>
           <p style={{ fontSize: 12, color: C.muted, marginBottom: 8 }}>
-            Ketik nama pelaku usaha untuk konfirmasi:
+            {t("typeNameToConfirm")}
           </p>
           <code style={{
             display: "block", background: C.bgAlt, border: `1px solid ${C.border}`,
@@ -197,7 +198,7 @@ function DeleteModal({ reg, onConfirm, onClose }) {
             }}
           />
           <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
-            <Btn variant="ghost" onClick={onClose}>Batal</Btn>
+            <Btn variant="ghost" onClick={onClose}>{t("cancel")}</Btn>
             <Btn variant="danger" onClick={onConfirm} disabled={!match}>
               Hapus Permanen
             </Btn>
@@ -210,6 +211,7 @@ function DeleteModal({ reg, onConfirm, onClose }) {
 
 // ─── New Registration Modal ───────────────────────────────────────────────────
 function NewRegModal({ onSave, onClose }) {
+  const { t } = useLang();
   const [form, setForm] = useState({
     id: "", namaPU: "", namaUsaha: "", jenisProduk: "", tanggalDaftar: "",
     tanggalAudit: "", leadAuditor: "", auditor: "", auditor2: "", auditor3: "", observer: "",
@@ -243,7 +245,7 @@ function NewRegModal({ onSave, onClose }) {
           fontWeight: 600, fontSize: 13, flexShrink: 0,
           display: "flex", justifyContent: "space-between", alignItems: "center",
         }}>
-          <span>+ Registrasi Baru</span>
+          <span>+ {t("newRegistration")}</span>
           <button onClick={onClose} style={{ background: "none", border: "none", color: "#fff", cursor: "pointer", fontSize: 18 }}>×</button>
         </div>
 
@@ -458,7 +460,7 @@ function NewRegModal({ onSave, onClose }) {
           display: "flex", justifyContent: "flex-end", gap: 8, flexShrink: 0,
           background: C.bgAlt,
         }}>
-          <Btn variant="ghost" onClick={onClose}>Batal</Btn>
+          <Btn variant="ghost" onClick={onClose}>{t("cancel")}</Btn>
           <Btn variant="primary" onClick={() => onSave({ ...form, leadAuditor: parseInt(form.leadAuditor) || null, auditor: parseInt(form.auditor) || null, auditor2: form.auditor2 ? parseInt(form.auditor2) || null : null, auditor3: form.auditor3 ? parseInt(form.auditor3) || null : null })} disabled={!valid}>
             Buat Workspace
           </Btn>
@@ -788,7 +790,7 @@ function STEditModal({ reg, stEntry, stIndex, onClose, onSave }) {
           </div>
         </div>
         <div style={{display:"flex",gap:8,justifyContent:"flex-end"}}>
-          <button onClick={onClose} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:4,padding:"7px 16px",fontSize:12,cursor:"pointer",fontFamily:font}}>Batal</button>
+          <button onClick={onClose} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:4,padding:"7px 16px",fontSize:12,cursor:"pointer",fontFamily:font}}>{t("cancel")}</button>
           <button onClick={save} disabled={saving} style={{background:C.blue,color:"#fff",border:"none",borderRadius:4,padding:"7px 16px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font,opacity:saving?0.6:1}}>
             {saving?"Menyimpan…":"Simpan"}
           </button>
@@ -861,7 +863,7 @@ function SPKEditModal({ reg, onClose }) {
           </div>
         </div>
         <div style={{display:"flex",gap:8,justifyContent:"flex-end"}}>
-          <button onClick={onClose} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:4,padding:"7px 16px",fontSize:12,cursor:"pointer",fontFamily:font}}>Batal</button>
+          <button onClick={onClose} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:4,padding:"7px 16px",fontSize:12,cursor:"pointer",fontFamily:font}}>{t("cancel")}</button>
           <button onClick={save} disabled={saving} style={{background:C.blue,color:"#fff",border:"none",borderRadius:4,padding:"7px 16px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font,opacity:saving?0.6:1}}>
             {saving?"Menyimpan…":"Simpan"}
           </button>
@@ -902,7 +904,7 @@ function BerkasEditModal({ reg, onClose }) {
           <div style={{fontSize:10,color:C.faint,marginTop:2}}>Akan muncul dengan nama hari di dokumen</div>
         </div>
         <div style={{display:"flex",gap:8,justifyContent:"flex-end"}}>
-          <button onClick={onClose} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:4,padding:"7px 16px",fontSize:12,cursor:"pointer",fontFamily:font}}>Batal</button>
+          <button onClick={onClose} style={{background:"transparent",border:`1px solid ${C.border}`,borderRadius:4,padding:"7px 16px",fontSize:12,cursor:"pointer",fontFamily:font}}>{t("cancel")}</button>
           <button onClick={save} disabled={saving} style={{background:C.blue,color:"#fff",border:"none",borderRadius:4,padding:"7px 16px",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:font,opacity:saving?0.6:1}}>
             {saving?"Menyimpan…":"Simpan"}
           </button>
@@ -1056,6 +1058,7 @@ const AGAMA_OPTIONS = ["", "Islam", "Kristen", "Katolik", "Hindu", "Buddha", "Ko
 const AGAMA_LABELS = { "": "—", "Islam": "Islam", "Kristen": "Kristen", "Katolik": "Katolik", "Hindu": "Hindu", "Buddha": "Buddha", "Konghucu": "Konghucu" };
 
 function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
+  const { t } = useLang();
   const [form, setForm] = useState({ ...reg });
   const initExtraAud = (reg.auditor2 ? 1 : 0) + (reg.auditor3 ? 1 : 0);
   const [extraAud, setExtraAud] = useState(initExtraAud);
@@ -1120,16 +1123,16 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
     return (
       <div>
         <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginBottom: 16 }}>
-          <Btn variant="ghost" onClick={() => { setForm({ ...reg }); setEditing(false); }}>Batal</Btn>
-          <Btn variant="primary" onClick={save}>Simpan Perubahan</Btn>
+          <Btn variant="ghost" onClick={() => { setForm({ ...reg }); setEditing(false); }}>{t("cancel")}</Btn>
+          <Btn variant="primary" onClick={save}>{t("saveChanges")}</Btn>
         </div>
 
-        {/* Identitas Registrasi */}
+        {/* {t("registrationIdentity")} */}
         <div style={{ background:C.bgCard,border:`1px solid ${C.borderLight}`,borderRadius:12,overflow:"hidden",marginBottom:14 }}>
           <div style={{ display:"flex",alignItems:"center",padding:"14px 20px",borderBottom:`1px solid ${C.borderLight}` }}>
             <div style={{ display:"flex",alignItems:"center",gap:10 }}>
               <div style={{ width:28,height:28,borderRadius:7,background:C.blueSoft,color:C.blue,display:"grid",placeItems:"center" }}>{icId}</div>
-              <h2 style={{ margin:0,fontSize:14,fontWeight:700,color:C.text }}>Identitas Registrasi</h2>
+              <h2 style={{ margin:0,fontSize:14,fontWeight:700,color:C.text }}>{t("registrationIdentity")}</h2>
             </div>
           </div>
           <div style={{ padding:"12px 20px",display:"grid",gridTemplateColumns:"1fr 1fr",gap:12 }}>
@@ -1349,12 +1352,12 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
 
   return (
     <div>
-      {/* Identitas Registrasi */}
+      {/* {t("registrationIdentity")} */}
       <div style={{ background:C.bgCard,border:`1px solid ${C.borderLight}`,borderRadius:12,overflow:"hidden",marginBottom:14 }}>
         <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 20px",borderBottom:`1px solid ${C.borderLight}`,background:C.bgCard }}>
           <div style={{ display:"flex",alignItems:"center",gap:10 }}>
             <div style={{ width:28,height:28,borderRadius:7,background:C.blueSoft,color:C.blue,display:"grid",placeItems:"center" }}>{icId}</div>
-            <h2 style={{ margin:0,fontSize:14,fontWeight:700,color:C.text }}>Identitas Registrasi</h2>
+            <h2 style={{ margin:0,fontSize:14,fontWeight:700,color:C.text }}>{t("registrationIdentity")}</h2>
           </div>
         </div>
         <dl style={{ margin:0,padding:"6px 20px 14px",display:"grid",gridTemplateColumns:"200px 1fr",columnGap:24 }}>
@@ -1515,6 +1518,7 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
 
 // ─── Tab: Pre-Audit Docs ──────────────────────────────────────────────────────
 function TabPreAudit({ reg, isAdmin, onPreAuditConfirm }) {
+  const { t } = useLang();
   const [previewDoc, setPreviewDoc] = useState(null); // { type, stIndex }
   const [editDoc, setEditDoc] = useState(null);       // { type, stIndex }
 
@@ -1615,7 +1619,7 @@ function TabPreAudit({ reg, isAdmin, onPreAuditConfirm }) {
           borderRadius: 5, padding: "10px 14px", marginBottom: 16,
           fontSize: 12, color: C.gold,
         }}>
-          <div style={{ fontWeight: 600, marginBottom: 6 }}>⚠ Lengkapi data berikut di tab <strong>Data Pengajuan</strong> sebelum membuat dokumen:</div>
+          <div style={{ fontWeight: 600, marginBottom: 6 }}>⚠ {t("completeDataWarning")}</div>
           <ul style={{ margin: 0, paddingLeft: 18, lineHeight: 1.8 }}>
             {missing.map(f => <li key={f.key}><strong>{f.label}</strong></li>)}
           </ul>
@@ -1718,7 +1722,7 @@ function TabPreAudit({ reg, isAdmin, onPreAuditConfirm }) {
         ))}
       </div>
 
-      {/* Konfirmasi Kelengkapan Berkas Pre-Audit */}
+      {/* {t("confirmPreAudit")} */}
       {(() => {
         const [preChecked, setPreChecked] = useState(false);
         const [preDate, setPreDate] = useState("");
@@ -1749,7 +1753,7 @@ function TabPreAudit({ reg, isAdmin, onPreAuditConfirm }) {
         return (
           <div style={{ marginTop:20, padding:"14px 16px", background:preChecked?C.greenLight:C.bgAlt,
             borderRadius:8, border:`1px solid ${preChecked?C.green:C.borderLight}`, fontSize:12 }}>
-            <div style={{ fontWeight:700, fontSize:13, color:C.text, marginBottom:8 }}>Konfirmasi Kelengkapan Berkas Pre-Audit</div>
+            <div style={{ fontWeight:700, fontSize:13, color:C.text, marginBottom:8 }}>{t("confirmPreAudit")}</div>
             {preChecked ? (
               <div>
                 <div style={{ color:C.green, fontSize:12, marginBottom:8 }}>
@@ -2372,6 +2376,7 @@ function RegTable({ regs, onOpen, onDelete, isAdmin }) {
 // ─── Sidebar ──────────────────────────────────────────────────────────────
 
 function Sidebar({ auditors, regs }) {
+  const { t } = useLang();
   const fmtRelTime = dateStr => {
     if (!dateStr) return "";
     const d = new Date(dateStr);
