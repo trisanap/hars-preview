@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "./auth";
+import { useLang } from "./i18n";
 
 const font = "'Plus Jakarta Sans', sans-serif";
 const mono = "'JetBrains Mono', monospace";
@@ -14,13 +15,13 @@ const C = {
   bg: "#fff", bgAlt: "#f6f8fb",
 };
 
-const ROLE_OPTIONS = [
-  { value: "admin", label: "Admin LPH" },
-  { value: "auditor", label: "Auditor" },
-  { value: "observer", label: "Observer" },
-];
-
 export default function UserManagement({ onClose }) {
+  const { t } = useLang();
+  const ROLE_OPTIONS = [
+    { value: "admin", label: t("adminLPH") },
+    { value: "auditor", label: t("auditor") },
+    { value: "observer", label: t("observer") },
+  ];
   const { user, listUsers, addUser, updateUser, deleteUser } = useAuth();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -96,7 +97,7 @@ export default function UserManagement({ onClose }) {
       border: `1px solid ${C.border}`, overflow: "hidden" }}>
       <div style={{ background: C.blue, color: "#fff", padding: "11px 16px",
         display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <span style={{ fontWeight: 600, fontSize: 14 }}>Manajemen User</span>
+        <span style={{ fontWeight: 600, fontSize: 14 }}>{t("userManagement")}</span>
         <button onClick={onClose} style={{ background: "none", border: "none",
           color: "#fff", cursor: "pointer", fontSize: 20 }}>×</button>
       </div>
@@ -109,7 +110,7 @@ export default function UserManagement({ onClose }) {
             background: C.blue, color: "#fff", border: "none", borderRadius: 5,
             padding: "7px 16px", fontSize: 12, fontWeight: 600, fontFamily: font,
             cursor: "pointer",
-          }}>+ Tambah User</button>
+          }}>{t("addUser")}</button>
         </div>
       )}
 
@@ -129,7 +130,7 @@ export default function UserManagement({ onClose }) {
           )}
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 10 }}>
             <div>
-              <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 3 }}>NAMA LENGKAP</label>
+              <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 3 }}>{t("fullName")}</label>
               <input value={form.nama} onChange={e => setForm(p => ({ ...p, nama: e.target.value }))}
                 style={{
                   width: "100%", border: "1px solid #b0cce8", borderRadius: 4,
@@ -137,7 +138,7 @@ export default function UserManagement({ onClose }) {
                 }} />
             </div>
             <div>
-              <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 3 }}>USERNAME</label>
+              <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 3 }}>{t("usernameLabel")}</label>
               <input value={form.username} onChange={e => setForm(p => ({ ...p, username: e.target.value }))}
                 disabled={!!editId}
                 style={{
@@ -159,7 +160,7 @@ export default function UserManagement({ onClose }) {
                 }} />
             </div>
             <div>
-              <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 3 }}>ROLE</label>
+              <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 3 }}>{t("roleLabel2")}</label>
               <select value={form.role} onChange={e => setForm(p => ({ ...p, role: e.target.value }))}
                 style={{
                   width: "100%", border: "1px solid #b0cce8", borderRadius: 4,
@@ -171,7 +172,7 @@ export default function UserManagement({ onClose }) {
           </div>
           <div style={{ marginBottom: 12 }}>
             <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 3 }}>
-              REG AUDITOR <span style={{ fontWeight: 400, color: C.faint }}>(REG RI AH XXXX — kosongkan jika bukan auditor)</span>
+              {t("regAuditorHint")}
             </label>
             <input value={form.reg} onChange={e => setForm(p => ({ ...p, reg: e.target.value }))}
               placeholder="REG RI AH XXXX"
@@ -186,12 +187,12 @@ export default function UserManagement({ onClose }) {
             <button onClick={editId ? handleEdit : handleAdd} style={{
               background: C.blue, color: "#fff", border: "none", borderRadius: 4,
               padding: "6px 14px", fontSize: 12, fontWeight: 600, fontFamily: font, cursor: "pointer",
-            }}>{editId ? "Simpan Perubahan" : "Tambah User"}</button>
+            }}>{editId ? t("saveChanges") : t("addUser")}</button>
             <button onClick={resetForm} style={{
               background: "transparent", color: C.muted, border: `1px solid ${C.border}`,
               borderRadius: 4, padding: "6px 14px", fontSize: 12, fontWeight: 600,
               fontFamily: font, cursor: "pointer",
-            }}>Batal</button>
+            }}>{t("cancel")}</button>
           </div>
         </div>
       )}
@@ -201,11 +202,11 @@ export default function UserManagement({ onClose }) {
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
           <thead>
             <tr style={{ background: C.blue }}>
-              <th style={{ padding: "8px 12px", textAlign: "left", color: "#fff", fontSize: 11, fontWeight: 600 }}>NAMA</th>
-              <th style={{ padding: "8px 12px", textAlign: "left", color: "#fff", fontSize: 11, fontWeight: 600 }}>USERNAME</th>
-              <th style={{ padding: "8px 12px", textAlign: "left", color: "#fff", fontSize: 11, fontWeight: 600 }}>ROLE</th>
-              <th style={{ padding: "8px 12px", textAlign: "left", color: "#fff", fontSize: 11, fontWeight: 600 }}>REG AUDITOR</th>
-              <th style={{ padding: "8px 12px", textAlign: "left", color: "#fff", fontSize: 11, fontWeight: 600 }}>STATUS</th>
+              <th style={{ padding: "8px 12px", textAlign: "left", color: "#fff", fontSize: 11, fontWeight: 600 }}>{t("name")}</th>
+              <th style={{ padding: "8px 12px", textAlign: "left", color: "#fff", fontSize: 11, fontWeight: 600 }}>{t("usernameLabel")}</th>
+              <th style={{ padding: "8px 12px", textAlign: "left", color: "#fff", fontSize: 11, fontWeight: 600 }}>{t("roleLabel2")}</th>
+              <th style={{ padding: "8px 12px", textAlign: "left", color: "#fff", fontSize: 11, fontWeight: 600 }}>{t("regAuditor")}</th>
+              <th style={{ padding: "8px 12px", textAlign: "left", color: "#fff", fontSize: 11, fontWeight: 600 }}>{t("status")}</th>
               <th style={{ padding: "8px 12px", textAlign: "center", color: "#fff", fontSize: 11, fontWeight: 600 }}>AKSI</th>
             </tr>
           </thead>
@@ -245,7 +246,7 @@ export default function UserManagement({ onClose }) {
                       style={{
                         background: "none", border: "1px solid #d0d0d0", borderRadius: 3,
                         padding: "3px 8px", fontSize: 10, cursor: "pointer", fontFamily: font,
-                      }}>✏ Edit</button>
+                      }}>{t("editLabel")}</button>
                     {u.id !== user?.id && (
                       <>
                         <button onClick={async () => {

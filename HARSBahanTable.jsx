@@ -1,3 +1,4 @@
+import { useLang } from "./src/i18n";
 import { useState, useRef, useEffect, useCallback } from "react";
 
 // ─── Design tokens (mirrors laporan-audit-halal.html) ───────────────────────
@@ -141,7 +142,7 @@ function BPJPHSearchModal({ onClose, onSelect }) {
           background: T.blue, color: "#fff", padding: "12px 16px",
           borderRadius: "8px 8px 0 0", display: "flex", alignItems: "center", justifyContent: "space-between",
         }}>
-          <span style={{ fontWeight: 600, fontSize: 13 }}>🔍 Cari Bahan — Database BPJPH</span>
+          <span style={{ fontWeight: 600, fontSize: 13 }}>{t("searchIngredients")}</span>
           <button onClick={onClose} style={{ background: "none", border: "none", color: "#fff", cursor: "pointer", fontSize: 18, lineHeight: 1 }}>×</button>
         </div>
 
@@ -165,7 +166,7 @@ function BPJPHSearchModal({ onClose, onSelect }) {
             background: T.blue, color: "#fff", border: "none", borderRadius: 5,
             padding: "7px 16px", fontSize: 13, fontWeight: 600,
             fontFamily: "inherit", cursor: "pointer",
-          }}>Cari</button>
+          }}>{t("search")}</button>
         </div>
 
         {/* Results */}
@@ -257,7 +258,7 @@ function AddRowPicker({ onChoose, onClose }) {
             onMouseLeave={e => e.target.style.background = "#e8f0fb"}
           >
             <div style={{ fontWeight: 600, fontSize: 13, color: T.blue, marginBottom: 3 }}>✅ Positif List (Tidak Diragukan)</div>
-            <div style={{ fontSize: 11, color: T.muted }}>Air, telur, buah, sayuran — tidak perlu sertifikat halal</div>
+            <div style={{ fontSize: 11, color: T.muted }}>{t("catNonCriticalDesc")}</div>
           </button>
           <button onClick={() => onChoose("bersertifikat")} style={{
             background: T.goldLight, border: `1px solid #e0c860`, borderRadius: 6,
@@ -268,7 +269,7 @@ function AddRowPicker({ onChoose, onClose }) {
             onMouseLeave={e => e.target.style.background = T.goldLight}
           >
             <div style={{ fontWeight: 600, fontSize: 13, color: T.gold, marginBottom: 3 }}>🔖 Bersertifikat (Diragukan)</div>
-            <div style={{ fontSize: 11, color: T.muted }}>Bahan yang memerlukan sertifikat halal BPJPH — cari di database</div>
+            <div style={{ fontSize: 11, color: T.muted }}>{t("catCriticalDesc")}</div>
           </button>
           <button onClick={() => onChoose("manual")} style={{
             background: T.bgAlt, border: `1px solid ${T.border}`, borderRadius: 6,
@@ -279,7 +280,7 @@ function AddRowPicker({ onChoose, onClose }) {
             onMouseLeave={e => e.target.style.background = T.bgAlt}
           >
             <div style={{ fontWeight: 600, fontSize: 13, color: T.text, marginBottom: 3 }}>✏️ Input Manual</div>
-            <div style={{ fontSize: 11, color: T.muted }}>Kemasan, cleaning agent, atau bahan dengan sertifikat luar negeri</div>
+            <div style={{ fontSize: 11, color: T.muted }}>{t("catPackagingDesc")}</div>
           </button>
         </div>
       </div>
@@ -301,13 +302,13 @@ function ManualRowForm({ initial, onSave, onCancel }) {
       <td colSpan={6} style={{ padding: "10px 12px" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 100px", gap: 8, marginBottom: 8 }}>
           <div>
-            <label style={{ fontSize: 10, fontWeight: 600, color: T.muted, display: "block", marginBottom: 2 }}>NAMA / MEREK BAHAN</label>
+            <label style={{ fontSize: 10, fontWeight: 600, color: T.muted, display: "block", marginBottom: 2 }}>{t("ingredientName")}</label>
             <input value={form.nama} onChange={f("nama")} style={inputStyle} placeholder="Nama dan merek bahan..." autoFocus />
           </div>
           <div>
             <label style={{ fontSize: 10, fontWeight: 600, color: T.muted, display: "block", marginBottom: 2 }}>JENIS</label>
             <select value={form.jenis} onChange={f("jenis")} style={inputStyle}>
-              <option>Bahan</option>
+              <option>{t("ingredient")}</option>
               <option>Kemasan</option>
               <option>Cleaning Agent</option>
             </select>
@@ -327,7 +328,7 @@ function ManualRowForm({ initial, onSave, onCancel }) {
           <button onClick={() => onSave(form)} style={{
             background: T.blue, color: "#fff", border: "none", borderRadius: 4,
             padding: "5px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "inherit",
-          }}>Simpan</button>
+          }}>{t("save")}</button>
           <button onClick={onCancel} style={{
             background: "transparent", color: T.muted, border: `1px solid ${T.border}`,
             borderRadius: 4, padding: "5px 14px", fontSize: 12, cursor: "pointer", fontFamily: "inherit",
@@ -355,6 +356,7 @@ const INITIAL_BAHAN = [
 let nextId = 100;
 
 function BahanTable() {
+  const { t } = useLang();
   const [rows, setRows] = useState(INITIAL_BAHAN);
   const [editingId, setEditingId] = useState(null);
   const [showPicker, setShowPicker] = useState(null); // null | "add" | "edit:{id}"
@@ -443,7 +445,7 @@ function BahanTable() {
           <thead>
             <tr>
               <th style={thStyle}>No</th>
-              <th style={thStyle}>Nama dan Merek Bahan</th>
+              <th style={thStyle}>{t("ingredientNameBrand")}</th>
               <th style={thStyle}>Jenis</th>
               <th style={{ ...thStyle, textAlign: "center" }}>Diragukan</th>
               <th style={thStyle}>Temuan</th>
@@ -572,7 +574,7 @@ function KriteriaTable({ mode = "draft" }) {
           fontSize: 11, color: T.gold, display: "flex", alignItems: "center", gap: 6,
         }}>
           <span>⚠</span>
-          <span>Kriteria SJPH diisi setelah audit selesai. Ubah mode ke <strong>Ringkasan</strong> untuk mulai mengisi.</span>
+          <span>{t("sjphNote")}</span>
         </div>
       )}
       <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
@@ -674,6 +676,7 @@ function ModeTabs({ mode, onChange }) {
 
 // ─── Root App ─────────────────────────────────────────────────────────────────
 export default function HARSApp() {
+  const { t } = useLang();
   const [mode, setMode] = useState("draft");
 
   return (
@@ -724,13 +727,13 @@ export default function HARSApp() {
         </div>
 
         <div style={{ padding: "24px 32px" }}>
-          {/* Daftar Bahan */}
+          {/* {t("ingredientsList")} */}
           <div style={{
             fontSize: 11, fontWeight: 600, color: T.blue,
             letterSpacing: "0.06em", textTransform: "uppercase",
             padding: "6px 0", marginBottom: 12,
             borderBottom: `1.5px solid ${T.blueLight}`,
-          }}>Daftar Bahan</div>
+          }}>{t("ingredientsList")}</div>
           <BahanTable />
 
           {/* Kriteria SJPH */}

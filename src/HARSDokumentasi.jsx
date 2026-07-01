@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { api } from "./api";
 import { extractImageText, OCR_PROMPT, parseJSONResponse, hasVisionConfig, showAIWarning } from "./ai.jsx";
+import { useLang } from "./i18n";
 
 // ─── jscanify / OpenCV document scanning ───────────────────────────────────
 // OpenCV.js is loaded async from CDN in index.html. jscanify is installed via npm.
@@ -258,6 +259,7 @@ function Btn({ onClick, variant = "primary", children, disabled, small, title, s
 
 // ─── Camera Modal ────────────────────────────────────────────────────────────
 function CameraModal({ onCapture, onClose, mode = "environment" }) {
+  const { t } = useLang();
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [stream, setStream] = useState(null);
@@ -308,8 +310,8 @@ function CameraModal({ onCapture, onClose, mode = "environment" }) {
         display: "flex", justifyContent: "space-between", alignItems: "center",
         padding: "8px 16px", background: "#111",
       }}>
-        <button onClick={close} style={{ background: "none", border: "none", color: "#fff", fontSize: 13, cursor: "pointer", fontFamily: font }}>✕ Tutup</button>
-        <button onClick={() => setFacingMode(f => f === "environment" ? "user" : "environment")} style={{ background: "none", border: "none", color: "#fff", fontSize: 12, cursor: "pointer", fontFamily: font }}>🔄 Balik Kamera</button>
+        <button onClick={close} style={{ background: "none", border: "none", color: "#fff", fontSize: 13, cursor: "pointer", fontFamily: font }}>{t("close")}</button>
+        <button onClick={() => setFacingMode(f => f === "environment" ? "user" : "environment")} style={{ background: "none", border: "none", color: "#fff", fontSize: 12, cursor: "pointer", fontFamily: font }}>{t("flipCamera")}</button>
       </div>
       <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
         {error ? (
@@ -331,6 +333,7 @@ function CameraModal({ onCapture, onClose, mode = "environment" }) {
 
 // ─── Image Preview Modal ─────────────────────────────────────────────────────
 function ImagePreview({ dataUrl, onClose }) {
+  const { t } = useLang();
   return (
     <div style={{
       position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", zIndex: 2000,
@@ -344,6 +347,7 @@ function ImagePreview({ dataUrl, onClose }) {
 
 // ─── Confirm Delete Modal ────────────────────────────────────────────────────
 function ConfirmDelete({ name, onConfirm, onClose }) {
+  const { t } = useLang();
   return (
     <div style={{
       position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 2000,
@@ -353,13 +357,13 @@ function ConfirmDelete({ name, onConfirm, onClose }) {
         background: C.bg, borderRadius: 8, padding: 24, maxWidth: 360, width: "100%",
         fontFamily: font, boxShadow: "0 12px 40px rgba(0,0,0,0.2)",
       }}>
-        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>Hapus item?</div>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 12 }}>{t("deleteItem")}</div>
         <p style={{ fontSize: 13, color: C.muted, marginBottom: 16, lineHeight: 1.5 }}>
-          Yakin ingin menghapus <strong>{name}</strong>? Tindakan ini tidak dapat dibatalkan.
+          {t("deleteItemConfirm")}
         </p>
         <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
-          <Btn variant="ghost" onClick={onClose}>Batal</Btn>
-          <Btn variant="danger" onClick={onConfirm}>Hapus</Btn>
+          <Btn variant="ghost" onClick={onClose}>{t("cancel")}</Btn>
+          <Btn variant="danger" onClick={onConfirm}>{t("delete")}</Btn>
         </div>
       </div>
     </div>
@@ -368,6 +372,7 @@ function ConfirmDelete({ name, onConfirm, onClose }) {
 
 // ─── Mode: Label Bahan ───────────────────────────────────────────────────────
 function ModeLabelBahan({ regId }) {
+  const { t } = useLang();
   const [items, setItems] = useState([]);
   const [capturedImage, setCapturedImage] = useState(null);
   const [enhancedImage, setEnhancedImage] = useState(null);
@@ -509,7 +514,7 @@ function ModeLabelBahan({ regId }) {
           📷 Buka Kamera
         </Btn>
         <Btn variant="secondary" onClick={() => fileRef.current?.click()}>
-          📁 Upload Gambar
+          {t("upload")} Gambar
         </Btn>
         <Btn variant="ghost" onClick={() => startForm(false)}>
           ✏ Input Manual
@@ -546,7 +551,7 @@ function ModeLabelBahan({ regId }) {
               </div>
             )}
             <Btn variant="primary" small onClick={() => startForm(true)}>Lanjutkan →</Btn>
-            <Btn variant="ghost" small onClick={resetCapture}>✕ Batal</Btn>
+            <Btn variant="ghost" small onClick={resetCapture}>{t("cancelBtn")}</Btn>
           </div>
         </div>
       )}
@@ -580,8 +585,8 @@ function ModeLabelBahan({ regId }) {
             ))}
           </div>
           <div style={{ display: "flex", gap: 8 }}>
-            <Btn variant="primary" small onClick={capturedImage ? saveCaptured : saveManual}>Simpan</Btn>
-            <Btn variant="ghost" small onClick={() => setShowForm(false)}>Batal</Btn>
+            <Btn variant="primary" small onClick={capturedImage ? saveCaptured : saveManual}>{t("save")}</Btn>
+            <Btn variant="ghost" small onClick={() => setShowForm(false)}>{t("cancel")}</Btn>
           </div>
         </div>
       )}
@@ -658,6 +663,7 @@ function ModeLabelBahan({ regId }) {
 
 // ─── Mode: Foto Audit ────────────────────────────────────────────────────
 function ModeFotoFasilitas({ regId }) {
+  const { t } = useLang();
   const [photos, setPhotos] = useState([]);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [previewLoading, setPreviewLoading] = useState(false);
@@ -785,10 +791,10 @@ function ModeFotoFasilitas({ regId }) {
       </div>
 
       <div style={{ marginBottom: 16, display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
-        <Btn variant="primary" onClick={() => setShowCamera(true)} disabled={uploading}>📷 Ambil Foto</Btn>
-        <Btn variant="secondary" onClick={() => fileRef.current?.click()} disabled={uploading}>📁 Upload</Btn>
+        <Btn variant="primary" onClick={() => setShowCamera(true)} disabled={uploading}>{t("takePhoto")}</Btn>
+        <Btn variant="secondary" onClick={() => fileRef.current?.click()} disabled={uploading}>{t("upload")}</Btn>
         <input ref={fileRef} type="file" accept="image/*" multiple style={{ display: "none" }} onChange={handleUpload} />
-        {uploading && <span style={{fontSize:11,color:C.muted}}>Mengupload...</span>}
+        {uploading && <span style={{fontSize:11,color:C.muted}}>{t("uploading")}</span>}
       </div>
 
       {photos.length === 0 ? (
@@ -835,13 +841,14 @@ function ModeFotoFasilitas({ regId }) {
       {previewLoading && <div style={{
         position:"fixed",inset:0,background:"rgba(0,0,0,0.3)",zIndex:1999,
         display:"flex",alignItems:"center",justifyContent:"center"
-      }}><div style={{color:"#fff",fontSize:14}}>Memuat gambar...</div></div>}
+      }}><div style={{color:"#fff",fontSize:14}}>{t("loadingImage")}</div></div>}
     </div>
   );
 }
 
 // ─── Mode: Dokumen Pendukung ─────────────────────────────────────────────────
 function ModeDokumenPendukung({ regId }) {
+  const { t } = useLang();
   const [docs, setDocs] = useState([]);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -1013,7 +1020,7 @@ function ModeDokumenPendukung({ regId }) {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
           {/* SPK */}
           <div style={{ background: C.bg, borderRadius: 6, padding: "10px 12px", border: `1px solid ${C.borderLight}` }}>
-            <div style={{ fontWeight: 600, fontSize: 12, color: C.text, marginBottom: 6 }}>SPK Tertandatangani (PDF)</div>
+            <div style={{ fontWeight: 600, fontSize: 12, color: C.text, marginBottom: 6 }}>{t("signedSPK")}</div>
             {signedSPK ? (
               <div>
                 <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:4 }}>
@@ -1025,11 +1032,11 @@ function ModeDokumenPendukung({ regId }) {
                   <img src={signedSPK.data} alt="SPK" style={{ width: "100%", maxHeight: 100, objectFit: "contain", borderRadius: 4, cursor: "pointer", border: `1px solid ${C.borderLight}` }}
                     onClick={() => setPreviewUrl(signedSPK.data)} />
                 ) : (
-                  <div style={{ fontSize: 12, color: C.blue, fontWeight: 500 }}>✓ PDF tersimpan — <a href={signedSPK.data} target="_blank" rel="noopener" style={{ color: C.blue }}>buka</a></div>
+                  <div style={{ fontSize: 12, color: C.blue, fontWeight: 500 }}>{t("pdfSaved")} — <a href={signedSPK.data} target="_blank" rel="noopener" style={{ color: C.blue }}>buka</a></div>
                 )}
               </div>
             ) : (
-              <Btn variant="secondary" small onClick={() => { setSigningDoc("spk"); signedFileRef.current?.click(); }}>📤 Upload PDF</Btn>
+              <Btn variant="secondary" small onClick={() => { setSigningDoc("spk"); signedFileRef.current?.click(); }}>{t("uploadPDF")}</Btn>
             )}
           </div>
           {/* Daftar Hadir Audit */}
@@ -1046,11 +1053,11 @@ function ModeDokumenPendukung({ regId }) {
                   <img src={signedHadir.data} alt="Daftar Hadir Audit" style={{ width: "100%", maxHeight: 100, objectFit: "contain", borderRadius: 4, cursor: "pointer", border: `1px solid ${C.borderLight}` }}
                     onClick={() => setPreviewUrl(signedHadir.data)} />
                 ) : (
-                  <div style={{ fontSize: 12, color: C.blue, fontWeight: 500 }}>✓ PDF tersimpan — <a href={signedHadir.data} target="_blank" rel="noopener" style={{ color: C.blue }}>buka</a></div>
+                  <div style={{ fontSize: 12, color: C.blue, fontWeight: 500 }}>{t("pdfSaved")} — <a href={signedHadir.data} target="_blank" rel="noopener" style={{ color: C.blue }}>buka</a></div>
                 )}
               </div>
             ) : (
-              <Btn variant="secondary" small onClick={() => { setSigningDoc("hadir"); signedFileRef.current?.click(); }}>📤 Upload PDF</Btn>
+              <Btn variant="secondary" small onClick={() => { setSigningDoc("hadir"); signedFileRef.current?.click(); }}>{t("uploadPDF")}</Btn>
             )}
           </div>
         </div>
@@ -1065,7 +1072,7 @@ function ModeDokumenPendukung({ regId }) {
       }}>
         📄 Upload sertifikat penyelia halal, hasil uji lab, nota pembelian bahan, denah lokasi, diagram alir produksi, dan dokumen pendukung lainnya.
         <div style={{ marginTop: 6, fontSize: 11, color: C.blue, opacity: 0.7 }}>
-          💡 Gunakan <strong>FairScan</strong> untuk mempermudah proses scan dokumen.
+          {t("fairScanTip")}
         </div>
       </div>
 
@@ -1073,7 +1080,7 @@ function ModeDokumenPendukung({ regId }) {
         {adding ? (
           <div style={{ border: `1px solid ${C.blue}`, borderRadius: 5, padding: "12px 14px", background: C.blueUltraLight }}>
             <div style={{ marginBottom: 10 }}>
-              <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>LABEL DOKUMEN</label>
+              <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>{t("docLabel")}</label>
               <input value={newLabel} onChange={e => setNewLabel(e.target.value)}
                 placeholder="e.g. Sertifikat Halal Anchor Butter" autoFocus
                 style={{ width: "100%", border: `1px solid ${C.border}`, borderRadius: 4, padding: "6px 10px", fontSize: 12, fontFamily: font, boxSizing: "border-box", background: C.bg }} />
@@ -1089,19 +1096,19 @@ function ModeDokumenPendukung({ regId }) {
                     onClick={() => setPreviewUrl(pendingProcessed || pendingImage)} />
                 </div>
                 <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
-                  <Btn variant="primary" small onClick={savePending}>Simpan</Btn>
-                  <Btn variant="ghost" small onClick={cancelPending}>Ganti Foto</Btn>
-                  <Btn variant="ghost" small onClick={() => { setAdding(false); setNewLabel(""); setPendingImage(null); setPendingProcessed(null); }}>Batal</Btn>
+                  <Btn variant="primary" small onClick={savePending}>{t("save")}</Btn>
+                  <Btn variant="ghost" small onClick={cancelPending}>{t("changePhoto")}</Btn>
+                  <Btn variant="ghost" small onClick={() => { setAdding(false); setNewLabel(""); setPendingImage(null); setPendingProcessed(null); }}>{t("cancel")}</Btn>
                 </div>
               </>
             ) : (
               <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                <Btn variant="primary" small onClick={() => pdfRef.current?.click()}>📄 Upload PDF</Btn>
-                <Btn variant="secondary" small onClick={() => fileRef.current?.click()}>📷 Upload Gambar</Btn>
-                <Btn variant="secondary" small onClick={() => setShowCamera(true)}>📸 Ambil Foto</Btn>
+                <Btn variant="primary" small onClick={() => pdfRef.current?.click()}>{t("uploadPDF")}</Btn>
+                <Btn variant="secondary" small onClick={() => fileRef.current?.click()}>{t("uploadImage")}</Btn>
+                <Btn variant="secondary" small onClick={() => setShowCamera(true)}>{t("takePhoto")}</Btn>
                 <input ref={pdfRef} type="file" accept=".pdf" multiple style={{ display: "none" }} onChange={handlePDFUpload} />
                 <input ref={fileRef} type="file" accept="image/*" multiple style={{ display: "none" }} onChange={handleImageUpload} />
-                <Btn variant="ghost" small onClick={() => { setAdding(false); setNewLabel(""); }}>Batal</Btn>
+                <Btn variant="ghost" small onClick={() => { setAdding(false); setNewLabel(""); }}>{t("cancel")}</Btn>
               </div>
             )}
           </div>
@@ -1164,6 +1171,7 @@ function ModeDokumenPendukung({ regId }) {
 
 // ─── PDF Viewer Modal ───────────────────────────────────────────────────────
 function PDFViewerModal({ doc, regId, onClose, onSnapshot }) {
+  const { t } = useLang();
   const iframeRef = useRef(null);
 
   return <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.7)",display:"flex",
@@ -1193,6 +1201,7 @@ function PDFViewerModal({ doc, regId, onClose, onSnapshot }) {
 // ─── Tab: Dokumentasi (main) ────────────────────────────────────────────────
 // ─── Mode: Ekstrak TTD ──────────────────────────────────────────────────────
 function ModeEkstrakTTD({ regId }) {
+  const { t } = useLang();
   const [sigs, setSigs] = useState([]);
   const [labeling, setLabeling] = useState(null);
   const [ttdImage, setTtdImage] = useState(null);
@@ -1355,7 +1364,7 @@ function ModeEkstrakTTD({ regId }) {
                   onClick={() => setLabeling(s.id)}>{s.label} ✎</div>
               )}
               <button onClick={() => deleteSig(s.id)}
-                style={{ background: "none", border: "none", color: C.red, fontSize: 10, cursor: "pointer" }}>Hapus</button>
+                style={{ background: "none", border: "none", color: C.red, fontSize: 10, cursor: "pointer" }}>{t("delete")}</button>
             </div>
           ))}
         </div>
@@ -1372,6 +1381,7 @@ const SUB_TABS = [
 ];
 
 export default function TabDokumentasi({ reg }) {
+  const { t } = useLang();
   const [subTab, setSubTab] = useState("label");
   const [loading, setLoading] = useState(false);
 
