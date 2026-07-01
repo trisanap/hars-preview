@@ -9,3 +9,10 @@ ref/report/Draft Laporan Audit AURORA REMPAH NUSANTARA.docx
 ref/report/Laporan Hasil Audit AURORA REMPAH NUSANTARA.docx
 ref/report/Ringkasan Laporan Audit AURORA REMPAH NUSANTARA.docx
 seed-data/*.json
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
