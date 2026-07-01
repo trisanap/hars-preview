@@ -253,14 +253,14 @@ function NewRegModal({ onSave, onClose }) {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
             <div>
               <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>
-                NO. DAFTAR (SIHALAL) *
+                {t("certIdLabel")}
               </label>
               <input value={form.id} onChange={f("id")} style={inp}
                 placeholder="SH2026-1-xxxxxxx" />
             </div>
             <div>
               <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>
-                TANGGAL DAFTAR
+                {t("registrationDate")}
               </label>
               <input type="date" value={form.tanggalDaftar} onChange={f("tanggalDaftar")} style={inp} />
             </div>
@@ -268,24 +268,24 @@ function NewRegModal({ onSave, onClose }) {
 
           <div style={{ marginBottom: 12 }}>
             <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>
-              NAMA PELAKU USAHA *
+              {t("ownerNameLabel")}
             </label>
             <input value={form.namaPU} onChange={f("namaPU")} style={inp}
-              placeholder="Nama perusahaan sesuai SIHALAL" />
+              placeholder={t("companyNamePlaceholder")} />
           </div>
 
           <div style={{ marginBottom: 12 }}>
             <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>
-              NAMA USAHA / MERK / FASILITAS
+              {t("businessNameLabel")}
             </label>
             <input value={form.namaUsaha} onChange={f("namaUsaha")} style={inp}
-              placeholder="Nama pabrik, merk dagang, atau fasilitas produksi" />
+              placeholder={t("businessNamePlaceholder2")} />
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
             <div>
               <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>
-                JENIS PRODUK *
+                {t("productTypeLabel")}
               </label>
               <select value={form.jenisProduk} onChange={f("jenisProduk")} style={inp}>
                 <option value="">-</option>
@@ -294,26 +294,26 @@ function NewRegModal({ onSave, onClose }) {
             </div>
             <div>
               <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>
-                JENIS PENDAFTARAN
+                {t("registrationTypeLabel")}
               </label>
               <select value={form.jenisPendaftaran} onChange={f("jenisPendaftaran")} style={inp}>
-                <option>Pengajuan Baru</option>
-                <option>Pengembangan</option>
+                <option>{t("newSubmission")}</option>
+                <option>{t("expansion")}</option>
               </select>
             </div>
           </div>
 
           <div style={{ marginBottom: 12 }}>
             <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>
-              ALAMAT PRODUKSI
+              {t("productionAddressLabel")}
             </label>
-            <input value={form.alamat} onChange={f("alamat")} style={inp} placeholder="Alamat fasilitas produksi" />
+            <input value={form.alamat} onChange={f("alamat")} style={inp} placeholder={t("productionAddressPlaceholder")} />
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
             <div>
               <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>
-                AGAMA PEMILIK
+                {t("ownerReligion")}
               </label>
               <select value={form.agamaPemilik || ""} onChange={f("agamaPemilik")} style={inp}>
                 {AGAMA_OPTIONS.map(o => <option key={o} value={o}>{AGAMA_LABELS[o] || o}</option>)}
@@ -321,7 +321,7 @@ function NewRegModal({ onSave, onClose }) {
             </div>
             <div>
               <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>
-                TANGGAL AUDIT
+                {t("auditDateLabel")}
               </label>
               <input type="date" value={form.tanggalAudit} onChange={f("tanggalAudit")} style={inp} />
             </div>
@@ -332,25 +332,25 @@ function NewRegModal({ onSave, onClose }) {
             borderRadius: 5, padding: "12px 14px", marginBottom: 12,
           }}>
             <div style={{ fontSize: 11, fontWeight: 600, color: C.muted, marginBottom: 10, letterSpacing: "0.05em" }}>
-              FASILITAS PRODUKSI
+              {t("productionFacility")}
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 10 }}>
               <div>
-                <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>NAMA PABRIK</label>
-                <input value={form.namaPabrik} onChange={f("namaPabrik")} style={inp} placeholder="Nama pabrik/fasilitas" />
+                <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>{t("factoryName")}</label>
+                <input value={form.namaPabrik} onChange={f("namaPabrik")} style={inp} placeholder={t("factoryNamePlaceholder2")} />
               </div>
               <div>
-                <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>KOTA</label>
+                <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>{t("city")}</label>
                 <input value={form.fasilitasKota} onChange={f("fasilitasKota")} style={inp} placeholder="Kota" />
               </div>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
               <div>
-                <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>ALAMAT PABRIK</label>
-                <input value={form.alamatPabrik} onChange={f("alamatPabrik")} style={inp} placeholder="Alamat lengkap pabrik" />
+                <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>{t("factoryAddress")}</label>
+                <input value={form.alamatPabrik} onChange={f("alamatPabrik")} style={inp} placeholder={t("factoryAddressPlaceholder")} />
               </div>
               <div>
-                <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>NEGARA</label>
+                <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>{t("country")}</label>
                 <input value={form.fasilitasNegara} onChange={f("fasilitasNegara")} style={inp} />
               </div>
             </div>
@@ -361,30 +361,30 @@ function NewRegModal({ onSave, onClose }) {
             borderRadius: 5, padding: "12px 14px", marginBottom: 12,
           }}>
             <div style={{ fontSize: 11, fontWeight: 600, color: C.muted, marginBottom: 10, letterSpacing: "0.05em" }}>
-              PENYELIA HALAL
+              {t("halalSupervisor")}
             </div>
             <div style={{ marginBottom: 10 }}>
-              <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>NAMA PENYELIA HALAL</label>
-              <input value={form.penyeliaHalal} onChange={f("penyeliaHalal")} style={inp} placeholder="Nama lengkap penyelia halal" />
+              <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>{t("supervisorName")}</label>
+              <input value={form.penyeliaHalal} onChange={f("penyeliaHalal")} style={inp} placeholder={t("supervisorNamePlaceholder")} />
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 10 }}>
               <div>
-                <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>NO. KTP</label>
+                <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>{t("idNumber")}</label>
                 <input value={form.penyeliaNoKTP} onChange={f("penyeliaNoKTP")} style={inp} placeholder="NIK" />
               </div>
               <div>
-                <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>NO. SERTIFIKAT</label>
+                <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>{t("certNumber")}</label>
                 <input value={form.penyeliaNoSertifikat} onChange={f("penyeliaNoSertifikat")} style={inp} />
               </div>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
               <div>
-                <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>NO. SK</label>
+                <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>{t("decreeNumber")}</label>
                 <input value={form.penyeliaNoSK} onChange={f("penyeliaNoSK")} style={inp} />
               </div>
               <div>
-                <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>NO. KONTAK</label>
-                <input value={form.penyeliaNoKontak} onChange={f("penyeliaNoKontak")} style={inp} placeholder="Telepon/HP" />
+                <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>{t("contactNumber")}</label>
+                <input value={form.penyeliaNoKontak} onChange={f("penyeliaNoKontak")} style={inp} placeholder={t("phonePlaceholder")} />
               </div>
             </div>
           </div>
@@ -394,12 +394,12 @@ function NewRegModal({ onSave, onClose }) {
             borderRadius: 5, padding: "12px 14px", marginBottom: 12,
           }}>
             <div style={{ fontSize: 11, fontWeight: 600, color: C.muted, marginBottom: 10, letterSpacing: "0.05em" }}>
-              TIM AUDITOR
+              {t("auditorTeam")}
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 10 }}>
               <div>
                 <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>
-                  LEAD AUDITOR *
+                  {t("leadAuditorLabel")}
                 </label>
                 <select value={form.leadAuditor} onChange={f("leadAuditor")} style={inp}>
                   <option value="">-</option>
@@ -408,7 +408,7 @@ function NewRegModal({ onSave, onClose }) {
               </div>
               <div>
                 <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>
-                  AUDITOR
+                  {t("auditor")}
                 </label>
                 <select value={form.auditor} onChange={f("auditor")} style={inp}>
                   <option value="">-</option>
@@ -418,15 +418,15 @@ function NewRegModal({ onSave, onClose }) {
             </div>
             <div>
               <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>
-                OBSERVER (opsional)
+                {t("observerOptional")}
               </label>
               <input value={form.observer} onChange={f("observer")} style={inp}
-                placeholder="Nama observer / NIP" />
+                placeholder={t("observerPlaceholder")} />
             </div>
             {extraAud >= 1 && (
               <div style={{ marginTop: 10 }}>
                 <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>
-                  AUDITOR TAMBAHAN 1
+                  {t("additionalAuditor1")}
                 </label>
                 <select value={form.auditor2 || ""} onChange={f("auditor2")} style={inp}>
                   <option value="">-</option>
@@ -437,7 +437,7 @@ function NewRegModal({ onSave, onClose }) {
             {extraAud >= 2 && (
               <div style={{ marginTop: 10 }}>
                 <label style={{ fontSize: 11, fontWeight: 600, color: C.muted, display: "block", marginBottom: 4 }}>
-                  AUDITOR TAMBAHAN 2
+                  {t("additionalAuditor2")}
                 </label>
                 <select value={form.auditor3 || ""} onChange={f("auditor3")} style={inp}>
                   <option value="">-</option>
@@ -779,7 +779,7 @@ function STEditModal({ reg, stEntry, stIndex, onClose, onSave }) {
         </div>
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:20}}>
           <div>
-            <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>TANGGAL AUDIT</label>
+            <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>{t("auditDateLabel")}</label>
             <input type="date" value={tglAudit} onChange={e=>setTglAudit(e.target.value)} style={inp}/>
             <div style={{fontSize:10,color:C.faint,marginTop:2}}>Akan muncul dengan nama hari</div>
           </div>
@@ -853,7 +853,7 @@ function SPKEditModal({ reg, onClose }) {
         </div>
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:12}}>
           <div>
-            <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>TANGGAL AUDIT</label>
+            <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>{t("auditDateLabel")}</label>
             <input type="date" value={tglAudit} onChange={e=>setTglAudit(e.target.value)} style={inp}/>
             <div style={{fontSize:10,color:C.faint,marginTop:2}}>Akan muncul dengan nama hari</div>
           </div>
@@ -899,7 +899,7 @@ function BerkasEditModal({ reg, onClose }) {
       <div style={{background:C.bg,borderRadius:8,width:"100%",maxWidth:420,boxShadow:"0 12px 40px rgba(0,0,0,0.18)",padding:24,fontFamily:font}}>
         <div style={{fontSize:14,fontWeight:600,marginBottom:18}}>Edit Berkas Audit</div>
         <div style={{marginBottom:12}}>
-          <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>TANGGAL AUDIT</label>
+          <label style={{fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4}}>{t("auditDateLabel")}</label>
           <input type="date" value={hariTanggal} onChange={e=>setHariTanggal(e.target.value)} style={inp}/>
           <div style={{fontSize:10,color:C.faint,marginTop:2}}>Akan muncul dengan nama hari di dokumen</div>
         </div>
@@ -1137,17 +1137,17 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
           </div>
           <div style={{ padding:"12px 20px",display:"grid",gridTemplateColumns:"1fr 1fr",gap:12 }}>
             <div>
-              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>NO. DAFTAR</label>
+              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("certIdShort")}</label>
               <input value={form.id} style={{ ...inp,background:C.bgAlt,color:C.muted }} readOnly />
             </div>
             <div>
-              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>TANGGAL DAFTAR</label>
+              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("registrationDate")}</label>
               <input type="date" value={form.tanggalDaftar} onChange={f("tanggalDaftar")} style={inp} />
             </div>
             <div>
-              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>JENIS PENDAFTARAN</label>
+              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("registrationTypeLabel")}</label>
               <select value={form.jenisPendaftaran} onChange={f("jenisPendaftaran")} style={inp}>
-                <option>Pengajuan Baru</option><option>Pengembangan</option>
+                <option>{t("newSubmission")}</option><option>{t("expansion")}</option>
               </select>
             </div>
           </div>
@@ -1158,34 +1158,34 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
           <div style={{ display:"flex",alignItems:"center",padding:"14px 20px",borderBottom:`1px solid ${C.borderLight}` }}>
             <div style={{ display:"flex",alignItems:"center",gap:10 }}>
               <div style={{ width:28,height:28,borderRadius:7,background:C.blueSoft,color:C.blue,display:"grid",placeItems:"center" }}>{icUser}</div>
-              <h2 style={{ margin:0,fontSize:14,fontWeight:700,color:C.text }}>Pelaku Usaha</h2>
+              <h2 style={{ margin:0,fontSize:14,fontWeight:700,color:C.text }}>{t("businessOwner")}</h2>
             </div>
           </div>
           <div style={{ padding:"12px 20px" }}>
             <div style={{ marginBottom:10 }}>
-              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>NAMA PELAKU USAHA</label>
+              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("ownerNameLabel")}</label>
               <input value={form.namaPU} onChange={f("namaPU")} style={inp} />
             </div>
             <div style={{ marginBottom:10 }}>
-              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>NAMA USAHA / MERK / FASILITAS</label>
+              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("businessNameLabel")}</label>
               <input value={form.namaUsaha} onChange={f("namaUsaha")} style={inp} />
             </div>
             <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:10 }}>
               <div>
-                <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>JENIS PRODUK</label>
+                <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("productTypeLabel")}</label>
                 <select value={form.jenisProduk} onChange={f("jenisProduk")} style={inp}>
                   {JENIS_PRODUK_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
                 </select>
               </div>
               <div>
-                <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>AGAMA PEMILIK</label>
+                <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("ownerReligion")}</label>
                 <select value={form.agamaPemilik || ""} onChange={f("agamaPemilik")} style={inp}>
                   {AGAMA_OPTIONS.map(o => <option key={o} value={o}>{AGAMA_LABELS[o] || o}</option>)}
                 </select>
               </div>
             </div>
             <div style={{ marginBottom:10 }}>
-              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>ALAMAT PRODUKSI</label>
+              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("productionAddressLabel")}</label>
               <input value={form.alamat} onChange={f("alamat")} style={inp} />
             </div>
             {/* Fasilitas Produksi */}
@@ -1208,21 +1208,21 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 8 }}>
                   <div>
-                    <label style={{ fontSize: 10, fontWeight: 600, color: C.muted, display: "block", marginBottom: 2 }}>NAMA PABRIK</label>
+                    <label style={{ fontSize: 10, fontWeight: 600, color: C.muted, display: "block", marginBottom: 2 }}>{t("factoryName")}</label>
                     <input value={fas.nama} onChange={e => updateFasilitas(i, "nama", e.target.value)} style={inp} placeholder="Nama pabrik/fasilitas" />
                   </div>
                   <div>
-                    <label style={{ fontSize: 10, fontWeight: 600, color: C.muted, display: "block", marginBottom: 2 }}>KOTA</label>
+                    <label style={{ fontSize: 10, fontWeight: 600, color: C.muted, display: "block", marginBottom: 2 }}>{t("city")}</label>
                     <input value={fas.kota} onChange={e => updateFasilitas(i, "kota", e.target.value)} style={inp} placeholder="Kota" />
                   </div>
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
                   <div>
-                    <label style={{ fontSize: 10, fontWeight: 600, color: C.muted, display: "block", marginBottom: 2 }}>ALAMAT PABRIK</label>
+                    <label style={{ fontSize: 10, fontWeight: 600, color: C.muted, display: "block", marginBottom: 2 }}>{t("factoryAddress")}</label>
                     <input value={fas.alamat} onChange={e => updateFasilitas(i, "alamat", e.target.value)} style={inp} placeholder="Alamat lengkap pabrik" />
                   </div>
                   <div>
-                    <label style={{ fontSize: 10, fontWeight: 600, color: C.muted, display: "block", marginBottom: 2 }}>NEGARA</label>
+                    <label style={{ fontSize: 10, fontWeight: 600, color: C.muted, display: "block", marginBottom: 2 }}>{t("country")}</label>
                     <input value={fas.negara} onChange={e => updateFasilitas(i, "negara", e.target.value)} style={inp} />
                   </div>
                 </div>
@@ -1252,19 +1252,19 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
               <input value={form.penyeliaHalal || ""} onChange={f("penyeliaHalal")} style={inp} />
             </div>
             <div>
-              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>NO. KTP</label>
+              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("idNumber")}</label>
               <input value={form.penyeliaNoKTP || ""} onChange={f("penyeliaNoKTP")} style={inp} />
             </div>
             <div>
-              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>NO. SERTIFIKAT</label>
+              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("certNumber")}</label>
               <input value={form.penyeliaNoSertifikat || ""} onChange={f("penyeliaNoSertifikat")} style={inp} />
             </div>
             <div>
-              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>NO. SK</label>
+              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("decreeNumber")}</label>
               <input value={form.penyeliaNoSK || ""} onChange={f("penyeliaNoSK")} style={inp} />
             </div>
             <div>
-              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>NO. KONTAK</label>
+              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("contactNumber")}</label>
               <input value={form.penyeliaNoKontak || ""} onChange={f("penyeliaNoKontak")} style={inp} />
             </div>
           </div>
@@ -1279,7 +1279,7 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
             </div>
           </div>
           <div style={{ padding:"12px 20px" }}>
-            <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>TANGGAL AUDIT</label>
+            <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("auditDateLabel")}</label>
             <input type="date" value={form.tanggalAudit} onChange={f("tanggalAudit")} style={{ ...inp, maxWidth: 260 }} />
           </div>
         </div>
@@ -1295,14 +1295,14 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
           <div style={{ padding:"12px 20px" }}>
             <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:10 }}>
               <div>
-                <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>LEAD AUDITOR</label>
+                <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("leadAuditor")}</label>
                 <select value={form.leadAuditor || ""} onChange={f("leadAuditor")} style={inp}>
                   <option value="">-</option>
                   {AUDITORS.map(a => <option key={a.id} value={a.id}>{a.nama}</option>)}
                 </select>
               </div>
               <div>
-                <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>AUDITOR</label>
+                <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("auditor")}</label>
                 <select value={form.auditor || ""} onChange={f("auditor")} style={inp}>
                   <option value="">-</option>
                   {AUDITORS.map(a => <option key={a.id} value={a.id}>{a.nama}</option>)}
@@ -1375,7 +1375,7 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
         <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 20px",borderBottom:`1px solid ${C.borderLight}`,background:C.bgCard }}>
           <div style={{ display:"flex",alignItems:"center",gap:10 }}>
             <div style={{ width:28,height:28,borderRadius:7,background:C.blueSoft,color:C.blue,display:"grid",placeItems:"center" }}>{icUser}</div>
-            <h2 style={{ margin:0,fontSize:14,fontWeight:700,color:C.text }}>Pelaku Usaha</h2>
+            <h2 style={{ margin:0,fontSize:14,fontWeight:700,color:C.text }}>{t("businessOwner")}</h2>
           </div>
         </div>
         <dl style={{ margin:0,padding:"6px 20px 14px",display:"grid",gridTemplateColumns:"200px 1fr",columnGap:24 }}>
