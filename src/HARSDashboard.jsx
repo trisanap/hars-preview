@@ -1243,12 +1243,12 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
           <div style={{ display:"flex",alignItems:"center",padding:"14px 20px",borderBottom:`1px solid ${C.borderLight}` }}>
             <div style={{ display:"flex",alignItems:"center",gap:10 }}>
               <div style={{ width:28,height:28,borderRadius:7,background:C.blueSoft,color:C.blue,display:"grid",placeItems:"center" }}>{icPerson}</div>
-              <h2 style={{ margin:0,fontSize:14,fontWeight:700,color:C.text }}>Penyelia Halal</h2>
+              <h2 style={{ margin:0,fontSize:14,fontWeight:700,color:C.text }}>{t("halalSupervisor")}</h2>
             </div>
           </div>
           <div style={{ padding:"12px 20px",display:"grid",gridTemplateColumns:"1fr 1fr",gap:12 }}>
             <div>
-              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>NAMA</label>
+              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("name")}</label>
               <input value={form.penyeliaHalal || ""} onChange={f("penyeliaHalal")} style={inp} />
             </div>
             <div>
@@ -1275,7 +1275,7 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
           <div style={{ display:"flex",alignItems:"center",padding:"14px 20px",borderBottom:`1px solid ${C.borderLight}` }}>
             <div style={{ display:"flex",alignItems:"center",gap:10 }}>
               <div style={{ width:28,height:28,borderRadius:7,background:C.blueSoft,color:C.blue,display:"grid",placeItems:"center" }}>{icCal}</div>
-              <h2 style={{ margin:0,fontSize:14,fontWeight:700,color:C.text }}>Jadwal Audit</h2>
+              <h2 style={{ margin:0,fontSize:14,fontWeight:700,color:C.text }}>{t("auditSchedule")}</h2>
             </div>
           </div>
           <div style={{ padding:"12px 20px" }}>
@@ -1289,7 +1289,7 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
           <div style={{ display:"flex",alignItems:"center",padding:"14px 20px",borderBottom:`1px solid ${C.borderLight}` }}>
             <div style={{ display:"flex",alignItems:"center",gap:10 }}>
               <div style={{ width:28,height:28,borderRadius:7,background:C.blueSoft,color:C.blue,display:"grid",placeItems:"center" }}>{icPerson}</div>
-              <h2 style={{ margin:0,fontSize:14,fontWeight:700,color:C.text }}>Tim Auditor</h2>
+              <h2 style={{ margin:0,fontSize:14,fontWeight:700,color:C.text }}>{t("auditorTeam")}</h2>
             </div>
           </div>
           <div style={{ padding:"12px 20px" }}>
@@ -1310,12 +1310,12 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
               </div>
             </div>
             <div style={{ marginBottom:10 }}>
-              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>OBSERVER (opsional)</label>
-              <input value={form.observer || ""} onChange={f("observer")} style={{ ...inp, maxWidth: 360 }} placeholder="Nama observer" />
+              <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("observerOptional")}</label>
+              <input value={form.observer || ""} onChange={f("observer")} style={{ ...inp, maxWidth: 360 }} placeholder={t("observerPlaceholder")} />
             </div>
             {extraAud >= 1 && (
               <div style={{ marginBottom:10 }}>
-                <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>AUDITOR TAMBAHAN 1</label>
+                <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("additionalAuditor1")}</label>
                 <select value={form.auditor2 || ""} onChange={f("auditor2")} style={{ ...inp, maxWidth: 360 }}>
                   <option value="">-</option>
                   {AUDITORS.filter(a => a.id !== parseInt(form.leadAuditor) && a.id !== parseInt(form.auditor) && a.id !== parseInt(form.auditor3)).map(a => <option key={a.id} value={a.id}>{a.nama}</option>)}
@@ -1324,7 +1324,7 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
             )}
             {extraAud >= 2 && (
               <div style={{ marginBottom:10 }}>
-                <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>AUDITOR TAMBAHAN 2</label>
+                <label style={{ fontSize:11,fontWeight:600,color:C.muted,display:"block",marginBottom:4 }}>{t("additionalAuditor2")}</label>
                 <select value={form.auditor3 || ""} onChange={f("auditor3")} style={{ ...inp, maxWidth: 360 }}>
                   <option value="">-</option>
                   {AUDITORS.filter(a => a.id !== parseInt(form.leadAuditor) && a.id !== parseInt(form.auditor) && a.id !== parseInt(form.auditor2)).map(a => <option key={a.id} value={a.id}>{a.nama}</option>)}
@@ -1379,30 +1379,30 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
           </div>
         </div>
         <dl style={{ margin:0,padding:"6px 20px 14px",display:"grid",gridTemplateColumns:"200px 1fr",columnGap:24 }}>
-          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>Nama PU</dt>
+          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>{t("ownerNameShort")}</dt>
           <dd style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.text,fontWeight:500 }}><span style={{ fontWeight:600 }}>{reg.namaPU}</span></dd>
-          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>Nama Usaha / Merk / Fasilitas</dt>
+          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>{t("businessNameLabel")}</dt>
           <dd style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.text,fontWeight:500 }}>{reg.namaUsaha || "—"}</dd>
-          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>Jenis Produk</dt>
+          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>{t("productTypeLabel")}</dt>
           <dd style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.text,fontWeight:500 }}><span style={{ display:"inline-flex",alignItems:"center",gap:6,padding:"3px 9px",borderRadius:6,background:C.bgAlt,color:C.text,fontSize:12,fontWeight:600 }}>{reg.jenisProduk}</span></dd>
-          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>Alamat Produksi</dt>
+          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>{t("productionAddressLabel")}</dt>
           <dd style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.text,fontWeight:500 }}>
             <div style={{ background:C.bgAlt,border:`1px solid ${C.borderLight}`,borderRadius:8,padding:"10px 12px",fontSize:13,color:C.text,lineHeight:1.55,flex:1 }}>
               {reg.alamat || "—"}
               {reg.fasilitasKota && <span style={{ display:"block",color:C.muted,fontSize:12.5,marginTop:2 }}>{reg.fasilitasKota}{reg.fasilitasNegara ? `, ${reg.fasilitasNegara}` : ""}</span>}
             </div>
           </dd>
-          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>Agama Pemilik</dt>
+          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>{t("ownerReligion")}</dt>
           <dd style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.text,fontWeight:500 }}>{reg.agamaPemilik || "—"}</dd>
           {fasLoaded && fasilitasList.length === 1 && fasilitasList[0].nama && (
-            <><dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>Nama Pabrik</dt><dd style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.text,fontWeight:500 }}>{fasilitasList[0].nama}</dd></>
+            <><dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>{t("factoryName")}</dt><dd style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.text,fontWeight:500 }}>{fasilitasList[0].nama}</dd></>
           )}
           {fasLoaded && fasilitasList.length === 1 && fasilitasList[0].alamat && (
-            <><dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>Alamat Pabrik</dt><dd style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.text,fontWeight:500 }}>{fasilitasList[0].alamat}</dd></>
+            <><dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>{t("factoryAddress")}</dt><dd style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.text,fontWeight:500 }}>{fasilitasList[0].alamat}</dd></>
           )}
           {fasLoaded && fasilitasList.length > 1 && (
             <>
-              <dt style={{ padding:"11px 0",borderBottom:"none",fontSize:13.5,color:C.muted,fontWeight:500,alignSelf:"flex-start" }}>Fasilitas Produksi</dt>
+              <dt style={{ padding:"11px 0",borderBottom:"none",fontSize:13.5,color:C.muted,fontWeight:500,alignSelf:"flex-start" }}>{t("productionFacility")}</dt>
               <dd style={{ padding:"11px 0",borderBottom:"none",fontSize:13.5,color:C.text,fontWeight:500 }}>
                 {fasilitasList.map((f, i) => (
                   <div key={i} style={{ marginBottom: i < fasilitasList.length - 1 ? 10 : 0, padding: "8px 10px", background: i % 2 === 0 ? C.bg : C.bgAlt, borderRadius: 6, border: `1px solid ${C.borderLight}` }}>
@@ -1421,19 +1421,19 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
         <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 20px",borderBottom:`1px solid ${C.borderLight}`,background:C.bgCard }}>
           <div style={{ display:"flex",alignItems:"center",gap:10 }}>
             <div style={{ width:28,height:28,borderRadius:7,background:C.blueSoft,color:C.blue,display:"grid",placeItems:"center" }}>{icPerson}</div>
-            <h2 style={{ margin:0,fontSize:14,fontWeight:700,color:C.text }}>Penyelia Halal</h2>
+            <h2 style={{ margin:0,fontSize:14,fontWeight:700,color:C.text }}>{t("halalSupervisor")}</h2>
           </div>
         </div>
         <dl style={{ margin:0,padding:"6px 20px 14px",display:"grid",gridTemplateColumns:"200px 1fr",columnGap:24 }}>
-          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>Nama</dt>
+          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>{t("name")}</dt>
           <dd style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.text,fontWeight:500 }}><span style={{ fontWeight:600 }}>{reg.penyeliaHalal || "—"}</span></dd>
-          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>No. KTP</dt>
+          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>{t("idNumber")}</dt>
           <dd style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,fontFamily:mono,color:C.text,fontWeight:500 }}>{reg.penyeliaNoKTP || "—"}</dd>
-          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>No. Sertifikat</dt>
+          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>{t("certNumber")}</dt>
           <dd style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,fontFamily:mono,color:C.text,fontWeight:500 }}>{reg.penyeliaNoSertifikat || "—"}</dd>
-          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>No. SK</dt>
-          <dd style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,fontFamily:mono,color:C.text,fontWeight:500 }}>{reg.penyeliaNoSK || <span style={{ color:C.muted,fontStyle:"italic",fontFamily:font }}>Belum dilengkapi</span>}</dd>
-          <dt style={{ padding:"11px 0",borderBottom:"none",fontSize:13.5,color:C.muted,fontWeight:500 }}>No. Kontak</dt>
+          <dt style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,color:C.muted,fontWeight:500 }}>{t("decreeNumber")}</dt>
+          <dd style={{ padding:"11px 0",borderBottom:`1px solid ${C.borderLight}`,fontSize:13.5,fontFamily:mono,color:C.text,fontWeight:500 }}>{reg.penyeliaNoSK || <span style={{ color:C.muted,fontStyle:"italic",fontFamily:font }}>{t("notCompleted")}</span>}</dd>
+          <dt style={{ padding:"11px 0",borderBottom:"none",fontSize:13.5,color:C.muted,fontWeight:500 }}>{t("contactNumber")}</dt>
           <dd style={{ padding:"11px 0",borderBottom:"none",fontSize:13.5,fontFamily:mono,color:C.text,fontWeight:500 }}>{reg.penyeliaNoKontak || "—"}</dd>
         </dl>
       </div>
@@ -1443,7 +1443,7 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
         <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 20px",borderBottom:`1px solid ${C.borderLight}`,background:C.bgCard }}>
           <div style={{ display:"flex",alignItems:"center",gap:10 }}>
             <div style={{ width:28,height:28,borderRadius:7,background:C.blueSoft,color:C.blue,display:"grid",placeItems:"center" }}>{icCal}</div>
-            <h2 style={{ margin:0,fontSize:14,fontWeight:700,color:C.text }}>Jadwal &amp; Tim Auditor</h2>
+            <h2 style={{ margin:0,fontSize:14,fontWeight:700,color:C.text }}>{t("scheduleAndTeam")}</h2>
           </div>
           {reg.tanggalAudit && <span style={{ fontFamily:mono,fontSize:12,fontWeight:600,color:C.blue }}>{fmtDate(reg.tanggalAudit)}</span>}
         </div>
@@ -1458,18 +1458,18 @@ function TabDataPengajuan({ reg, onUpdate, isAdmin, editing, setEditing }) {
             <div style={{ flex:1 }}>
               <div style={{ fontSize:15,fontWeight:700,color:C.text }}>{fmtDate(reg.tanggalAudit)}</div>
             </div>
-            <span style={{ display:"inline-flex",alignItems:"center",gap:6,padding:"4px 10px",borderRadius:99,fontSize:11.5,fontWeight:600,background:C.blueSoft,color:C.blue }}>Terjadwal</span>
+            <span style={{ display:"inline-flex",alignItems:"center",gap:6,padding:"4px 10px",borderRadius:99,fontSize:11.5,fontWeight:600,background:C.blueSoft,color:C.blue }}>{t("scheduled")}</span>
           </div>
         ) : (
           <div style={{ padding:"16px 20px",textAlign:"center",color:C.muted,fontSize:13,borderBottom:`1px solid ${C.borderLight}` }}>
-            <Badge color="gold">Belum dijadwalkan</Badge>
+            <Badge color="gold">{t("notScheduled")}</Badge>
           </div>
         )}
         <table style={{ width:"100%",borderCollapse:"collapse",fontSize:13.5 }}>
           <thead>
             <tr>
               <th style={{ textAlign:"left",fontSize:10.5,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",color:C.muted,padding:"10px 20px",background:C.bgAlt,borderBottom:`1px solid ${C.borderLight}` }}>Peran</th>
-              <th style={{ textAlign:"left",fontSize:10.5,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",color:C.muted,padding:"10px 20px",background:C.bgAlt,borderBottom:`1px solid ${C.borderLight}` }}>Nama</th>
+              <th style={{ textAlign:"left",fontSize:10.5,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",color:C.muted,padding:"10px 20px",background:C.bgAlt,borderBottom:`1px solid ${C.borderLight}` }}>{t("name")}</th>
               <th style={{ textAlign:"right",fontSize:10.5,fontWeight:700,letterSpacing:"0.08em",textTransform:"uppercase",color:C.muted,padding:"10px 20px",background:C.bgAlt,borderBottom:`1px solid ${C.borderLight}` }}>No. Pendaftaran</th>
             </tr>
           </thead>
@@ -2292,7 +2292,7 @@ function RegTable({ regs, onOpen, onDelete, isAdmin }) {
           <tr>
             <th style={{ paddingLeft: 18 }}>No. Daftar</th>
             <th>Pelaku Usaha</th>
-            <th>Jenis Produk</th>
+            <th>{t("productTypeLabel")}</th>
             <th>Lead Auditor</th>
             <th>Status</th>
             <th>Tgl Audit</th>
