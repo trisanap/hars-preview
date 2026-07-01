@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { getAIConfig, setAIConfig, clearAIConfig, getVisionConfig, setVisionConfig, clearVisionConfig } from "./ai.jsx";
+import { useLang } from "./i18n";
 
 const C = {
   blue: "#0a6fc0", blueMid: "#075aa0", blueLight: "#cfe5f5", blueUltraLight: "#eaf3fb",
@@ -17,6 +18,7 @@ const TABS = [
 ];
 
 function AIConfigForm({ label, description, getConfig, setConfig, clearConfig, storageNote }) {
+  const { t } = useLang();
   const [saved, setSaved] = useState(false);
   const cfg = getConfig();
   const [form, setForm] = useState({ endpoint: cfg.endpoint, apiKey: cfg.apiKey, model: cfg.model });
@@ -44,10 +46,10 @@ function AIConfigForm({ label, description, getConfig, setConfig, clearConfig, s
     </div>
     <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
       <button onClick={saveAI} style={{ background: C.blue, color: "#fff", border: "none", borderRadius: 4, padding: "6px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: font }}>
-        {saved ? "✓ Tersimpan" : "Simpan"}
+        {saved ? "✓ " + t("saved") : t("save")}
       </button>
       <button onClick={clearAI} style={{ background: "transparent", color: C.muted, border: `1px solid ${C.border}`, borderRadius: 4, padding: "6px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: font }}>
-        Hapus Konfigurasi
+        {t("clearConfig")}
       </button>
     </div>
     <div style={{ fontSize: 11, color: C.faint, lineHeight: 1.5, background: C.bgAlt, padding: "10px 12px", borderRadius: 4 }}>
@@ -84,7 +86,7 @@ export default function SettingsModal({ onClose }) {
           fontWeight: 600, fontSize: 13, display: "flex",
           justifyContent: "space-between", alignItems: "center", flexShrink: 0,
         }}>
-          <span>⚙ Pengaturan</span>
+          <span>⚙ {t("settings")}</span>
           <button onClick={onClose} style={{
             background: "none", border: "none", color: "#fff",
             cursor: "pointer", fontSize: 18, lineHeight: 1,
@@ -133,7 +135,7 @@ export default function SettingsModal({ onClose }) {
 
           {tab === "about" && (
             <div style={{ fontSize: 12, color: C.text, lineHeight: 1.7 }}>
-              <p><strong>HARS</strong> — Halal Audit Report System</p>
+              <p><strong>HARS</strong> — {t("aboutHARS")}</p>
               <p>LPH UIN Syarif Hidayatullah Jakarta</p>
               <p style={{ color: C.muted, marginTop: 8 }}>
                 Sistem audit halal berbasis web. Backend FastAPI + SQLite dengan

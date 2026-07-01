@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import html2pdf from "html2pdf.js";
 import { api } from "./api";
+import { useLang } from "./i18n";
 
 import logoSrc from '../template/LOGO.png';
 import cornerLogoSrc from '../template/uin_corner-logo.png';
@@ -134,6 +135,7 @@ async function verifyCertById(noSertifikat) {
 }
 
 function BPJPHModal({ onClose, onSelect }) {
+  const { t } = useLang();
   const [np,setNp]=useState(""); const [pu,setPu]=useState(""); const [sh,setSh]=useState("");
   const [res,setRes]=useState([]); const [loading,setLoading]=useState(false); const [searched,setSearched]=useState(false);
   const inp = {flex:1,border:`1px solid ${C.border}`,borderRadius:4,padding:"6px 8px",
@@ -191,6 +193,7 @@ function BPJPHModal({ onClose, onSelect }) {
 
 // ─── Add Row Picker ───────────────────────────────────────────────────────────
 function AddRowPicker({ onChoose, onClose }) {
+  const { t } = useLang();
   return <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.35)",display:"flex",
     alignItems:"center",justifyContent:"center",zIndex:999,padding:16}}
     onClick={e=>e.target===e.currentTarget&&onClose()}>
@@ -217,6 +220,7 @@ function AddRowPicker({ onChoose, onClose }) {
 
 // ─── Manual Row Form (inline) ─────────────────────────────────────────────────
 function ManualRowForm({ initial, onSave, onCancel, showKet }) {
+  const { t } = useLang();
   const [form,setForm]=useState(initial||{nama:"",jenis:"Bahan",temuan:"",ket:""});
   const f=k=>e=>setForm(p=>({...p,[k]:e.target.value}));
   const inp={width:"100%",border:`1px solid ${C.border}`,borderRadius:4,padding:"5px 8px",
@@ -256,6 +260,7 @@ function ManualRowForm({ initial, onSave, onCancel, showKet }) {
 
 // ─── Bahan Import Excel Modal ────────────────────────────────────────────────
 function BahanImportModal({ onImport, onClose }) {
+  const { t } = useLang();
   const [preview, setPreview] = useState(null);
   const [parsing, setParsing] = useState(false);
   const [error, setError] = useState(null);
@@ -384,6 +389,7 @@ function BahanImportModal({ onImport, onClose }) {
 const INITIAL_BAHAN = [];
 
 function BahanTable({ mode, canEdit, rows, setRows }) {
+  const { t } = useLang();
   const [editingId,setEditingId]=useState(null);
   const [showPicker,setShowPicker]=useState(null);
   const [showSearch,setShowSearch]=useState(false);
@@ -705,6 +711,7 @@ const KRITERIA_SKELETON = [
 ];
 
 function KriteriaTable({ mode, canEdit, rows, setRows }) {
+  const { t } = useLang();
   const locked = !canEdit;
   const update = (id,val) => setRows(r=>r.map(x=>x.id===id?{...x,catatan:val}:x));
   const th = {background:C.blue,color:"#fff",fontWeight:500,fontSize:11,padding:"7px 8px",textAlign:"left"};
@@ -733,6 +740,7 @@ function KriteriaTable({ mode, canEdit, rows, setRows }) {
 
 // ─── Fasilitas Table ──────────────────────────────────────────────────────────
 function FasilitasTable({ reg, mode, canEdit, rows, setRows }) {
+  const { t } = useLang();
   const [editing,setEditing]=useState(null);
   const th = {background:C.blue,color:"#fff",fontWeight:500,fontSize:11,padding:"6px 8px",textAlign:"left"};
   const inp = {width:"100%",border:`1px solid ${C.border}`,borderRadius:3,padding:"4px 7px",fontSize:12,fontFamily:font};
@@ -785,6 +793,7 @@ function FasilitasTable({ reg, mode, canEdit, rows, setRows }) {
 
 // ─── Penyelia Halal Table ─────────────────────────────────────────────────────
 function PenyeliaTable({ reg, canEdit, rows, setRows }) {
+  const { t } = useLang();
   const [editing,setEditing]=useState(null);
   const [showPickPenyelia,setShowPickPenyelia]=useState(false);
   const th = {background:C.blue,color:"#fff",fontWeight:500,fontSize:11,padding:"6px 8px",textAlign:"left"};
@@ -864,6 +873,7 @@ function PenyeliaTable({ reg, canEdit, rows, setRows }) {
 
 // ─── Import Excel Modal ──────────────────────────────────────────────────────
 function ProdukImportModal({ onImport, onClose }) {
+  const { t } = useLang();
   const [preview, setPreview] = useState(null);
   const [parsing, setParsing] = useState(false);
   const [error, setError] = useState(null);
@@ -961,6 +971,7 @@ function ProdukImportModal({ onImport, onClose }) {
 
 // ─── Produk Table ─────────────────────────────────────────────────────────────
 function ProdukTable({ canEdit, rows, setRows }) {
+  const { t } = useLang();
   const [adding,setAdding]=useState(false);
   const [newNama,setNewNama]=useState("");
   const [showImport,setShowImport]=useState(false);
@@ -1009,6 +1020,7 @@ function ProdukTable({ canEdit, rows, setRows }) {
 // ─── Tim Auditor Tanda Tangan (bottom of report) ──────────────────────────────
 // ─── TTD Picker Modal (shared) ──────────────────────────────────────────────
 function TtdPickerModal({ regId, onSelect, onClose }) {
+  const { t } = useLang();
   const [sigs, setSigs] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -1052,6 +1064,7 @@ function TtdPickerModal({ regId, onSelect, onClose }) {
 }
 
 function TimAuditorTTD({ rows, setRows, auditors, ttdAssign, onAssignTtd, canEdit, regId }) {
+  const { t } = useLang();
   const [pickerRow, setPickerRow] = useState(null);
   const AUDITORS_CONST = auditors || [];
   const th = {background:C.blue,color:"#fff",fontWeight:500,fontSize:11,padding:"7px 10px",textAlign:"left"};
@@ -1125,6 +1138,7 @@ function TimAuditorTTD({ rows, setRows, auditors, ttdAssign, onAssignTtd, canEdi
 
 // ─── Perwakilan Perusahaan Table ────────────────────────────────────────────
 function PerwakilanTable({ rows, setRows, canEdit, regId, ttdAssign, onAssignTtd }) {
+  const { t } = useLang();
   const [pickerRow, setPickerRow] = useState(null);
   const th = {background:C.blue,color:"#fff",fontWeight:500,fontSize:11,padding:"7px 10px",textAlign:"left"};
   const setCell = (id, field, val) => setRows(prev => prev.map(r => r.id===id?{...r,[field]:val}:r));
@@ -1187,6 +1201,7 @@ function PerwakilanTable({ rows, setRows, canEdit, regId, ttdAssign, onAssignTtd
 
 // ─── Profile Table (top of report) ───────────────────────────────────────────
 function ProfileTable({ reg, mode, canEdit, auditors, namaPemilik, onNamaPemilikChange }) {
+  const { t } = useLang();
   const AUDITORS_CONST = auditors || [];
   const getA = id => AUDITORS_CONST.find(a=>a.id===id)?.nama||"—";
 
@@ -1592,6 +1607,7 @@ function ImagePreviewModal({ url, onClose }) {
 
 // ─── Main Report Editor ───────────────────────────────────────────────────────
 export default function HARSReportEditor({ reg, role, auditors }) {
+  const { t } = useLang();
   const canEdit = role === "auditor" || role === "admin";
   const [verdict,setVerdict]=useState("lulus");
   const [fasilitasRows,setFasilitasRows]=useState([{id:1,nama:reg?.namaPabrik||"",alamat:reg?.alamatPabrik||"",kota:reg?.fasilitasKota||"",negara:reg?.fasilitasNegara||"Indonesia"}]);
@@ -1897,40 +1913,40 @@ select{-webkit-appearance:none;appearance:none;border:none!important;background:
 
       {/* Title bar */}
       <div style={{background:C.blue,color:"#fff",textAlign:"center",padding:"14px 32px"}}>
-        <div id="doc-title" style={{fontSize:14,fontWeight:600,letterSpacing:"0.04em"}}>LAPORAN HASIL AUDIT HALAL</div>
+        <div id="doc-title" style={{fontSize:14,fontWeight:600,letterSpacing:"0.04em"}}>{t("auditReportTitle")}</div>
         <div style={{fontSize:12,opacity:0.85,marginTop:2}}>LPH UIN SYARIF HIDAYATULLAH JAKARTA</div>
         <span id="doc-badge" style={{display:"none"}}>LAPORAN HASIL AUDIT</span>
       </div>
 
       {/* Content */}
       <div style={{padding:"24px 32px"}} className="print-content">
-        <SecHdr>Profil Perusahaan</SecHdr>
+        <SecHdr>{t("companyProfile")}</SecHdr>
         <ProfileTable reg={reg} mode="final" canEdit={canEdit} auditors={auditors} namaPemilik={namaPemilik} onNamaPemilikChange={setNamaPemilik}/>
 
-        <SecHdr>Daftar Fasilitas</SecHdr>
+        <SecHdr>{t("facilityList")}</SecHdr>
         <FasilitasTable reg={reg} mode="final" canEdit={canEdit} rows={fasilitasRows} setRows={setFasilitasRows}/>
 
-        <SecHdr>Penyelia Halal Perusahaan</SecHdr>
+        <SecHdr>{t("halalSupervisorCompany")}</SecHdr>
         <PenyeliaTable reg={reg} canEdit={canEdit} rows={penyeliaRows} setRows={setPenyeliaRows}/>
 
         <div className="pgbrk" style={{pageBreakBefore:"always"}}>
-        <SecHdr>Daftar Produk</SecHdr>
+        <SecHdr>{t("productList")}</SecHdr>
         <ProdukTable canEdit={canEdit} rows={produkRows} setRows={setProdukRows}/>
         </div>
 
         <div className="pgbrk" style={{pageBreakBefore:"always"}}>
-        <SecHdr>Daftar Bahan</SecHdr>
+        <SecHdr>{t("ingredientList2")}</SecHdr>
         <BahanTable mode="final" canEdit={canEdit} rows={bahanRows} setRows={setBahanRows}/>
         </div>
 
         <div className="pgbrk" style={{pageBreakBefore:"always"}}>
-        <SecHdr>Kriteria SJPH</SecHdr>
+        <SecHdr>{t("sjphCriteria2")}</SecHdr>
         <KriteriaTable mode="final" canEdit={canEdit} rows={kriteriaRows} setRows={setKriteriaRows}/>
         </div>
 
         {/* Tim Auditor TTD */}
         <div className="pgbrk" style={{pageBreakBefore:"always"}}>
-        <SecHdr>Tim Auditor</SecHdr>
+        <SecHdr>{t("auditorTeam")}</SecHdr>
         <TimAuditorTTD rows={timAuditorRows} setRows={setTimAuditorRows} auditors={auditors} regId={reg?.id}
           ttdAssign={ttdAssign} onAssignTtd={(key,url)=>setTtdAssign(p=>({...p,[key]:url}))} canEdit={canEdit}/>
         </div>
