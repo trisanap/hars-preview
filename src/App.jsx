@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { AuthProvider, useAuth } from "./auth";
+import { LangProvider } from "./i18n";
 import LoginPage from "./LoginPage";
 import HARSApp from "./HARSDashboard";
 
@@ -20,7 +21,9 @@ function AppShell() {
 export default function App() {
   return (
     <AuthProvider>
-      <AppShell />
+      <LangProvider>
+        <AppShell />
+      </LangProvider>
     </AuthProvider>
   );
 }

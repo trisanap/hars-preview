@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "./auth";
+import { useLang } from "./i18n";
 
 // ─── SVG Icon Components ──────────────────────────────────────────────────
 
@@ -365,112 +366,23 @@ const STYLES = `
   .form-main { max-width: 100%; }
 }`;
 
-// ─── i18n ──────────────────────────────────────────────────────────────────
-
-const T = {
-  id: {
-    langLabel: "Bahasa",
-    brandEyebrow: "Halal Audit Reporting System · v1.0",
-    brandHeadline: "Selamat datang kembali, auditor.",
-    brandSub: "Masuk untuk membuka workspace audit halal Anda — semua registrasi, dokumen, dan laporan ada di sini.",
-    feat1Title: "Workspace audit",
-    feat1Desc: "— daftar registrasi, jadwal, dan tim auditor di satu tempat.",
-    feat2Title: "AI assisted",
-    feat2Desc: "— bantu menyusun dokumen pre-audit dan mencatat temuan.",
-    feat3Title: "OCR halal ID",
-    feat3Desc: "— foto kemasan, sistem ekstrak ID, BPJPH isi nama produk.",
-    noAccount: "Belum punya akun?",
-    contactAdmin: "Hubungi admin LPH",
-    formTitle: "Masuk ke HARS",
-    formSub: "Gunakan akun Auditor atau Admin LPH Anda untuk melanjutkan ke workspace.",
-    usernameLabel: "Username",
-    usernamePlaceholder: "Masukkan username",
-    passwordLabel: "Password",
-    passwordPlaceholder: "Masukkan password",
-    rememberMe: "Ingat saya di perangkat ini",
-    loginBtn: "Masuk",
-    loggingIn: "Memverifikasi...",
-    orDivider: "ATAU",
-    helpNote: "Demo preview — klik Masuk untuk melanjutkan.",
-    footerText: "Akses internal LPH UIN Syarif Hidayatullah Jakarta · halalaudit.id",
-    fillError: "Mohon isi username dan password.",
-  },
-  en: {
-    langLabel: "Language",
-    brandEyebrow: "Halal Audit Reporting System · v1.0",
-    brandHeadline: "Welcome back, auditor.",
-    brandSub: "Sign in to open your halal audit workspace — all registrations, documents, and reports in one place.",
-    feat1Title: "Audit workspace",
-    feat1Desc: "— registrations, schedules, and audit teams in one place.",
-    feat2Title: "AI assisted",
-    feat2Desc: "— helps draft pre-audit documents and record findings.",
-    feat3Title: "Halal ID OCR",
-    feat3Desc: "— photograph packaging, extract ID, BPJPH auto-fills product name.",
-    noAccount: "Don't have an account?",
-    contactAdmin: "Contact LPH admin",
-    formTitle: "Sign in to HARS",
-    formSub: "Use your Auditor or Admin LPH account to continue to the workspace.",
-    usernameLabel: "Username",
-    usernamePlaceholder: "Enter username",
-    passwordLabel: "Password",
-    passwordPlaceholder: "Enter password",
-    rememberMe: "Remember me on this device",
-    loginBtn: "Sign In",
-    loggingIn: "Verifying...",
-    orDivider: "OR",
-    helpNote: "Demo preview — click Sign In to continue.",
-    footerText: "LPH UIN Syarif Hidayatullah Jakarta internal access · halalaudit.id",
-    fillError: "Please fill in username and password.",
-  },
-  zh: {
-    langLabel: "语言",
-    brandEyebrow: "清真审核报告系统 · v1.0",
-    brandHeadline: "欢迎回来，审核员。",
-    brandSub: "登录以打开您的清真审核工作区 — 所有注册、文件和报告都在这里。",
-    feat1Title: "审核工作区",
-    feat1Desc: "— 注册、日程和审核团队集中管理。",
-    feat2Title: "AI 辅助",
-    feat2Desc: "— 帮助起草预审文件并记录发现。",
-    feat3Title: "清真 ID OCR",
-    feat3Desc: "— 拍摄包装，提取 ID，BPJPH 自动填写产品名称。",
-    noAccount: "还没有账户？",
-    contactAdmin: "联系 LPH 管理员",
-    formTitle: "登录 HARS",
-    formSub: "使用您的审核员或管理员账户继续访问工作区。",
-    usernameLabel: "用户名",
-    usernamePlaceholder: "输入用户名",
-    passwordLabel: "密码",
-    passwordPlaceholder: "输入密码",
-    rememberMe: "在此设备上记住我",
-    loginBtn: "登录",
-    loggingIn: "验证中...",
-    orDivider: "或",
-    helpNote: "演示预览 — 点击登录继续。",
-    footerText: "LPH UIN Syarif Hidayatullah Jakarta 内部访问 · halalaudit.id",
-    fillError: "请填写用户名和密码。",
-  },
-};
-
 // ─── Component ────────────────────────────────────────────────────────────
 
 export default function LoginPage() {
   const { login } = useAuth();
+  const { lang, setLang, t, nextLang } = useLang();
   const [username, setUsername] = useState("admin");
   const [password, setPassword] = useState("demo123");
   const [show, setShow] = useState(false);
   const [remember, setRemember] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [lang, setLang] = useState("id");
-
-  const t = T[lang];
-  const nextLang = { id: "en", en: "zh", zh: "id" };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setError("");
     if (!username.trim() || !password) {
-      setError(t.fillError);
+      setError(t("fillError"));
       return;
     }
     setLoading(true);
@@ -513,12 +425,12 @@ export default function LoginPage() {
           {/* Eyebrow badge */}
           <div className="eyebrow">
             <span className="dot"></span>
-            {t.brandEyebrow}
+            {t("brandEyebrow")}
           </div>
 
           <div className="brand-headline">
-            <h1>{t.brandHeadline}</h1>
-            <p>{t.brandSub}</p>
+            <h1>{t("brandHeadline")}</h1>
+            <p>{t("brandSub")}</p>
           </div>
 
           {/* Features */}
@@ -526,15 +438,15 @@ export default function LoginPage() {
             <div className="features">
               <div className="item">
                 <div className="ico"><ShieldIcon/></div>
-                <div><b>{t.feat1Title}</b> {t.feat1Desc}</div>
+                <div><b>{t("feat1Title")}</b> {t("feat1Desc")}</div>
               </div>
               <div className="item">
                 <div className="ico"><SparkIcon/></div>
-                <div><b>{t.feat2Title}</b> {t.feat2Desc}</div>
+                <div><b>{t("feat2Title")}</b> {t("feat2Desc")}</div>
               </div>
               <div className="item">
                 <div className="ico"><CameraIcon/></div>
-                <div><b>{t.feat3Title}</b> {t.feat3Desc}</div>
+                <div><b>{t("feat3Title")}</b> {t("feat3Desc")}</div>
               </div>
             </div>
           </div>
@@ -551,21 +463,21 @@ export default function LoginPage() {
         <main className="form-panel">
           {/* Top link */}
           <div className="form-top">
-            {t.noAccount}{" "}
-            {t.contactAdmin}
+            {t("noAccount")}{" "}
+            {t("contactAdmin")}
             <button onClick={() => setLang(nextLang[lang])} style={{
               marginLeft: 12, background: "none", border: "1px solid var(--line)",
               borderRadius: 6, padding: "4px 10px", fontSize: 12, cursor: "pointer",
               color: "var(--muted)", fontFamily: "inherit",
             }} title={`Switch to ${nextLang[lang].toUpperCase()}`}>
-              {t.langLabel}: {lang.toUpperCase()} → {nextLang[lang].toUpperCase()}
+              {t("langLabel")}: {lang.toUpperCase()} → {nextLang[lang].toUpperCase()}
             </button>
           </div>
 
           <div className="form-main">
           <div className="form-headline">
-            <h2 className="title">{t.formTitle}</h2>
-            <p className="subtitle">{t.formSub}</p>
+            <h2 className="title">{t("formTitle")}</h2>
+            <p className="subtitle">{t("formSub")}</p>
           </div>
 
           {/* Form content */}
@@ -579,12 +491,12 @@ export default function LoginPage() {
 
             <form onSubmit={onSubmit} noValidate>
               <div className="field">
-                <label htmlFor="u">{t.usernameLabel}</label>
+                <label htmlFor="u">{t("usernameLabel")}</label>
                 <div className="input-wrap">
                   <span className="icon-left"><UserIcon/></span>
                   <input
                     id="u" type="text" autoComplete="username"
-                    placeholder={t.usernamePlaceholder}
+                    placeholder={t("usernamePlaceholder")}
                     value={username} onChange={(e) => setUsername(e.target.value)}
                     autoFocus
                   />
@@ -593,14 +505,14 @@ export default function LoginPage() {
 
               <div className="field">
                 <label htmlFor="p">
-                  {t.passwordLabel}
+                  {t("passwordLabel")}
                 </label>
                 <div className="input-wrap">
                   <span className="icon-left"><LockIcon/></span>
                   <input
                     id="p" type={show ? "text" : "password"}
                     autoComplete="current-password"
-                    placeholder={t.passwordPlaceholder}
+                    placeholder={t("passwordPlaceholder")}
                     value={password} onChange={(e) => setPassword(e.target.value)}
                   />
                   <button type="button" className="reveal"
@@ -618,7 +530,7 @@ export default function LoginPage() {
                     onChange={(e) => setRemember(e.target.checked)}
                   />
                   <span className="box"><CheckIcon/></span>
-                  {t.rememberMe}
+                  {t("rememberMe")}
                 </label>
               </div>
 
@@ -626,21 +538,21 @@ export default function LoginPage() {
                 {loading ? (
                   <>
                     <span className="spinner"></span>
-                    {t.loggingIn}
+                    {t("loggingIn")}
                   </>
                 ) : (
                   <>
-                    {t.loginBtn}
+                    {t("loginBtn")}
                     <ArrowRight/>
                   </>
                 )}
               </button>
             </form>
 
-            <div className="divider">{t.orDivider}</div>
+            <div className="divider">{t("orDivider")}</div>
 
             <div className="help-note">
-              {t.helpNote}
+              {t("helpNote")}
             </div>
           </div>
 
@@ -648,7 +560,7 @@ export default function LoginPage() {
 
           {/* Footer */}
           <div className="form-bottom">
-            {t.footerText}
+            {t("footerText")}
           </div>
         </main>
       </div>

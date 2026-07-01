@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useLang } from "./i18n";
 import HARSReportEditor from "./HARSReportEditor";
 import SuratTugasAuditor from "../template/SuratTugas";
 import SPKDocument from "../template/SPK_LPH";
@@ -2085,6 +2086,8 @@ const DASHBOARD_STYLES = `
 // ─── Top Bar ──────────────────────────────────────────────────────────────
 
 function TopBar({ role, roleLabel, currentUser, onNavigateUsers, onLogout, onSettings }) {
+  const { lang, setLang, t, nextLang } = useLang();
+  const rl = role === "admin" ? t("adminLPH") : role === "observer" ? t("observer") : t("auditor");
   return (
     <header className="hd-top">
       <div className="brand">
@@ -2095,22 +2098,29 @@ function TopBar({ role, roleLabel, currentUser, onNavigateUsers, onLogout, onSet
         </div>
       </div>
       <div className="hd-right">
-        <span className="hd-pill"><span className="dot"></span>Sistem normal</span>
+        <button onClick={() => setLang(nextLang[lang])} style={{
+          background: "none", border: "1px solid var(--line)", borderRadius: 6,
+          padding: "3px 10px", fontSize: 11, cursor: "pointer", color: "var(--muted)",
+          fontFamily: "inherit", marginRight: 8,
+        }} title={`Switch to ${nextLang[lang].toUpperCase()}`}>
+          {lang.toUpperCase()}
+        </button>
+        <span className="hd-pill"><span className="dot"></span>{t("systemNormal")}</span>
         {role === "admin" && (
-          <button className="hd-icon-btn" title="Pengaturan" onClick={onSettings}>
+          <button className="hd-icon-btn" title={t("settings")} onClick={onSettings}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
           </button>
         )}
         {role === "admin" && (
-          <button className="hd-icon-btn" title="Kelola User" onClick={onNavigateUsers}>
+          <button className="hd-icon-btn" title={t("manageUsers")} onClick={onNavigateUsers}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
           </button>
         )}
         <span className="hd-pill user">
-          <span className="role">{roleLabel}</span>
+          <span className="role">{rl}</span>
           <span className="avatar">{currentUser?.nama?.charAt(0) || "U"}</span>
         </span>
-        <button className="hd-icon-btn" title="Keluar" onClick={onLogout}>
+        <button className="hd-icon-btn" title={t("logout")} onClick={onLogout}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         </button>
       </div>
